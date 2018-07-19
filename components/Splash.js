@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 export default class Splash extends React.Component {
 
@@ -21,8 +21,10 @@ export default class Splash extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>{`Little Amore`}</Text>
-
+                {/* <Text style={styles.title}>{`Little Amore`}</Text> */}
+                <Image source={require('./images/splash.jpg')}
+                 style={{width: '100%', height: '100%'}}>
+                 </Image>
             </View>
         )
     }
@@ -33,6 +35,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        width: null,
+        height: null,
     },
     title: {
         fontWeight: 'bold',

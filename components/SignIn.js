@@ -1,8 +1,10 @@
 import React from 'react'
+
+import { Button } from 'react-native-elements'
 import {
     StyleSheet, Text, View, Image,
     TouchableWithoutFeedback, StatusBar,
-    TextInput, SafeAreaView, Keyboard, TouchableOpacity,
+    TextInput, SafeAreaView, Keyboard,
     KeyboardAvoidingView
 } from 'react-native'
 
@@ -47,9 +49,10 @@ export default class SignIn extends React.Component {
                                         ref={"txtPassword"}
                                     />
 
-                                <TouchableOpacity style={styles.buttonContainer}>
-                                    <Text style={styles.buttonText}>SIGN IN</Text>
-                                </TouchableOpacity>
+                                    <Button
+                                        buttonStyle={styles.buttonSignin}
+                                        title="SIGN IN"
+                                        onPress={() => this.props.navigation.navigate('SigninScreen')}/>
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
@@ -96,17 +99,15 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderRadius: 5
    },
-    buttonContainer: {
-        backgroundColor: '#81c341',
-        paddingVertical: 15,
-        width: 120,
+   buttonSignin: {
+        backgroundColor: "#81c341",
+        width: 150,
+        height: 45,
+        borderColor: "#81c341",
+        borderWidth: 0,
         borderRadius: 30,
+        top: 50,
+        justifyContent: 'center',
         alignSelf: 'center'
-    },
-    buttonText: {
-        textAlign: 'center',
-        color :'white',
-        fontWeight: 'bold',
-        fontSize: 18
     }
 })
