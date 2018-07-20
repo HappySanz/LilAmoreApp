@@ -1,23 +1,22 @@
 import React from 'react'
-
 import { Button } from 'react-native-elements'
 import {
     StyleSheet, Text, View, Image,
     TouchableWithoutFeedback, StatusBar,
-    TextInput, SafeAreaView, Keyboard,
+    TextInput, SafeAreaView, Keyboard, TouchableOpacity,
     KeyboardAvoidingView
 } from 'react-native'
 
 export default class SignIn extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-          let headerTitle = 'Sign In';
-          let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
-          let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
-      alignSelf: 'center' };
-          let headerTintColor = 'white';
-          return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
-      };
+    static navigationOptions = ({ navigation }) => {
+        let headerTitle = 'Sign In';
+        let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
+        let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
+        alignSelf: 'center' };
+        let headerTintColor = 'white';
+        return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
+    };
 
     render() {
         return (
@@ -48,11 +47,17 @@ export default class SignIn extends React.Component {
                                         underlineColorAndroid = "transparent"
                                         ref={"txtPassword"}
                                     />
-
+                                    
                                     <Button
                                         buttonStyle={styles.buttonSignin}
                                         title="SIGN IN"
                                         onPress={() => this.props.navigation.navigate('SigninScreen')}/>
+
+                                    <Text 
+                                    style={styles.title}
+                                    onPress={() => this.props.navigation.navigate('SignUpScreen')}>
+                                    {'Don`t have an account? Click Here to sign up'}</Text>
+
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
@@ -77,10 +82,10 @@ const styles = StyleSheet.create({
         height: 56,
     },
     title: {
-        color: '#f7c744',
+        color: '#81c341',
         fontSize: 18,
         textAlign: 'center',
-        marginTop: 5,
+        marginTop: 45,
         opacity: 0.9
     },
     infoContainer: {
@@ -106,7 +111,7 @@ const styles = StyleSheet.create({
         borderColor: "#81c341",
         borderWidth: 0,
         borderRadius: 30,
-        top: 50,
+        top: 40,
         justifyContent: 'center',
         alignSelf: 'center'
     }

@@ -1,8 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, BackHandler } from 'react-native'
 import { Button } from 'react-native-elements'
-import { NavigationActions } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation';
 export default class Login extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -10,6 +8,18 @@ export default class Login extends React.Component {
         header: () => null
       }
     };
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    handleBackButton() {
+        return true;
+    }
 
     render() {
         return (
@@ -25,7 +35,7 @@ export default class Login extends React.Component {
                     
                     <Text 
                         style={styles.buttonSkip}
-                        onPress={() => this.props.navigation.navigate('SigninScreen')}>
+                        onPress={() => this.props.navigation.navigate('LandingScreen')}>
                         {'Skip'}
                         </Text>
 
@@ -34,6 +44,7 @@ export default class Login extends React.Component {
         )
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex:1,
@@ -49,7 +60,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 42,
         color: '#81c341',
-        top:0,
+        top:10,
         justifyContent: 'center',
         alignSelf: 'center'
     },
