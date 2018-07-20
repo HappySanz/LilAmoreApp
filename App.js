@@ -8,12 +8,14 @@ import {
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Splash from './components/Splash';
+import welcomepages from './components/welcomepages';
 import Login from './components/Login';
 import SignIn from './components/SignIn';
 
 const AppNavigator = createStackNavigator(
   {
     SplashScreen: Splash,
+    WelcomeScreen: welcomepages,
     LoginScreen: Login,
     SigninScreen: SignIn,
   },
