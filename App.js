@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
+// import FBSDK,{ LoginManager }from 'react-native-FBSDK'
 
 import Splash from './components/Splash';
 import welcomepages from './components/welcomepages';
@@ -8,6 +9,7 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import ForgotPassword from './components/ForgotPassword';
 import Landing from './components/Landing';
+
 
 const AppNavigator = createStackNavigator(
   {
@@ -18,6 +20,7 @@ const AppNavigator = createStackNavigator(
     SignUpScreen: SignUp,
     ForgotPasswordScreen: ForgotPassword,
     LandingScreen: Landing,
+
   },
   {
     initialRouteName: 'SplashScreen',

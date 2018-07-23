@@ -58,9 +58,11 @@ export default class welcomepages extends React.Component {
       };
       _onPressSkipButton = () => 
       {
+        this.props.navigation.navigate('LoginScreen')
       }
-      _onPressSkip = () => 
+      _onPressNextButton = () => 
       {
+        this.props.navigation.navigate('LoginScreen')
       }
       render() {
         return (
@@ -91,7 +93,7 @@ export default class welcomepages extends React.Component {
                 <Text style= {{ fontSize: 25, color: "#000" }}> Page Three  </Text>
                </View>
             <View style={styles.buttonContainernext}>
-              <Button style={styles.buttonContainerpre} onPress={this._onPressSkip} title="Next"/>
+              <Button style={styles.buttonContainerpre} onPress={this._onPressNextButton} title="Next"/>
             </View>
              </ImageBackground>
             </View>
