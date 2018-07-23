@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LilAmore</string>
+    <string name="facebook_app_id">1350996955034962</string>
+    <string name="fb_login_protocol_scheme">fb1350996955034962</string>
 </resources>

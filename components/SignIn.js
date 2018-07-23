@@ -7,6 +7,10 @@ import {
     KeyboardAvoidingView
 } from 'react-native'
 
+
+import PropTypes from 'prop-types';
+import Form from './Form';
+
 export default class SignIn extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
@@ -22,46 +26,7 @@ export default class SignIn extends React.Component {
         return (
             <SafeAreaView style={styles.container}>
                 <StatusBar barStyle="light-content" />
-                <KeyboardAvoidingView behavior='padding' style={styles.container}>
-                    <TouchableWithoutFeedback style={styles.container}
-                            onPress={Keyboard.dismiss}>
-                        <View style={styles.logoContainer}>
-                            <View style={styles.infoContainer}>
-
-                                    <TextInput style={styles.input}
-                                    placeholder="Enter username/email"
-                                    placeholderTextColor='black'
-                                    keyboardType='email-address'
-                                    returnKeyType='next'
-                                    autoCorrect={false}
-                                    underlineColorAndroid = "transparent"
-                                    onSubmitEditing={()=> this.refs.txtPassword.focus()}
-                                    />
-
-                                    <TextInput style={styles.input}
-                                        placeholder="Enter password"
-                                        placeholderTextColor='black'
-                                        returnKeyType='go'
-                                        secureTextEntry
-                                        autoCorrect={false}
-                                        underlineColorAndroid = "transparent"
-                                        ref={"txtPassword"}
-                                    />
-                                    
-                                    <Button
-                                        buttonStyle={styles.buttonSignin}
-                                        title="SIGN IN"
-                                        onPress={() => this.props.navigation.navigate('SigninScreen')}/>
-
-                                    <Text 
-                                    style={styles.title}
-                                    onPress={() => this.props.navigation.navigate('SignUpScreen')}>
-                                    {'Don`t have an account? Click Here to sign up'}</Text>
-
-                            </View>
-                        </View>
-                    </TouchableWithoutFeedback>
-                </KeyboardAvoidingView>
+                <Form/>
             </SafeAreaView>
         )
     }
@@ -85,7 +50,8 @@ const styles = StyleSheet.create({
         color: '#81c341',
         fontSize: 18,
         textAlign: 'center',
-        marginTop: 45,
+        marginTop: 35,
+        marginBottom: 10,
         opacity: 0.9
     },
     infoContainer: {
@@ -111,7 +77,7 @@ const styles = StyleSheet.create({
         borderColor: "#81c341",
         borderWidth: 0,
         borderRadius: 30,
-        top: 40,
+        top: 30,
         justifyContent: 'center',
         alignSelf: 'center'
     }
