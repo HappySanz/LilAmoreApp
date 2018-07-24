@@ -11,15 +11,10 @@
     "plist": "^3.0.1",
     "react": "16.4.1",
     "react-native": "^0.55.4",
-<<<<<<< HEAD
     "react-native-elements": "^0.19.1",
     "react-native-fbsdk": "^0.7.0",
     "react-native-swiper": "^1.5.13",
-=======
-    "react-native-elements": "^1.0.0-beta5",
-    "react-native-fbsdk": "^0.7.0",
     "react-native-router-flux": "^4.0.0-beta.31",
->>>>>>> f21ce31f10b9fbf2cd885bc17689a138836caa24
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.7.0",
     "xcode": "^1.0.0"
