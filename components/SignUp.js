@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { Input, Icon } from 'react-native-elements';
 
 export default class SignUp extends React.Component {
 
@@ -15,7 +16,17 @@ export default class SignUp extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                
+                <Input
+                    placeholder='INPUT WITH ICON'
+                    leftIcon={
+                        <Icon
+                          name='user'
+                          size={24}
+                          color='black'
+                        />
+                      }
+                />
+                    
             </View>
         )
     }

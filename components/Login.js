@@ -1,6 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View, BackHandler } from 'react-native'
+import { StyleSheet, Text, View, BackHandler, Alert } from 'react-native'
 import { Button } from 'react-native-elements'
+import FBSDK,{ LoginManager }from 'react-native-fbsdk'
+
+
 export default class Login extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -17,8 +20,26 @@ export default class Login extends React.Component {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
-    handleBackButton() {
+    handleBackButton() 
+    {
         return true;
+    }
+
+      FBLogin () 
+      {
+        LoginManager.logInWithReadPermissions(['public_profile']).then(
+            function(result) {
+              if (result.isCancelled) {
+                alert('Login was cancelled');
+              } else {
+                alert('Login was successful with permissions: '
+                  + result.grantedPermissions.toString());
+              }
+            },
+            function(error) {
+              alert('Login failed with error: ' + error);
+            }
+          );
     }
 
     render() {
@@ -28,11 +49,9 @@ export default class Login extends React.Component {
 
                 <View style={styles.centerbox}>
                     <Text style={styles.title}>{'Blah blah blah'}</Text>
-                    <Button
-                        buttonStyle={styles.buttonSignin}
-                        title="SIGN IN"
-                        onPress={() => this.props.navigation.navigate('SigninScreen')}/>
-                    
+                    <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => this.props.navigation.navigate('SigninScreen')}/>
+                    <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this. FBLogin}/>
+                    <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this. googleLogin}/>
                     <Text 
                         style={styles.buttonSkip}
                         onPress={() => this.props.navigation.navigate('LandingScreen')}>
@@ -83,6 +102,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center'
     },
+    buttonFbLogin:
+    {
+        backgroundColor: "#81c341",
+        width: 150,
+        height: 45,
+        borderColor: "#81c341",
+        borderWidth: 0,
+        borderRadius: 30,
+        top: 55,
+        justifyContent: 'center',
+        alignSelf: 'center'
+    },
     buttonSkip: {
         fontWeight: 'bold',
         fontSize: 20,
@@ -92,3 +123,5 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     }
 })
+
+module.exports = Login;
