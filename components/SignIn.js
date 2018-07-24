@@ -27,6 +27,15 @@ export default class SignIn extends React.Component {
             <SafeAreaView style={styles.container}>
                 <StatusBar barStyle="light-content" />
                 <Form/>
+                <Text 
+                    style= {styles.title}
+                    onPress={() => this.props.navigation.navigate('SignUpScreen')}>
+                    {'Create account'}
+                </Text>
+                <Button 
+                    buttonStyle={styles.buttonSignin}
+                    title="SIGN IN"
+                    onPress={() => this.props.navigation.navigate('SigninScreen')}/>
             </SafeAreaView>
         )
     }
