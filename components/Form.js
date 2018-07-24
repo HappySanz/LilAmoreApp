@@ -12,7 +12,6 @@ import {
 
 import UserInput from './UserInput';
 import eyeImg from './images/eye_black.png';
-var FBLoginButton = require('./FBLoginButton');
 export default class Form extends Component {
   constructor(props) {
     super(props);
