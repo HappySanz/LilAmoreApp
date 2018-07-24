@@ -12,7 +12,6 @@ import {
 
 import UserInput from './UserInput';
 import eyeImg from './images/eye_black.png';
-var FBLoginButton = require('./FBLoginButton');
 export default class Form extends Component {
   constructor(props) {
     super(props);
@@ -51,10 +50,6 @@ export default class Form extends Component {
           onPress={this.showPass}>
           <Image source={eyeImg} style={styles.iconEye} />
         </TouchableOpacity>
-        
-        <View style={styles.fbBtn}>
-          <FBLoginButton />
-        </View>
       </KeyboardAvoidingView>
     );
   }
