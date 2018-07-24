@@ -14,13 +14,19 @@ import Form from './Form';
 export default class SignIn extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
-        let headerTitle = 'Sign In';
-        let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
-        let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
-        alignSelf: 'center' };
-        let headerTintColor = 'white';
-        return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
-    };
+        return {
+            header: () => null
+          }
+        };
+
+    // static navigationOptions = ({ navigation }) => {
+    //     let headerTitle = 'Sign In';
+    //     let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
+    //     let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
+    //     alignSelf: 'center' };
+    //     let headerTintColor = 'white';
+    //     return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
+    // };
 
     render() {
         return (
