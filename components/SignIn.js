@@ -33,6 +33,17 @@ export default class SignIn extends React.Component {
             <SafeAreaView style={styles.container}>
                 <StatusBar barStyle="light-content" />
                 <Form/>
+                <View style= {styles.container}>
+                    <Text 
+                        style= {styles.title}
+                        onPress={() => this.props.navigation.navigate('SignUpScreen')}>
+                        {'Create account'}
+                    </Text>
+                    <Button 
+                        buttonStyle={styles.buttonSignin}
+                        title="SIGN IN"
+                        onPress={() => this.props.navigation.navigate('LandingScreen')}/>
+                </View>
             </SafeAreaView>
         )
     }
@@ -44,7 +55,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     logoContainer: {
-        alignItems: 'center',
+        alignItems: '',
         justifyContent: 'center',
         flex: 1
     },
@@ -56,8 +67,6 @@ const styles = StyleSheet.create({
         color: '#81c341',
         fontSize: 18,
         textAlign: 'center',
-        marginTop: 35,
-        marginBottom: 10,
         opacity: 0.9
     },
     infoContainer: {
@@ -83,7 +92,6 @@ const styles = StyleSheet.create({
         borderColor: "#81c341",
         borderWidth: 0,
         borderRadius: 30,
-        top: 30,
         justifyContent: 'center',
         alignSelf: 'center'
     }

@@ -34,7 +34,10 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
               new FBSDKPackage(mCallbackManager)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 966a6ae428982eae14c65df2acafb66f54d05f2e
       );
     }
 
