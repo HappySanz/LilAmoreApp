@@ -41,7 +41,7 @@ export default class SignIn extends React.Component {
                 <Button 
                     buttonStyle={styles.buttonSignin}
                     title="SIGN IN"
-                    onPress={() => this.props.navigation.navigate('SigninScreen')}/>
+                    onPress={() => this.props.navigation.navigate('LandingScreen')}/>
             </SafeAreaView>
         )
     }
