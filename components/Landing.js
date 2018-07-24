@@ -4,6 +4,12 @@ import { StyleSheet, Text, View } from 'react-native'
 export default class Landing extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
+        return {
+            header: () => null
+          }
+        };
+
+    static navigationOptions = ({ navigation }) => {
         let headerTitle = 'Landing';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',

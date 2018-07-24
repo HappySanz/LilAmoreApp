@@ -45,20 +45,22 @@ export default class Login extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+              <View style={styles.centerbox}>
                 <Text style={styles.logo}>{'Lil` Amore'}</Text>
-
-                <View style={styles.centerbox}>
-                    <Text style={styles.title}>{'Blah blah blah'}</Text>
-                    <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => this.props.navigation.navigate('SigninScreen')}/>
-                    <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this. FBLogin}/>
-                    <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this. googleLogin}/>
-                    <Text 
-                        style={styles.buttonSkip}
-                        onPress={() => this.props.navigation.navigate('LandingScreen')}>
-                        {'Skip'}
-                        </Text>
-
-                </View>
+                <Text style={styles.title}>{'Blah blah blah'}</Text>
+              </View>
+            <View style = {styles.signinView}>
+              <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => this.props.navigation.navigate('SigninScreen')}/>
+            </View>
+              <View style = {styles.socialMediaView}>
+                <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this. FBLogin}/>
+                <Button buttonStyle={styles.googleLogin}title="google plus Login"onPress={ this. googleLogin}/>
+              </View>
+            <View style = {styles.skipView}>
+              <Text style={styles.buttonSkip}
+                onPress={() => this.props.navigation.navigate('LandingScreen')}>{'Skip'}
+              </Text>
+            </View>
             </View>
         )
     }
@@ -110,17 +112,45 @@ const styles = StyleSheet.create({
         borderColor: "#81c341",
         borderWidth: 0,
         borderRadius: 30,
-        top: 55,
         justifyContent: 'center',
         alignSelf: 'center'
+    },
+    googleLogin:
+    {
+        backgroundColor: "#81c341",
+        width: 150,
+        height: 45,
+        borderColor: "#81c341",
+        borderWidth: 0,
+        borderRadius: 30,
+        top: 30,
     },
     buttonSkip: {
         fontWeight: 'bold',
         fontSize: 20,
         color: '#81c341',
-        top: 60,
+        top: 10,
         justifyContent: 'center',
         alignSelf: 'center'
+    },
+    signinView:
+    {
+        flex:1,
+        justifyContent:'center',
+        alignSelf: 'center',
+        top: 30,
+    },
+    socialMediaView:
+    {
+        flex:1,
+        justifyContent:'center',
+        alignSelf: 'center',
+        top: 10,
+    },
+    skipView:
+    {
+        flex:1,
+        justifyContent:'center',
     }
 })
 
