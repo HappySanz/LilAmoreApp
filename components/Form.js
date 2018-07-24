@@ -51,10 +51,6 @@ export default class Form extends Component {
           onPress={this.showPass}>
           <Image source={eyeImg} style={styles.iconEye} />
         </TouchableOpacity>
-        
-        <View style={styles.fbBtn}>
-          <FBLoginButton />
-        </View>
       </KeyboardAvoidingView>
     );
   }
