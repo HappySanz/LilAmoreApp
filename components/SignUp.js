@@ -16,16 +16,7 @@ export default class SignUp extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Input
-                    placeholder='INPUT WITH ICON'
-                    leftIcon={
-                        <Icon
-                          name='user'
-                          size={24}
-                          color='black'
-                        />
-                      }
-                />
+                
                     
             </View>
         )
