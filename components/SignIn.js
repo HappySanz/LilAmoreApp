@@ -26,20 +26,59 @@ export default class SignIn extends React.Component {
     //     alignSelf: 'center' };
     //     let headerTintColor = 'white';
     //     return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
+    // () => this.props.navigation.navigate('LandingScreen')
     // };
+    constructor(props) {
+        super(props);
+        this.state = {
+          showPass: true,
+          press: false,
+          uName:'',pass:''
+        };
+        this.showPass = this.showPass.bind(this);
+    }
+    
+    showPass() {
+        this.state.press === false
+          ? this.setState({showPass: false, press: true})
+          : this.setState({showPass: true, press: false});
+    } 
+    
+    saveData=()=>{
+
+    }
 
     render() {
         return (
             <SafeAreaView style={styles.container}>
                 <StatusBar barStyle="light-content" />
-                <View style= {styles.container2}>
-                <Form/>
-                </View>
+                {/* <KeyboardAvoidingView behavior="padding" style={styles.txtContainer}>
+                    <TextInput
+                        placeholder="Username"
+                        autoCapitalize={'none'}
+                        returnKeyType={'done'}
+                        autoCorrect={false}
+                    />
+                    <TextInput
+                        secureTextEntry={this.state.showPass}
+                        placeholder="Password"
+                        returnKeyType={'done'}
+                        autoCapitalize={'none'}
+                        autoCorrect={false}
+                    />
+                    <TouchableOpacity
+                        activeOpacity={0.7}
+                        style={styles.btnEye}
+                        onPress={this.showPass}>
+                        <Image 
+                            source={eyeImg} style={styles.iconEye} />
+                    </TouchableOpacity>
+                </KeyboardAvoidingView> */}
                 <View style= {styles.container1}>
                     <Button 
                         buttonStyle={styles.buttonSignin}
                         title="SIGN IN"
-                        onPress={() => this.props.navigation.navigate('LandingScreen')}/>
+                        onPress={this.saveData}/>
                     <Text 
                         style= {styles.title}
                         onPress={() => this.props.navigation.navigate('SignUpScreen')}>
@@ -57,6 +96,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'column',
         justifyContent: 'center',
+    },
+    txtContainer: {
+        flex: 1,
     },
     container1: {
         top: 0,
