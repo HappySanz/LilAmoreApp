@@ -13,20 +13,20 @@ import Form from './Form';
 
 export default class SignIn extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
-        return {
-            header: () => null
-          }
-        };
-
     // static navigationOptions = ({ navigation }) => {
-    //     let headerTitle = 'Sign In';
-    //     let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
-    //     let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
-    //     alignSelf: 'center' };
-    //     let headerTintColor = 'white';
-    //     return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
-    // };
+    //     return {
+    //         header: () => null
+    //       }
+    //     };
+
+    static navigationOptions = ({ navigation }) => {
+        let headerTitle = 'Sign In';
+        let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
+        let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
+        alignSelf: 'center' };
+        let headerTintColor = 'white';
+        return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
+    };
 
     render() {
         return (
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     logoContainer: {
         alignItems: '',
         justifyContent: 'center',
-        flex: 1
+        flex: 1,
     },
     logo: {
         width: 128,
