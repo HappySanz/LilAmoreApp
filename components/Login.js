@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, BackHandler, Alert } from 'react-native'
 import { Button } from 'react-native-elements'
 import FBSDK,{ LoginManager }from 'react-native-fbsdk'
+import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
 
 
 export default class Login extends React.Component {
@@ -12,11 +13,33 @@ export default class Login extends React.Component {
       }
     };
 
-    componentDidMount() {
+    componentWillmount() 
+    {
+        GoogleSignin.configure({
+            iosClientId: '336481044030-1d81ojfbf0pu524soc0lplvnq0chg9ck.apps.googleusercontent.com'
+          })
+
+          GoogleSignin.configure({
+            scopes: 'https://www.googleapis.com/auth/drive.readonly', // what API you want to access on behalf of the user, default is email and profile
+            iosClientId: '336481044030-1d81ojfbf0pu524soc0lplvnq0chg9ck.apps.googleusercontent.com', // only for iOS
+            webClientId: '<FROM DEVELOPER CONSOLE>', // client ID of type WEB for your server (needed to verify user ID and offline access)
+            offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+            hostedDomain: '', // specifies a hosted domain restriction
+            forceConsentPrompt: true, // [Android] if you want to show the authorization prompt at each login
+            accountName: '', // [Android] specifies an account name on the device that should be used
+          }).then(() => 
+          {
+            // you can now call currentUserAsync()
+          });
+    }
+
+    componentDidMount() 
+    {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
-    componentWillUnmount() {
+    componentWillUnmount() 
+    {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
@@ -41,7 +64,20 @@ export default class Login extends React.Component {
             }
           );
     }
-
+        GoogleLogin() {
+           signIn = async () => {
+                try {
+                  const user = await GoogleSignin.signIn();
+                  this.setState({ user });
+                } catch (error) {
+                  if (error.code === 'CANCELED') {
+                    // user cancelled the login flow
+                  } else {
+                    // some other error happened
+                  }
+                }
+              };
+        }
     render() {
         return (
             <View style={styles.container}>
@@ -54,7 +90,7 @@ export default class Login extends React.Component {
             </View>
               <View style = {styles.socialMediaView}>
                 <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this. FBLogin}/>
-                <Button buttonStyle={styles.googleLogin}title="google plus Login"onPress={ this. googleLogin}/>
+                <Button buttonStyle={styles.googleLogin}title="google plus Login"onPress={ this. GoogleLogin}/>
               </View>
             <View style = {styles.skipView}>
               <Text style={styles.buttonSkip}
