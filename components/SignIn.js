@@ -10,21 +10,6 @@ import eyeImg from './images/eye_black.png';
 export default class SignIn extends React.Component {
 
     // static navigationOptions = ({ navigation }) => {
-<<<<<<< HEAD
-    //     return {
-    //         header: () => null
-    //       }
-    //     };
-
-    static navigationOptions = ({ navigation }) => {
-        let headerTitle = 'Sign In';
-        let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
-        let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
-        alignSelf: 'center' };
-        let headerTintColor = 'white';
-        return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
-    };
-=======
     //     let headerTitle = 'Sign In';
     //     let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
     //     let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
@@ -33,7 +18,6 @@ export default class SignIn extends React.Component {
     //     return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
     // () => this.props.navigation.navigate('LandingScreen')
     // };
->>>>>>> 9c43e577e499d7d130ad4c67b6aed4de2fe1998f
 
     constructor(props) {
         super(props);
@@ -132,12 +116,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'column',
     },
-<<<<<<< HEAD
-    logoContainer: {
-        alignItems: '',
-        justifyContent: 'center',
-        flex: 1,
-=======
     btnEye: {
         alignSelf: 'flex-end',
         top: 15,
@@ -151,7 +129,6 @@ const styles = StyleSheet.create({
     container1: {
         top: 0,
         flex: 1
->>>>>>> 9c43e577e499d7d130ad4c67b6aed4de2fe1998f
     },
     txtContainer: {
         marginTop: 80,
