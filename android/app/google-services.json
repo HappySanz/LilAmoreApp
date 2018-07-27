@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "95551053629",
+    "firebase_url": "https://lilamoreapp.firebaseio.com",
+    "project_id": "lilamoreapp",
+    "storage_bucket": "lilamoreapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95551053629:android:1591b6b637e53a35",
+        "android_client_info": {
+          "package_name": "com.lilamore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95551053629-6vfegss2aphegi3kbimnq24mkq2u9at6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lilamore",
+            "certificate_hash": "a012fc28f69844fda1adf3e973c02be9849d4553"
+          }
+        },
+        {
+          "client_id": "95551053629-tco0se5uouqa0imelg4se1gfvvtpftgk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDobdk_srHMbIcmo_PsTQGd-5keqhrlxvI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95551053629-tco0se5uouqa0imelg4se1gfvvtpftgk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "95551053629-9ecm5oi39lbfolhcaskt4vlkra26cgqe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.LilAmore"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
