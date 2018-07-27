@@ -9,12 +9,6 @@ import eyeImg from './images/eye_black.png';
 
 export default class SignIn extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
-        return {
-            header: () => null
-          }
-        };
-
     // static navigationOptions = ({ navigation }) => {
     //     let headerTitle = 'Sign In';
     //     let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
