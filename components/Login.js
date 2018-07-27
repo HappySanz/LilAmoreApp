@@ -4,15 +4,15 @@ import { Button } from 'react-native-elements'
 import { FBSDK, LoginManager }from 'react-native-fbsdk'
 import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
 
-const user = GoogleSignin.currentUser();
 
 
-const config =  {
-    google: {
-      callback_url: `[com.googleusercontent.apps.95551053629-9ecm5oi39lbfolhcaskt4vlkra26cgqe]:/google`,
-      client_id: '95551053629-9ecm5oi39lbfolhcaskt4vlkra26cgqe.apps.googleusercontent.com'
-    }
-  }
+// GoogleSignin.getAccessToken()
+// .then(token => {
+// console.log(token);
+// })
+// .catch(err => {
+// console.log(err);
+// });
 
 export default class Login extends React.Component {
 
@@ -48,7 +48,7 @@ export default class Login extends React.Component {
     {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         GoogleSignin.configure({
-            iosClientId: '95551053629-9ecm5oi39lbfolhcaskt4vlkra26cgqe.apps.googleusercontent.com'
+            iosClientId: '329415591175-d09idaj0vte9iedtp43tadk04dhh85u0.apps.googleusercontent.com'
           }).then(() => 
           {
             this.getCurrentUser;
@@ -80,20 +80,7 @@ export default class Login extends React.Component {
             }
           );
     }
-    GoogleLogin() {
-        // signIn = async () => {
-        //     try {
-        //         const user = await GoogleSignin.signIn();
-        //         this.setState({ user });
-        //     } catch (error) {
-        //         if (error.code === 'CANCELED') {
-        //         // user cancelled the login flow
-        //         } else {
-        //         // some other error happened
-        //         }
-        //     }
-        //     };
-    }
+    
     render() {
         return (
             <View style={styles.container}>
