@@ -14,17 +14,6 @@ export default class SignIn extends React.Component {
             header: () => null
           }
         };
-
-    // static navigationOptions = ({ navigation }) => {
-    //     let headerTitle = 'Sign In';
-    //     let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
-    //     let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
-    //     alignSelf: 'center' };
-    //     let headerTintColor = 'white';
-    //     return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
-    // () => this.props.navigation.navigate('LandingScreen')
-    // };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -96,8 +85,6 @@ export default class SignIn extends React.Component {
                         underlineColorAndroid="transparent"
                         onChangeText={password => this.setState({password})}
                     />
-                    
-
                 </View>
                 <View style= {styles.container1}>
                     <Button 
@@ -106,8 +93,8 @@ export default class SignIn extends React.Component {
                         onPress={this.saveData}/>
                     <Text 
                         style= {styles.title}
-                        onPress={this.showData}>
-                        {/* onPress={() => this.props.navigation.navigate('SignUpScreen')}> */}
+                        // onPress={this.showData}>
+                         onPress={() => this.props.navigation.navigate('SignUpScreen')}>
                         {"Create account"}
                     </Text>
                     
