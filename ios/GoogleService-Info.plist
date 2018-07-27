@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>336481044030-1d81ojfbf0pu524soc0lplvnq0chg9ck.apps.googleusercontent.com</string>
+	<string>329415591175-d09idaj0vte9iedtp43tadk04dhh85u0.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.336481044030-1d81ojfbf0pu524soc0lplvnq0chg9ck</string>
+	<string>com.googleusercontent.apps.329415591175-d09idaj0vte9iedtp43tadk04dhh85u0</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDhwhosr_1OLh1V2iQ_CqFEjbLnlG8Fd3I</string>
+	<string>AIzaSyBNxOcZWqjQh8wmLkq45o-5y6XtFXeX7BU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>336481044030</string>
+	<string>329415591175</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>org.reactjs.native.example.LilAmore</string>
 	<key>PROJECT_ID</key>
-	<string>lil-amore</string>
+	<string>lilamoreapp-20f3f</string>
 	<key>STORAGE_BUCKET</key>
-	<string>lil-amore.appspot.com</string>
+	<string>lilamoreapp-20f3f.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:336481044030:ios:f7eda672ed8123e0</string>
+	<string>1:329415591175:ios:f7eda672ed8123e0</string>
 	<key>DATABASE_URL</key>
-	<string>https://lil-amore.firebaseio.com</string>
+	<string>https://lilamoreapp-20f3f.firebaseio.com</string>
 </dict>
 </plist>

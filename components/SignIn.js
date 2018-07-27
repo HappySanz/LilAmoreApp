@@ -37,25 +37,53 @@ export default class SignIn extends React.Component {
     } 
     
     saveData = ()=> {
-        const { username, password } = this.state;
-        let userData = {
-            username : username,
-            password : password
-        }
-        if (username!=''&& password!=''){
-            AsyncStorage.setItem('userData', JSON.stringify(userData));
-        } else {
-            alert("Enter valid credentials")
+
+        let usernameValue = this.state.username;
+        let passwordValue = this.state.password;
+        let mob_keyValue = '2';
+        let mobile_typeValue = '2';
+        if (usernameValue.length = 0)
+        {
+            alert("Enter valid username")
         } 
-        Keyboard.dismiss();
-        
+        else if (passwordValue.length = 0) 
+        {
+            alert("Enter valid password")
+        } 
+        else
+        {
+            alert(usernameValue);
+            fetch("http://littleamore.in/demo/mobileapi/login", {
+            method: 'POST',
+            headers: new Headers({
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                }),
+            // body:"username = usernameValue & password = passwordValue & mob_key = mob_keyValue & mobile_type = mobile_typeValue"
+
+             body: JSON.stringify({
+                username: usernameValue,
+                    password: passwordValue,
+                    mob_key: mob_keyValue,
+                    mobile_type: mobile_typeValue,
+                  }),
+
+            })
+            .then((response) => response.text())
+            .then((responseText) => {
+             alert(responseText);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
+        Keyboard.dismiss();      
     }
 
-    showData = async()=> {
-        let userData = await AsyncStorage.getItem('userData');
-        let d = JSON.parse(userData)
-        alert(d.username +" "+ d.password)
-    }
+    // showData = async()=> {
+    //     let userData = await AsyncStorage.getItem('userData');
+    //     let d = JSON.parse(userData)
+    //     alert(d.username +" "+ d.password)
+    // }
 
     render() {
         return (

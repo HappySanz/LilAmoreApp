@@ -35,6 +35,8 @@ export default class SignIn extends React.Component {
     
     saveData = ()=> 
     {
+       
+
         let nameValue = this.state.nameField;
         let mobile = this.state.mobileNumberField;
         let email = this.state.emailField;
@@ -42,12 +44,40 @@ export default class SignIn extends React.Component {
         let mobileKey  = '2';
         let mobileType = '2';
         let newletter  = '1';
-        fetch("http://littleamore.in/testing/mobileapi/registration", {
+        
+        if (nameValue.length == 0)
+        {
+            alert("Please Enter the username");
+        }
+        else if (mobile .length == 0)
+        {
+            alert("Please Enter the mobile");
+        }
+        else if (email.length == 0)
+        {
+            alert("Please Enter the email");
+        }
+        else if (passwordValue.length == 0)
+        {
+            alert("Please Enter the assword");
+        }
+        else
+        {
+        fetch("http://littleamore.in/demo/mobileapi/registration", {
         method: 'POST',
         headers: new Headers({
                     'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
             }),
-        body:"name = nameValue &phone= mobile &email= email &password= passwordValue &newsletter= newletter &mob_key= mobileKey &mobile_type= mobileType" // <-- Post parameters
+        //body:"name = 'nameValue' & phone = mobile & email= email & password= passwordValue & newsletter= newletter & mob_key= mobileKey & mobile_type= mobileType" // <-- Post parameters
+        body: JSON.stringify({
+            name: nameValue,
+            phone: mobile,
+            email: email,
+            password: passwordValue,
+            newsletter: newletter,
+            mob_key: mobileKey,
+            mobile_type: mobileType ,
+          }),
         })
         .then((response) => response.text())
         .then((responseText) => {
@@ -56,6 +86,7 @@ export default class SignIn extends React.Component {
         .catch((error) => {
             console.error(error);
         });
+        }
     }
 
     render() {
@@ -120,9 +151,8 @@ export default class SignIn extends React.Component {
                         buttonStyle={styles.buttonSignin}
                         title="Sign up"
                         onPress={this.saveData}/>
-                    <Text 
-                        style= {styles.title}
-                         onPress={() => this.props.navigation.navigate('SignUpScreen')}>
+                    <Text style={styles.createacuntbtn}
+                        onPress={() => this.props.navigation.navigate('SigninScreen')}>
                         {"Already have an account"}
                     </Text>                
                 </View>
@@ -155,7 +185,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 1
     },
-    title: {
+    createacuntbtn: {
         color: '#81c341',
         marginTop: 15,
         fontSize: 12,
