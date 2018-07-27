@@ -120,9 +120,8 @@ export default class SignIn extends React.Component {
                         buttonStyle={styles.buttonSignin}
                         title="Sign up"
                         onPress={this.saveData}/>
-                    <Text 
-                        style= {styles.title}
-                         onPress={() => this.props.navigation.navigate('SignUpScreen')}>
+                    <Text style={styles.createacuntbtn}
+                        onPress={() => this.props.navigation.navigate('SignUpScreen')}>
                         {"Already have an account"}
                     </Text>                
                 </View>
@@ -155,7 +154,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 1
     },
-    title: {
+    createacuntbtn: {
         color: '#81c341',
         marginTop: 15,
         fontSize: 12,

@@ -37,25 +37,39 @@ export default class SignIn extends React.Component {
     } 
     
     saveData = ()=> {
-        const { username, password } = this.state;
-        let userData = {
-            username : username,
-            password : password
-        }
+
+           let username = this.state.username;
+           let password = this.state.password;
+           let mob_key = '2';
+           let mobile_type = '2';
+
         if (username!=''&& password!=''){
-            AsyncStorage.setItem('userData', JSON.stringify(userData));
+           fetch("http://littleamore.in/testing/mobileapi/login", {
+            method: 'POST',
+            headers: new Headers({
+                        'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
+                }),
+            body:"username = nameValue &password = mobile &mob_key= email&mobile_type = " // <-- Post parameters
+            })
+            .then((response) => response.text())
+            .then((responseText) => {
+            alert(responseText);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
         } else {
             alert("Enter valid credentials")
         } 
-        Keyboard.dismiss();
-        
+        Keyboard.dismiss();      
     }
 
-    showData = async()=> {
-        let userData = await AsyncStorage.getItem('userData');
-        let d = JSON.parse(userData)
-        alert(d.username +" "+ d.password)
-    }
+    // showData = async()=> {
+    //     let userData = await AsyncStorage.getItem('userData');
+    //     let d = JSON.parse(userData)
+    //     alert(d.username +" "+ d.password)
+    // }
 
     render() {
         return (
