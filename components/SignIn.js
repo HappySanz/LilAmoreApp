@@ -90,8 +90,6 @@ export default class SignIn extends React.Component {
                         underlineColorAndroid="transparent"
                         onChangeText={password => this.setState({password})}
                     />
-                    
-
                 </View>
                 <View style= {styles.container1}>
                     <Button 
@@ -100,8 +98,8 @@ export default class SignIn extends React.Component {
                         onPress={this.saveData}/>
                     <Text 
                         style= {styles.title}
-                        onPress={this.showData}>
-                        {/* onPress={() => this.props.navigation.navigate('SignUpScreen')}> */}
+                        // onPress={this.showData}>
+                         onPress={() => this.props.navigation.navigate('SignUpScreen')}>
                         {"Create account"}
                     </Text>
                     
