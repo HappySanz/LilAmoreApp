@@ -38,30 +38,44 @@ export default class SignIn extends React.Component {
     
     saveData = ()=> {
 
-           let username = this.state.username;
-           let password = this.state.password;
-           let mob_key = '2';
-           let mobile_type = '2';
-
-        if (username!=''&& password!=''){
-           fetch("http://littleamore.in/testing/mobileapi/login", {
+        let usernameValue = this.state.username;
+        let passwordValue = this.state.password;
+        let mob_keyValue = '2';
+        let mobile_typeValue = '2';
+        if (usernameValue.length = 0)
+        {
+            alert("Enter valid username")
+        } 
+        else if (passwordValue.length = 0) 
+        {
+            alert("Enter valid password")
+        } 
+        else
+        {
+            alert(usernameValue);
+            fetch("http://littleamore.in/demo/mobileapi/login", {
             method: 'POST',
             headers: new Headers({
-                        'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
+                        'Content-Type': 'application/x-www-form-urlencoded',
                 }),
-            body:"username = nameValue &password = mobile &mob_key= email&mobile_type = " // <-- Post parameters
+            // body:"username = usernameValue & password = passwordValue & mob_key = mob_keyValue & mobile_type = mobile_typeValue"
+
+             body: JSON.stringify({
+                username: usernameValue,
+                    password: passwordValue,
+                    mob_key: mob_keyValue,
+                    mobile_type: mobile_typeValue,
+                  }),
+
             })
             .then((response) => response.text())
             .then((responseText) => {
-            alert(responseText);
+             alert(responseText);
             })
             .catch((error) => {
                 console.error(error);
             });
-
-        } else {
-            alert("Enter valid credentials")
-        } 
+        }
         Keyboard.dismiss();      
     }
 
