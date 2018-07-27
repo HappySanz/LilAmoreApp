@@ -9,11 +9,24 @@ import eyeImg from './images/eye_black.png';
 
 export default class SignIn extends React.Component {
 
+<<<<<<< HEAD
     static navigationOptions = ({ navigation }) => {
         return {
             header: () => null
           }
         };
+=======
+    // static navigationOptions = ({ navigation }) => {
+    //     let headerTitle = 'Sign In';
+    //     let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
+    //     let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
+    //     alignSelf: 'center' };
+    //     let headerTintColor = 'white';
+    //     return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
+    // () => this.props.navigation.navigate('LandingScreen')
+    // };
+
+>>>>>>> 881b6a47525316e29eeb34bcce72448ab3946eae
     constructor(props) {
         super(props);
         this.state = {
