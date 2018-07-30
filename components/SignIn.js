@@ -58,19 +58,18 @@ export default class SignIn extends React.Component {
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded',
                 }),
-            // body:"username = usernameValue & password = passwordValue & mob_key = mob_keyValue & mobile_type = mobile_typeValue"
-
              body: JSON.stringify({
                 username: usernameValue,
-                    password: passwordValue,
-                    mob_key: mob_keyValue,
-                    mobile_type: mobile_typeValue,
-                  }),
+                password: passwordValue,
+                mob_key: mob_keyValue,
+                mobile_type: mobile_typeValue,
+                }),
 
             })
             .then((response) => response.text())
             .then((responseText) => {
              alert(responseText);
+             (this.props.navigation.navigate('LandingScreen'))
             })
             .catch((error) => {
                 console.error(error);

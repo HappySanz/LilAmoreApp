@@ -1,71 +1,111 @@
 import React from 'react'
-import { StyleSheet, Text, View,Button } from 'react-native'
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-native'
+import { StackNavigator } from  'react-navigation';
+import SideMenu from 'react-native-side-menu';
+import Menu from './Menu';
 
-export default class Landing extends React.Component {
+const image = require('./images/Sidemeu.png');
+
+const styles = StyleSheet.create({
+    button: {
+      position: 'absolute',
+      top: 20,
+      padding: 10,
+      backgroundColor: '#ff0000',
+    },
+    caption: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      alignItems: 'center',
+    },
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#F5FCFF',
+    },
+    welcome: {
+      fontSize: 20,
+      textAlign: 'center',
+      margin: 10,
+    },
+    instructions: {
+      textAlign: 'center',
+      color: '#333333',
+      marginBottom: 5,
+    },
+  });
+
+  export default class Landing extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
-        let headerTitle = 'Landing';
-        let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
-        let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
-        alignSelf: 'center' };
-        let headerTintColor = 'white';
-        let headerLeft = null;
-        return { headerTitle, headerStyle, headerTitleStyle, headerTintColor, headerLeft};
-    };
+        return {
+            header: () => null
+          }
+        };
 
+    constructor(props) {
+      super(props);
+  
+      this.toggle = this.toggle.bind(this);
+  
+      this.state = {
+        isOpen: false,
+        selectedItem: 'About',
+      };
+    }
+  
+    toggle() {
+      this.setState({
+        isOpen: !this.state.isOpen,
+      });
+    }
+  
+    updateMenuState(isOpen) {
+      this.setState({ isOpen });
+    }
+  
+    onMenuItemSelected = item =>
+      this.setState({
+        isOpen: false,
+        selectedItem: item,
+      });
+  
     render() {
-        return (
-            <View style={styles.container}>
-              
-            </View>
-        )
+      const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
+  
+      return (
+        <SideMenu
+          menu={menu}
+          isOpen={this.state.isOpen}
+          onChange={isOpen => this.updateMenuState(isOpen)}
+        >
+          <View style={styles.container}>
+            <Text style={styles.welcome}>
+              Welcome to React Native!
+            </Text>
+            <Text style={styles.instructions}>
+              To get started, edit index.ios.js
+            </Text>
+            <Text style={styles.instructions}>
+              Press Cmd+R to reload,{'\n'}
+              Cmd+Control+Z for dev menu
+            </Text>
+            <Text style={styles.instructions}>
+              Current selected menu item is: {this.state.selectedItem}
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={this.toggle}
+            style={styles.button}
+          >
+            <Image
+              source={image}
+              style={{ width: 32, height: 32 }}
+            />
+          </TouchableOpacity>
+        </SideMenu>
+      );
     }
-}
-const styles = StyleSheet.create({
-    container: {
-        flex:1,
-        backgroundColor: 'white',
-        justifyContent: 'center'
-    },
-    centerbox: {
-        flex:1,
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    logo: {
-        
-        fontWeight: 'bold',
-        fontSize: 42,
-        color: '#81c341',
-        top:10,
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    title: {
-        
-        fontWeight: 'bold',
-        fontSize: 42,
-        color: '#81c341',
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    buttonSignin: {
-        backgroundColor: "#81c341",
-        width: 150,
-        height: 45,
-        borderColor: "#81c341",
-        borderWidth: 0,
-        borderRadius: 30,
-        top: 50,
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    buttonSkip: {
-        fontWeight: 'bold',
-        fontSize: 20,
-        color: '#81c341',
-        top: 60,
-        justifyContent: 'center',
-        alignSelf: 'center'
-    }
-})
+  }
+  

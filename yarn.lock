@@ -3833,6 +3833,10 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
+navigationbar-react-native@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/navigationbar-react-native/-/navigationbar-react-native-0.0.3.tgz#b41d701318cb8204a9e6beea7c7c148020edcf81"
+
 needle@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/needle/-/needle-2.2.1.tgz#b5e325bd3aae8c2678902fa296f729455d1d3a7d"

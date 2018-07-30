@@ -18,7 +18,8 @@ export default class Login extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-        header: () => null
+        header: () => null,
+        gesturesEnabled: false,
       }
     };
 
