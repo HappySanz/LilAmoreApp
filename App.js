@@ -1,6 +1,5 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import {DrawerNavigator} from 'react-navigation';
 
 // import FBSDK,{ LoginManager }from 'react-native-FBSDK'
 

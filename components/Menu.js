@@ -48,22 +48,17 @@ export default function Menu({ onItemSelected }) {
       <View style={styles.avatarContainer}>
         <Image
           style={styles.avatar}
-          source={{ uri }}
-        />
+          source={{ uri }}/>
         <Text style={styles.name}>Your name</Text>
       </View>
-
       <Text
         onPress={() => onItemSelected('About')}
-        style={styles.item}
-      >
+        style={styles.item}>
         About
       </Text>
-
       <Text
         onPress={() => onItemSelected('Contacts')}
-        style={styles.item}
-      >
+        style={styles.item}>
         Contacts
       </Text>
     </ScrollView>

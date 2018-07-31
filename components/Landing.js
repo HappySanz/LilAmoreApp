@@ -1,8 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image} from 'react-native'
 import { StackNavigator } from  'react-navigation';
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
+import List from './List'
 
 const image = require('./images/Sidemeu.png');
 
@@ -11,7 +12,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
       top: 20,
       padding: 10,
-      backgroundColor: '#ff0000',
+      alignSelf:'flex-start',
     },
     caption: {
       fontSize: 20,
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#F5FCFF',
+      backgroundColor: 'black',
     },
     welcome: {
       fontSize: 20,
@@ -34,11 +35,16 @@ const styles = StyleSheet.create({
       color: '#333333',
       marginBottom: 5,
     },
+    list: 
+    {
+      flex: 1,
+    }
   });
 
   export default class Landing extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
+
         return {
             header: () => null
           }
@@ -71,39 +77,25 @@ const styles = StyleSheet.create({
         selectedItem: item,
       });
   
-    render() {
-      const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
-  
+    render() 
+    {
+      const menu = <Menu onItemSelected={this.onMenuItemSelected}/>;
       return (
-        <SideMenu
-          menu={menu}
-          isOpen={this.state.isOpen}
-          onChange={isOpen => this.updateMenuState(isOpen)}
-        >
+          <SideMenu menu={menu} isOpen={this.state.isOpen}
+          onChange={isOpen => this.updateMenuState(isOpen)}>
           <View style={styles.container}>
             <Text style={styles.welcome}>
               Welcome to React Native!
             </Text>
-            <Text style={styles.instructions}>
-              To get started, edit index.ios.js
-            </Text>
-            <Text style={styles.instructions}>
-              Press Cmd+R to reload,{'\n'}
-              Cmd+Control+Z for dev menu
-            </Text>
-            <Text style={styles.instructions}>
-              Current selected menu item is: {this.state.selectedItem}
-            </Text>
           </View>
           <TouchableOpacity
             onPress={this.toggle}
-            style={styles.button}
-          >
+            style={styles.button}>
             <Image
               source={image}
-              style={{ width: 32, height: 32 }}
-            />
+              style={{ width: 32, height: 32 }}/>
           </TouchableOpacity>
+          <List />
         </SideMenu>
       );
     }
