@@ -2,7 +2,6 @@ package com.lilamore;
 
 import android.app.Application;
 
-import com.facebook.BuildConfig;
 import com.facebook.react.ReactApplication;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
@@ -30,10 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
   }
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
+
 
     @Override
     protected List<ReactPackage> getPackages() {
@@ -47,6 +43,11 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected String getJSMainModuleName() {
       return "index";
+    }
+
+    @Override
+    public boolean getUseDeveloperSupport() {
+      return true;
     }
   };
 

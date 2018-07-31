@@ -152,7 +152,8 @@ export default class SignIn extends React.Component {
                         title="Sign up"
                         onPress={this.saveData}/>
                     <Text style={styles.createacuntbtn}
-                        onPress={() => this.props.navigation.navigate('SigninScreen')}>
+                        onPress={() => 
+                        this.props.navigation.navigate('SigninScreen')}>
                         {"Already have an account"}
                     </Text>                
                 </View>

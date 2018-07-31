@@ -1,9 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View, BackHandler, Alert } from 'react-native'
+import { StyleSheet, Text, View, BackHandler, Alert, AsyncStorage } from 'react-native'
 import { Button } from 'react-native-elements'
 import { FBSDK, LoginManager }from 'react-native-fbsdk'
-import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
-
+import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
+import { Scene, Router, Actions } from 'react-native-router-flux';
 
 
 // GoogleSignin.getAccessToken()
@@ -29,7 +29,17 @@ export default class Login extends React.Component {
         } catch (error) {
           console.error(error);
         }
-      };
+    };
+
+    saveItem = async (item, selectedValue) => {
+        try {
+            await AsyncStorage.setItem(item, selectedValue);
+          } catch (error) {
+            console.error('AsyncStorage error: ' + error.message);
+        }
+    }
+
+    
 
     signIn = async () => {
         try {
@@ -89,6 +99,8 @@ export default class Login extends React.Component {
               </View>
             <View style = {styles.signinView}>
               <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => this.props.navigation.navigate('SigninScreen')}/>
+              {/* <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => Actions.signin()}/> */}
+
             </View>
               <View style = {styles.socialMediaView}>
                 <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this.FBLogin}/>
@@ -96,7 +108,9 @@ export default class Login extends React.Component {
               </View>
             <View style = {styles.skipView}>
               <Text style={styles.buttonSkip}
-                onPress={() => this.props.navigation.navigate('LandingScreen')}>{'Skip'}
+                onPress={() => {
+                    this.saveItem('id_token','1')
+                    this.props.navigation.navigate('LandingScreen')}}>{'Skip'}
               </Text>
             </View>
             </View>

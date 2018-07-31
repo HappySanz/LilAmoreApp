@@ -16,7 +16,10 @@ export default class Landing extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-              
+              <Text style={styles.buttonSkip}
+                onPress={() => {
+                    this.props.navigation.navigate('UserProfileScreen')}}>{'Profile'}
+              </Text>
             </View>
         )
     }

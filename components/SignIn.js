@@ -127,7 +127,8 @@ export default class SignIn extends React.Component {
                     <Text 
                         style= {styles.title}
                         // onPress={this.showData}>
-                         onPress={() => this.props.navigation.navigate('SignUpScreen')}>
+                         onPress={() => 
+                         this.props.navigation.navigate('SignUpScreen')}>
                         {"Create account"}
                     </Text>
                     

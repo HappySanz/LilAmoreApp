@@ -7,6 +7,7 @@ import {
   Alert
 } from 'react-native'
 import { ImageBackground } from 'react-native';
+import { Scene, Router, Actions } from 'react-native-router-flux';
 import Swiper from 'react-native-swiper'
 
 var styles = {
@@ -59,9 +60,11 @@ export default class welcomepages extends React.Component {
       _onPressSkipButton = () => 
       {
         this.props.navigation.navigate('LoginScreen')
+        // Actions.login()
       }
       _onPressNextButton = () => 
       {
+        // Actions.login()
         this.props.navigation.navigate('LoginScreen')
       }
       render() {
