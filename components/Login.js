@@ -40,8 +40,6 @@ export default class Login extends React.Component {
         }
     }
 
-<<<<<<< HEAD
-=======
     signOut = async () => {
         try {
           await GoogleSignin.revokeAccess();
@@ -55,24 +53,16 @@ export default class Login extends React.Component {
         }
       };
 
->>>>>>> eed37959f928799ee6cbe491108b0e5503e36d1e
     signIn = async () => {
         try {
             const user = await GoogleSignin.signIn();
             this.setState({ user });
-<<<<<<< HEAD
-        } 
-        catch (error) {
-            if (error.code === 'CANCELED') 
-            {
-=======
             // alert("Name : "+user.name+"\n givenName : "+user.givenName+"\n familyName : "+user.familyName+"\n email : "+user.email+"\n photo : "+user.photo+"\n id : "+user.id)
             alert(user.photo);
             this.saveItem('img_url', user.photo);
             this.props.navigation.navigate('LandingScreen');
         } catch (error) {
             if (error.code === 'CANCELED') {
->>>>>>> eed37959f928799ee6cbe491108b0e5503e36d1e
             // user cancelled the login flow
             }
             else{
