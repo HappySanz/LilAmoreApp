@@ -10,7 +10,18 @@ import {
 } from 'react-native';
 
 const window = Dimensions.get('window');
-const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
+const uri = this._retrieveData;
+const value ='';
+
+_retrieveData = async () => {
+  try {
+    value = await AsyncStorage.getItem('img_url') || '';
+   } catch (error) {
+     // Error retrieving data
+   }
+   alert(value)
+   return value
+}
 
 const styles = StyleSheet.create({
   menu: {
@@ -43,6 +54,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Menu({ onItemSelected }) {
+  
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
       <View style={styles.avatarContainer}>

@@ -40,12 +40,27 @@ export default class Login extends React.Component {
         }
     }
 
-    
+    signOut = async () => {
+        try {
+          await GoogleSignin.revokeAccess();
+          await GoogleSignin.signOut();
+          this.setState({ user: null });
+          alert("Logout successful!");
+        } catch (error) {
+          this.setState({
+            error,
+          });
+        }
+      };
 
     signIn = async () => {
         try {
             const user = await GoogleSignin.signIn();
             this.setState({ user });
+            // alert("Name : "+user.name+"\n givenName : "+user.givenName+"\n familyName : "+user.familyName+"\n email : "+user.email+"\n photo : "+user.photo+"\n id : "+user.id)
+            alert(user.photo);
+            this.saveItem('img_url', user.photo);
+            this.props.navigation.navigate('LandingScreen');
         } catch (error) {
             if (error.code === 'CANCELED') {
             // user cancelled the login flow
@@ -106,6 +121,9 @@ export default class Login extends React.Component {
               <View style = {styles.socialMediaView}>
                 <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this.FBLogin}/>
                 <Button buttonStyle={styles.googleLogin}title="google plus Login"onPress={ this.signIn}/>
+              </View>
+              <View style = {styles.socialMediaView}>
+                <Button buttonStyle={styles.googleLogin}title="google plus logout"onPress={ this.signOut}/>
               </View>
             <View style = {styles.skipView}>
               <Text style={styles.buttonSkip}
