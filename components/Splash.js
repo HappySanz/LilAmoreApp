@@ -38,8 +38,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        width: null,
-        height: null,
     },
     title: {
         fontWeight: 'bold',

@@ -4766,7 +4766,7 @@ react-navigation@1.5.8:
     react-native-safe-area-view "^0.7.0"
     react-native-tab-view "github:react-navigation/react-native-tab-view"
 
-react-navigation@^2.7.0:
+react-navigation@^2.9.3:
   version "2.9.3"
   resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-2.9.3.tgz#de97f7102df6b836af780bfa5bfa80747148da19"
   dependencies:

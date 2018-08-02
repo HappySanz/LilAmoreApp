@@ -1,6 +1,8 @@
 import { BackHandler, AsyncStorage } from 'react-native';
-import React from 'react';
+import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation'
+
 
 import Splash1 from './components/Splash1';
 import Splash from './components/Splash';
@@ -12,6 +14,7 @@ import ForgotPassword from './components/ForgotPassword';
 import Landing from './components/Landing';
 import UserProfile from './components/UserProfile';
 
+
 const AppNavigator = createStackNavigator(
   {
     SplashScreen: Splash,
@@ -22,7 +25,6 @@ const AppNavigator = createStackNavigator(
     ForgotPasswordScreen: ForgotPassword,
     LandingScreen: Landing,
     UserProfileScreen: UserProfile,
-
   },
   {
     initialRouteName: 'SplashScreen',
@@ -39,8 +41,7 @@ const AppNavigator1 = createStackNavigator(
     SignUpScreen: SignUp,
     ForgotPasswordScreen: ForgotPassword,
     LandingScreen: Landing,
-    UserProfileScreen: UserProfile,
-
+    UserProfileScreen: UserProfile,   
   },
   {
     initialRouteName: 'SplashScreen1',
@@ -90,6 +91,7 @@ export default class App extends React.Component {
 // import ForgotPassword from './components/ForgotPassword';
 // import Landing from './components/Landing';
 // import UserProfile from './components/UserProfile';
+
 // export default class App extends Component {
 
 //   constructor() {
@@ -140,3 +142,237 @@ export default class App extends React.Component {
 //   }
 //   }
 // }
+
+
+// import React, { Component } from 'react';
+ 
+// import { StyleSheet, Platform, View, Text, Image, TouchableOpacity, YellowBox } from 'react-native';
+
+// import { DrawerNavigator } from 'react-navigation';
+
+// import { StackNavigator } from 'react-navigation'
+
+// class HamburgerIcon extends Component {
+
+//   toggleDrawer=()=>{
+
+//     console.log(this.props.navigationProps);
+    
+//     this.props.navigationProps.toggleDrawer();
+
+//   }
+ 
+//   render() {
+ 
+//     return (
+ 
+//       <View style={{flexDirection: 'row'}}>
+ 
+//         <TouchableOpacity onPress={this.toggleDrawer.bind(this)} >
+
+//           <Image
+//             source={{uri : 'https://reactnativecode.com/wp-content/uploads/2018/04/hamburger_icon.png'}}
+//             style={{ width: 25, height: 25, marginLeft: 5}}
+//           />
+
+//         </TouchableOpacity>
+ 
+//       </View>
+    
+//     );
+  
+  
+//   }
+// }
+ 
+// class MainActivity extends Component {
+
+//   constructor(props) {
+ 
+//     super(props);
+  
+//     YellowBox.ignoreWarnings([
+//      'Warning: componentWillMount is deprecated',
+//      'Warning: componentWillReceiveProps is deprecated',
+//    ]);
+  
+//   }
+ 
+//    render()
+//    {
+//       return(
+ 
+//          <View style = { styles.MainContainer }>
+ 
+//             <Text style={{fontSize: 23}}> This is Activity - 1 </Text>
+          
+//          </View>
+//       );
+//    }
+// }
+// class fifthactivity extends Component {
+
+//   constructor(props) {
+ 
+//     super(props);
+  
+//     YellowBox.ignoreWarnings([
+//      'Warning: componentWillMount is deprecated',
+//      'Warning: componentWillReceiveProps is deprecated',
+//    ]);
+  
+//   }
+ 
+//    render()
+//    {
+//       return(
+ 
+//          <View style = { styles.MainContainer }>
+ 
+//             <Text style={{fontSize: 23}}> oombu </Text>
+          
+//          </View>
+//       );
+//    }
+// }
+
+// class SecondActivity extends Component {
+
+//   constructor(props) {
+ 
+//     super(props);
+  
+//     YellowBox.ignoreWarnings([
+//      'Warning: componentWillMount is deprecated',
+//      'Warning: componentWillReceiveProps is deprecated',
+//    ]);
+  
+//   }
+   
+//      render()
+//      {
+//         return(
+   
+//            <View style = { styles.MainContainer }>
+   
+//               <Text style={{fontSize: 23}}> This is Activity - 2 </Text>
+            
+//            </View>
+//         );
+//      }
+//   }
+
+//   class ThirdActivity extends Component {
+
+//     constructor(props) {
+ 
+//       super(props);
+    
+//       YellowBox.ignoreWarnings([
+//        'Warning: componentWillMount is deprecated',
+//        'Warning: componentWillReceiveProps is deprecated',
+//      ]);
+    
+//     }
+ 
+//        render()
+//        {
+//           return(
+     
+//              <View style = { styles.MainContainer }>
+     
+//                 <Text style={{fontSize: 23}}> This is Activity - 3 </Text>
+              
+//              </View>
+//           );
+//        }
+//     }
+ 
+//     const FirstActivity_StackNavigator = StackNavigator({
+//       First: { 
+//         screen: MainActivity, 
+//         navigationOptions: ({ navigation }) => ({
+//           title: 'MainActivity',
+//           headerLeft : <HamburgerIcon navigationProps={ navigation }/>,
+
+//           headerStyle: {
+//             backgroundColor: '#FF9800'
+//           },
+//           headerTintColor: '#fff',
+//         })
+//       },
+//     });
+
+//     const fifth = StackNavigator({
+//       First: { 
+//         screen: fifthactivity, 
+//         navigationOptions: ({ navigation }) => ({
+//           title: 'nala nala ooombea',
+//           headerLeft : <HamburgerIcon navigationProps={ navigation }/>,
+
+//           headerStyle: {
+//             backgroundColor: '#FF9800'
+//           },
+//           headerTintColor: '#fff',
+//         })
+//       },
+//     });
+
+//     const SecondActivity_StackNavigator = StackNavigator({
+//       Second: { 
+//         screen: SecondActivity, 
+//         navigationOptions: ({ navigation }) => ({
+//           title: 'SecondActivity',
+//           headerLeft : <HamburgerIcon navigationProps={ navigation }/>,
+
+//           headerStyle: {
+//             backgroundColor: '#FF9800'
+//           },
+//           headerTintColor: '#fff',
+//         })
+//       },
+//     });
+
+
+//     const ThirdActivity_StackNavigator = StackNavigator({
+//       Third: { 
+//         screen: ThirdActivity, 
+//         navigationOptions: ({ navigation }) => ({
+//           title: 'ThirdActivity',
+//           headerLeft : <HamburgerIcon navigationProps={ navigation }/>,
+
+//           headerStyle: {
+//             backgroundColor: '#FF9800'
+//           },
+//           headerTintColor: '#fff',
+//         })
+//       },
+//     });
+    
+// export default MyDrawerNavigator = DrawerNavigator({
+//   MainStack: { 
+//     screen: fifth
+//   },
+
+//   SecondStack: { 
+//     screen: SecondActivity_StackNavigator
+//   },
+
+//   ThirdStack: { 
+//     screen: ThirdActivity_StackNavigator
+//   }
+// });
+
+    
+// const styles = StyleSheet.create({
+    
+//  MainContainer :{
+ 
+//   flex:1,
+//   paddingTop: (Platform.OS) === 'ios' ? 20 : 0,
+//   alignItems: 'center',
+//   justifyContent: 'center',
+    
+//   }
+
+// });

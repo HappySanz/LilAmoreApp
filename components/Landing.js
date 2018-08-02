@@ -1,9 +1,11 @@
-import React from 'react'
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image} from 'react-native'
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image, YellowBox, Platform} from 'react-native'
 import { StackNavigator } from  'react-navigation';
+import { DrawerNavigator } from 'react-navigation';
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
-import List from './List'
+import List from './List';
+
 
 const image = require('./images/Sidemeu.png');
 
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
     }
   });
 
-  export default class Landing extends React.Component {
+ export default class Login extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
 
@@ -49,6 +51,7 @@ const styles = StyleSheet.create({
             header: () => null
           }
         };
+    
 
     constructor(props) {
       super(props);
@@ -76,7 +79,6 @@ const styles = StyleSheet.create({
         isOpen: false,
         selectedItem: item,
       });
-  
     render() 
     {
       const menu = <Menu onItemSelected={this.onMenuItemSelected}/>;
@@ -88,16 +90,15 @@ const styles = StyleSheet.create({
               Welcome to React Native!
             </Text>
           </View>
+          <List />
           <TouchableOpacity
             onPress={this.toggle}
             style={styles.button}>
             <Image
               source={image}
               style={{ width: 32, height: 32 }}/>
-          </TouchableOpacity>
-          <List />
-        </SideMenu>
+          </TouchableOpacity> 
+         </SideMenu>
       );
     }
   }
-  

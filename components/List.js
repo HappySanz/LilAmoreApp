@@ -33,8 +33,7 @@ class List extends Component {
                   <TouchableOpacity
                      key = {item.id}
                      style = {styles.container}
-                     onPress = {() => this.alertItemName(item)}>
-                     
+                     onPress = {() => this.alertItemName(item)}>          
                      <Text style = {styles.text}>
                         {item.name}
                      </Text>
@@ -49,12 +48,12 @@ export default List
 
 const styles = StyleSheet.create ({
    container: {
-      padding: 10,
-      marginTop: 3,
+      padding: 65,
+      marginTop: 1,
       backgroundColor: '#d9f9b1',
       alignItems: 'center',
    },
    text: {
-      color: '#4f603c'
+      color: 'white'
    }
 })

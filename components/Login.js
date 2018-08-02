@@ -40,42 +40,39 @@ export default class Login extends React.Component {
         }
     }
 
-    
-
     signIn = async () => {
         try {
             const user = await GoogleSignin.signIn();
             this.setState({ user });
-        } catch (error) {
-            if (error.code === 'CANCELED') {
+        } 
+        catch (error) {
+            if (error.code === 'CANCELED') 
+            {
             // user cancelled the login flow
-            } else {
+            }
+            else{
             // some other error happened
             }
         }
     };
-
     componentDidMount() 
     {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         GoogleSignin.configure({
-            iosClientId: '329415591175-d09idaj0vte9iedtp43tadk04dhh85u0.apps.googleusercontent.com'
-          }).then(() => 
-          {
-            this.getCurrentUser;
+        iosClientId: '329415591175-d09idaj0vte9iedtp43tadk04dhh85u0.apps.googleusercontent.com'
+        }).then(() => 
+        {
+        this.getCurrentUser;
         });
     }
-
     componentWillUnmount() 
     {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
-
     handleBackButton() 
     {
         return true;
     }
-
     FBLogin () {
         LoginManager.logInWithReadPermissions(['public_profile']).then(
             function(result) {
@@ -101,7 +98,6 @@ export default class Login extends React.Component {
             <View style = {styles.signinView}>
               <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => this.props.navigation.navigate('SigninScreen')}/>
               {/* <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => Actions.signin()}/> */}
-
             </View>
               <View style = {styles.socialMediaView}>
                 <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this.FBLogin}/>
@@ -110,8 +106,8 @@ export default class Login extends React.Component {
             <View style = {styles.skipView}>
               <Text style={styles.buttonSkip}
                 onPress={() => {
-                    this.saveItem('id_token','1')
-                    this.props.navigation.navigate('LandingScreen')}}>{'Skip'}
+                this.saveItem('id_token','1')
+                this.props.navigation.navigate('LandingScreen')}}>{'Skip'}
               </Text>
             </View>
             </View>

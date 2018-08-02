@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Menu({ onItemSelected }) {
+export default function Menu({ 
+ }) {
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
       <View style={styles.avatarContainer}>
