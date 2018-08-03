@@ -1,10 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, View, BackHandler, Alert, AsyncStorage } from 'react-native'
 import { Button } from 'react-native-elements'
-import { FBSDK, LoginManager }from 'react-native-fbsdk'
+import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken }from 'react-native-fbsdk'
 import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import { Scene, Router, Actions } from 'react-native-router-flux';
-
 
 // GoogleSignin.getAccessToken()
 // .then(token => {
@@ -35,6 +34,7 @@ export default class Login extends React.Component {
     saveItem = async (item, selectedValue) => {
         try {
             await AsyncStorage.setItem(item, selectedValue);
+            this.props.navigation.navigate('LandingScreen');       
           } catch (error) {
             console.error('AsyncStorage error: ' + error.message);
         }
@@ -88,14 +88,36 @@ export default class Login extends React.Component {
     {
         return true;
     }
-    FBLogin () {
-        LoginManager.logInWithReadPermissions(['public_profile']).then(
+    FBLogin () 
+    {
+        LoginManager.logInWithReadPermissions(['public_profile','email']).then(
             function(result) {
               if (result.isCancelled) {
                 alert('Login was cancelled');
-              } else {
-                alert('Login was successful with permissions: '
-                  + result.grantedPermissions.toString());
+              } else  
+              {              
+                AccessToken.getCurrentAccessToken().then(
+                    (data) => 
+                    {
+                      let accessToken = data.accessToken;
+                       //alert(accessToken.toString());
+                      const infoRequest = new GraphRequest('/me',
+                        {
+                          accessToken: accessToken,parameters: {
+                            fields: {
+                              string: 'email,name,first_name,middle_name,last_name,picture'
+                            }
+                          }
+                        },
+                        (error, result) => 
+                        {
+                        let fbEmail = result.email;
+                        let fbUsername = result.name;
+                        let fbprofPic = result.picture.data.url;  
+                        AsyncStorage.setItem('img_url',fbprofPic);
+                        });
+                         new GraphRequestManager().addRequest(infoRequest).start();
+                    })       
               }
             },
             function(error) {
@@ -115,7 +137,7 @@ export default class Login extends React.Component {
               {/* <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => Actions.signin()}/> */}
             </View>
               <View style = {styles.socialMediaView}>
-                <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this.FBLogin}/>
+                <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this.FBLogin.bind(this)}/>
                 <Button buttonStyle={styles.googleLogin}title="google plus Login"onPress={ this.signIn}/>
               </View>
               <View style = {styles.socialMediaView}>

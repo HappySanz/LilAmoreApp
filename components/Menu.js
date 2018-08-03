@@ -15,8 +15,9 @@ const value ='';
 
 _retrieveData = async () => {
   try {
-    value = await AsyncStorage.getItem('img_url') || '';
-   } catch (error) {
+    value = await AsyncStorage.getItem('img_url'),('user_name'),('user_email');
+   }
+    catch (error) {
      // Error retrieving data
    }
    alert(value)
@@ -53,13 +54,8 @@ const styles = StyleSheet.create({
   },
 });
 
-<<<<<<< HEAD
-export default function Menu({ 
- }) {
-=======
 export default function Menu({ onItemSelected }) {
   
->>>>>>> eed37959f928799ee6cbe491108b0e5503e36d1e
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
       <View style={styles.avatarContainer}>
