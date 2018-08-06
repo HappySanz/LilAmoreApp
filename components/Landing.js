@@ -16,6 +16,18 @@ const styles = StyleSheet.create({
       padding: 10,
       alignSelf:'flex-start',
     },
+    buttonTwo: {
+      position: 'absolute',
+      top: 20,
+      padding: 10,
+      alignSelf:'flex-end',
+    },
+    buttonThree:{
+      position: 'absolute',
+      top: -20,
+      padding: 50,
+      alignSelf:'flex-end',
+    },
     caption: {
       fontSize: 20,
       fontWeight: 'bold',
@@ -51,7 +63,6 @@ const styles = StyleSheet.create({
             header: () => null
           }
         };
-    
 
     constructor(props) {
       super(props);
@@ -78,11 +89,13 @@ const styles = StyleSheet.create({
       this.setState({
         isOpen: false,
         selectedItem: item,
+
       });
     render() 
     {
       const menu = <Menu onItemSelected={this.onMenuItemSelected}/>;
       return (
+
           <SideMenu menu={menu} isOpen={this.state.isOpen}
           onChange={isOpen => this.updateMenuState(isOpen)}>
           <View style={styles.container}>
@@ -90,7 +103,7 @@ const styles = StyleSheet.create({
               Welcome to React Native!
             </Text>
           </View>
-          <List />
+          {/* <List /> */}
           <TouchableOpacity
             onPress={this.toggle}
             style={styles.button}>
@@ -98,7 +111,21 @@ const styles = StyleSheet.create({
               source={image}
               style={{ width: 32, height: 32 }}/>
           </TouchableOpacity> 
-         </SideMenu>
+          <TouchableOpacity
+            onPress={this.toggle}
+            style={styles.buttonTwo}>
+            <Image
+              source={image}
+              style={{ width: 32, height: 32 }}/>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.toggle}
+            style={styles.buttonThree}>
+            <Image
+              source={image}
+              style={{ width: 32, height: 32 }}/>
+          </TouchableOpacity>  
+         </SideMenu>      
       );
     }
   }

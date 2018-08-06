@@ -15,8 +15,9 @@ const value ='';
 
 _retrieveData = async () => {
   try {
-    value = await AsyncStorage.getItem('img_url') || '';
-   } catch (error) {
+    value = await AsyncStorage.getItem('img_url'),('user_name'),('user_email');
+   }
+    catch (error) {
      // Error retrieving data
    }
    alert(value)
