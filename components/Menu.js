@@ -53,13 +53,8 @@ const styles = StyleSheet.create({
   },
 });
 
-<<<<<<< HEAD
-export default function Menu({ 
- }) {
-=======
 export default function Menu({ onItemSelected }) {
   
->>>>>>> eed37959f928799ee6cbe491108b0e5503e36d1e
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
       <View style={styles.avatarContainer}>
