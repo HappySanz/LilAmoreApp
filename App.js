@@ -57,6 +57,7 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = { hasToken: false, isLoaded: false };
+    global.baseurl = 'http://littleamore.in/demo/mobileapi/';
   }
   
   componentDidMount() {
@@ -78,7 +79,6 @@ export default class App extends React.Component {
     }
   }
 }
-
 
 // import React, { Component } from 'react';
 // import { BackHandler, AsyncStorage } from 'react-native';

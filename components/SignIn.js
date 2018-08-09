@@ -68,7 +68,8 @@ export default class SignIn extends React.Component {
             })
             .then((response) => response.text())
             .then((responseText) => {
-             (this.props.navigation.navigate('LandingScreen'))
+                alert(responseText)
+            //  (this.props.navigation.navigate('LandingScreen'))
             })
             .catch((error) => {
                 console.error(error);
