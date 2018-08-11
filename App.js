@@ -12,6 +12,7 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import ForgotPassword from './components/ForgotPassword';
 import Landing from './components/Landing';
+import Sidemenulist from './components/Sidemenulist';
 import UserProfile from './components/UserProfile';
 import CartItemList from './components/CartItemList';
 import Checkout from './components/Checkout';
