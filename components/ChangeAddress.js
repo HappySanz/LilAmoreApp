@@ -15,7 +15,8 @@ export default class UserProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        value : null};    }
+        value : null};    
+    }
 
     static navigationOptions = ({ navigation }) => {
         let headerTitle = 'Change Address';
