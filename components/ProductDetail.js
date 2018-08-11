@@ -69,8 +69,9 @@ export default class ProductDetail extends React.Component {
             error: null,
             message: null,
             select_size:'',
-            select_color:'',
+            select_color:false,
             qty_value: '', 
+            color_data: [],
         };
     }
     
@@ -131,7 +132,7 @@ export default class ProductDetail extends React.Component {
         });
     };
       
-    addToCart = (prd_id) => {
+    addToCart = (prd_id,prd_comb_id,qty) => {
         const url = `http://littleamore.in/demo/mobileapi/product_cart`;
         this.setState({ loading: true });
         fetch(url, {
@@ -151,7 +152,7 @@ export default class ProductDetail extends React.Component {
             .then(res => {
             console.log(res)
             if(res.status==='success'){
-                return this.makeRemoteRequest()
+                
             }
             throw new Error('Network response error.')
             })
@@ -180,6 +181,67 @@ export default class ProductDetail extends React.Component {
             console.log(res)
             if(res.status==='success'){
                 alert("Product moved to wishlist successfully");
+            }
+            throw new Error('Network response error.')
+            })
+            .catch(error => {
+            this.setState({ error, loading: false });
+            });
+    };
+
+    moveToCart = (prd_id,comb_id,quanty) => {
+       
+        const url = `http://littleamore.in/demo/mobileapi/product_cart`;
+        this.setState({ loading: true });
+        fetch(url, {
+            method: 'POST',
+            headers: new Headers({
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                }),
+                body: JSON.stringify({
+                user_id: '2',
+                product_id: prd_id,
+                product_comb_id : comb_id,
+                quantity: quanty
+                }),
+
+            })
+            .then(res => res.json())
+            .then(res => {
+            console.log(res)
+            if(res.status==='success'){
+                alert("Product added to cart");
+            }
+            throw new Error('Network response error.')
+            })
+            .catch(error => {
+            this.setState({ error, loading: false });
+            });
+    };
+
+    getColors = (size_id,prd_id) => {
+       
+        const url = `http://littleamore.in/demo/mobileapi/get_product_color`;
+        this.setState({ loading: true });
+        fetch(url, {
+            method: 'POST',
+            headers: new Headers({
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                }),
+                body: JSON.stringify({
+                product_id: prd_id,
+                size_id: size_id
+                }),
+
+            })
+            .then(res => res.json())
+            .then(res => {
+            console.log(res)
+            if(res.status === 'success'){
+                this.setState({
+                    color_data: res.product_color,
+                });
+                console.log(this.state.color_data)
             }
             throw new Error('Network response error.')
             })
@@ -287,7 +349,9 @@ export default class ProductDetail extends React.Component {
                                 <TouchableOpacity 
                                     
                                     onPress={()=> {
-                                        console.log('does not work');
+                                        this.getColors(item.mas_size_id,item.product_id)
+                                        this.setState({select_color:true})
+                                        this.forceUpdate();
                                     }}>
                                     
                                     <Text style={{
@@ -295,11 +359,13 @@ export default class ProductDetail extends React.Component {
                                         borderColor:'black',
                                         borderRadius:35,
                                         width:35,
+                                        backgroundColor:this.checkForPressBg(),
+                                        color:this.checkForPressText(),
                                         textAlignVertical:'center',textAlign: 'center',
                                         margin:10,
                                         height:35}}>
                                         {item.size}</Text>
-                                
+                                        
                                 </TouchableOpacity>
                                 </View>
                                     
@@ -309,41 +375,7 @@ export default class ProductDetail extends React.Component {
                     </View>
                 </View>
 
-                <View style={{marginTop:2,backgroundColor:'white'}}>
-                    <View style={{backgroundColor:'white',flexDirection:'row',marginLeft:10}}>
-                        <Text style={{color:'black',textAlignVertical:'center',textAlign: 'center',fontWeight:'bold',fontSize:18}}>{"Select colour : "}</Text>
-                        <FlatList
-                        
-                            data={this.state.size_data}
-                            horizontal={true}
-                            renderItem={({ item }) => (
-
-                                <View >
-                                <TouchableOpacity 
-                                    
-                                    onPress={()=> {
-                                        console.log('does not work');
-                                    }}>
-                                    
-                                    <Text style={{
-                                        borderWidth:1, 
-                                        borderColor:'white',
-                                        borderRadius:20,
-                                        width:20,
-                                        margin:10,
-                                        textAlign:'center',
-                                        backgroundColor: item.color_code,
-                                        height:20}}>
-                                        {""}</Text>
-                                
-                                </TouchableOpacity>
-                                </View>
-                                    
-                            )}
-                            keyExtractor={item => item.id}
-                        />
-                    </View>
-                </View>
+                {this.showColorsAvail()}
                 
                 <View style={{marginTop:5,backgroundColor:'white',flexDirection:'column',}}>
                     <View style={{backgroundColor:'white',flexDirection:'column',marginLeft:10}}>
@@ -372,13 +404,40 @@ export default class ProductDetail extends React.Component {
                     </View>
                 </View>
                 
-                <View style={{backgroundColor:'rgb(129, 195, 65)',height:40}} >
+                <View style={{backgroundColor:'rgb(129, 195, 65)',height:40,flexDirection:'row',justifyContent:'space-evenly'}} >
 
                     <Text 
-                        style = {{color:'white',textAlign:'center',textAlignVertical:'center',height:40}}  
+                        style = {{
+                         color:'white',
+                         textAlign:'center',
+                         textAlignVertical:'center',
+                         height:40,
+                         margin:1}}  
                         onPress = {
                             ()=> {}}> 
                         {"ADD TO CART"} 
+                    </Text>
+                    <Text style = {{
+                        height:40,
+                        width:1,
+                        backgroundColor:'white'}} >{""}</Text>
+                    <Text 
+                        style = {{
+                        color:'white',
+                        textAlign:'center',
+                        textAlignVertical:'center',
+                        height:40,
+                        margin:1}}  
+                        onPress = {
+                            ()=> {
+                                this.props.navigation.navigate('SelectAddressScreen', {
+                                user_id: 2,
+                                product_id: 'anything you want here',
+                                product_com_id: '',
+                                quantity:'',
+                              });
+                              }}> 
+                        {"BUY NOW"} 
                     </Text>
 
                 </View>
@@ -387,18 +446,62 @@ export default class ProductDetail extends React.Component {
             
         );
     }
-    deleteProduct(item) {
-    var data = [...this.state.data]
-    let index = data.indexOf(item);
-    if(this.state.wishlist){
-        this.moveToWishList(data[index].product_id)
-        this.removeItem(data[index].id)
-    } else {
-        this.removeItem(data[index].id)
+    checkForPressBg() {
+        if(this.state.select_color){
+            return ('black');
+        } else {
+            return ('white');
+        }
     }
-    
-    data.splice(index, 1);
-    this.setState({ data });
+    checkForPressText() {
+        if(this.state.select_color){
+            return ('white');
+        } else {
+            return ('black');
+        }
+    }
+    showColorsAvail() {
+        if((this.state.prod_data.combined_status)&&(this.state.select_color)){
+            console.log(this.state.color_data)
+            return(
+
+                <View style={{marginTop:2,backgroundColor:'white'}}>
+                <View style={{backgroundColor:'white',flexDirection:'row',marginLeft:10}}>
+                    <Text style={{color:'black',textAlignVertical:'center',textAlign: 'center',fontWeight:'bold',fontSize:18}}>{"Select colour : "}</Text>
+                    <FlatList
+                    
+                        data={this.state.color_data}
+                        horizontal={true}
+                        renderItem={({ item }) => (
+
+                            <View >
+                            <TouchableOpacity 
+                                
+                                onPress={()=> {
+                                    console.log('does not work');
+                                }}>
+                                
+                                <Text style={{
+                                    borderWidth:1, 
+                                    borderColor:'white',
+                                    borderRadius:20,
+                                    width:20,
+                                    margin:10,
+                                    textAlign:'center',
+                                    backgroundColor: item.color_code,
+                                    height:20}}>
+                                    {""}</Text>
+                            
+                            </TouchableOpacity>
+                            </View>
+                                
+                        )}
+                        keyExtractor={item => item.id}
+                    />
+                </View>
+            </View>
+            );
+        }
     }
 }
 
