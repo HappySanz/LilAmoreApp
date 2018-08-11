@@ -12,6 +12,7 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import ForgotPassword from './components/ForgotPassword';
 import Landing from './components/Landing';
+import Sidemenulist from './components/Sidemenulist';
 import UserProfile from './components/UserProfile';
 import CartItemList from './components/CartItemList';
 import Checkout from './components/Checkout';
@@ -23,6 +24,7 @@ import SelectAddress from './components/SelectAddress';
 
 const AppNavigator = createStackNavigator(
   {
+    
     SplashScreen: Splash,
     WelcomeScreen: welcomepages,
     LoginScreen: Login,
@@ -31,6 +33,7 @@ const AppNavigator = createStackNavigator(
     ForgotPasswordScreen: ForgotPassword,
     LandingScreen: Landing,
     UserProfileScreen: UserProfile,
+    SidemenuScreen: Sidemenulist,
     CartScreen: CartItemList,
     CheckoutScreen : Checkout,
     ChangeAddressScreen : ChangeAddress,
@@ -40,7 +43,8 @@ const AppNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'SplashScreen',
-  }
+  },
+
 );
 
 const AppNavigator1 = createStackNavigator(
@@ -54,6 +58,7 @@ const AppNavigator1 = createStackNavigator(
     ForgotPasswordScreen: ForgotPassword,
     LandingScreen: Landing,
     UserProfileScreen: UserProfile,
+    SidemenuScreen: Sidemenulist,
     CartScreen: CartItemList,
     CheckoutScreen : Checkout,
     ChangeAddressScreen : ChangeAddress,
@@ -64,7 +69,7 @@ const AppNavigator1 = createStackNavigator(
   },
   {
     initialRouteName: 'SplashScreen1',
-  }
+  },
 );
 
 export default class App extends React.Component {
@@ -72,6 +77,8 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = { hasToken: false, isLoaded: false };
+    global.baseurl = 'http://littleamore.in/demo/mobileapi/';
+
   }
   
   componentDidMount() {
@@ -93,7 +100,6 @@ export default class App extends React.Component {
     }
   }
 }
-
 
 // import React, { Component } from 'react';
 // import { BackHandler, AsyncStorage } from 'react-native';
