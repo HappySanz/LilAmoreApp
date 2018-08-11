@@ -13,8 +13,11 @@ import SignUp from './components/SignUp';
 import ForgotPassword from './components/ForgotPassword';
 import Landing from './components/Landing';
 import UserProfile from './components/UserProfile';
-import Cart from './components/Cart'
-import Sidemenulist from './components/Sidemenulist'
+import CartItemList from './components/CartItemList';
+import Checkout from './components/Checkout';
+import AccountDetail from './components/AccountDetail';
+import ChangeAddress from './components/ChangeAddress';
+import ProductDetail from './components/ProductDetail';
 
 
 const AppNavigator = createStackNavigator(
@@ -28,8 +31,12 @@ const AppNavigator = createStackNavigator(
     ForgotPasswordScreen: ForgotPassword,
     LandingScreen: Landing,
     UserProfileScreen: UserProfile,
-    CartScreen: Cart,
     SidemenuScreen: Sidemenulist,
+    CartScreen: CartItemList,
+    CheckoutScreen : Checkout,
+    ChangeAddressScreen : ChangeAddress,
+    AccountDetailScreen : AccountDetail,
+    ProductDetailScreen : ProductDetail,
   },
   {
     initialRouteName: 'SplashScreen',
@@ -48,8 +55,13 @@ const AppNavigator1 = createStackNavigator(
     ForgotPasswordScreen: ForgotPassword,
     LandingScreen: Landing,
     UserProfileScreen: UserProfile,
-    CartScreen: Cart,
     SidemenuScreen: Sidemenulist,
+    CartScreen: CartItemList,
+    CheckoutScreen : Checkout,
+    ChangeAddressScreen : ChangeAddress,
+    AccountDetailScreen : AccountDetail,
+    ProductDetailScreen : ProductDetail,
+
   },
   {
     initialRouteName: 'SplashScreen1',
