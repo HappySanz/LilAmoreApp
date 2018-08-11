@@ -14,10 +14,12 @@ import ForgotPassword from './components/ForgotPassword';
 import Landing from './components/Landing';
 import UserProfile from './components/UserProfile';
 import Cart from './components/Cart'
+import Sidemenulist from './components/Sidemenulist'
 
 
 const AppNavigator = createStackNavigator(
   {
+    
     SplashScreen: Splash,
     WelcomeScreen: welcomepages,
     LoginScreen: Login,
@@ -27,10 +29,12 @@ const AppNavigator = createStackNavigator(
     LandingScreen: Landing,
     UserProfileScreen: UserProfile,
     CartScreen: Cart,
+    SidemenuScreen: Sidemenulist,
   },
   {
     initialRouteName: 'SplashScreen',
-  }
+  },
+
 );
 
 const AppNavigator1 = createStackNavigator(
@@ -45,11 +49,11 @@ const AppNavigator1 = createStackNavigator(
     LandingScreen: Landing,
     UserProfileScreen: UserProfile,
     CartScreen: Cart,
-
+    SidemenuScreen: Sidemenulist,
   },
   {
     initialRouteName: 'SplashScreen1',
-  }
+  },
 );
 
 export default class App extends React.Component {
@@ -58,6 +62,7 @@ export default class App extends React.Component {
     super();
     this.state = { hasToken: false, isLoaded: false };
     global.baseurl = 'http://littleamore.in/demo/mobileapi/';
+
   }
   
   componentDidMount() {
