@@ -1353,6 +1353,7 @@
 					"-Ic++",
 				);
 				PRODUCT_NAME = LilAmore;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1390,6 +1391,7 @@
 					"-Ic++",
 				);
 				PRODUCT_NAME = LilAmore;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

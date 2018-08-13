@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 
 import eyeImg from './images/eye_black.png';
+import { Item } from 'native-base';
 
 export default class SignIn extends React.Component {
 
@@ -24,12 +25,14 @@ export default class SignIn extends React.Component {
         this.state = {
           showPass: true,
           press: false,
-          username    : '',
-          password    : ''
-        };
+          username : 'teaeast@mailinator.com',
+          password : 'admin',
+          statusVar  : '',
+          user_id  : '',
+            };
         this.showPass = this.showPass.bind(this);
     }
-    
+
     showPass() {
         this.state.press === false
           ? this.setState({showPass: false, press: true})
@@ -52,7 +55,6 @@ export default class SignIn extends React.Component {
         } 
         else
         {
-            alert(usernameValue);
             fetch("http://littleamore.in/demo/mobileapi/login", {
             method: 'POST',
             headers: new Headers({
@@ -66,29 +68,34 @@ export default class SignIn extends React.Component {
                 }),
 
             })
-            .then((response) => response.text())
+            .then((response) => response.json())
             .then((responseText) => {
-                alert(responseText)
-            //  (this.props.navigation.navigate('LandingScreen'))
+                console.log(responseText);
+                return responseText;                
             })
-            .catch((error) => {
-                console.error(error);
-            });
+            .then(res => {
+                this.setState({
+                statusVar:res.status,
+                user_id:res.userData.customer_id
+                });
+                if(this.state.statusVar === 'Success')
+                {   
+                 AsyncStorage.setItem("user_id",this.state.user_id,'id_token','1');
+                 this.props.navigation.navigate('LandingScreen');       
+                }
+                else
+                {
+                    alert('error');
+                }
+            })
         }
         Keyboard.dismiss();      
     }
-
-    // showData = async()=> {
-    //     let userData = await AsyncStorage.getItem('userData');
-    //     let d = JSON.parse(userData)
-    //     alert(d.username +" "+ d.password)
-    // }
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.txtContainer}>
-
                     <TextInput
                         style={styles.input}
                         placeholder="Username"

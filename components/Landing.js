@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, YellowBox, Platform, TouchableHighlight, Image, FlatList, ScrollView, AsyncStorage} from 'react-native'
+import { StyleSheet, Text, View, Button, TouchableOpacity, YellowBox, Platform, TouchableHighlight, Image, FlatList, ScrollView, AsyncStorage, Alert} from 'react-native'
 import { StackNavigator } from  'react-navigation';
 import { DrawerNavigator } from 'react-navigation';
 import SideMenu from 'react-native-side-menu';
@@ -45,12 +45,18 @@ console.disableYellowBox = true;
         selectedItem: 'About',
         len_dat_image:'',
         ads_image: '',
-        statarr: [],
+        statarr: [], 
+        user_id: '',
       }
     };
 
     componentDidMount() 
     {
+      AsyncStorage.getItem("user_id").then((value) => {
+        this.setState({
+          user_id : value
+        });
+      })
       this.fetchhomepageData ()
     }   
 
@@ -63,7 +69,7 @@ console.disableYellowBox = true;
         'Content-Type': 'application/x-www-form-urlencoded',
         }),
         body: JSON.stringify ({
-          username: '0',
+          username: this.state.user_id,
         }),
         })
         .then(res => res.json())
@@ -118,12 +124,18 @@ console.disableYellowBox = true;
         );
       }
 
-      GetItem (flower_name) {
-  
-        Alert.alert(flower_name);
-        
-        }
-
+      bestProuduct (product_id) 
+      {
+        this.props.navigation.navigate('ProductDetailScreen', {
+          'product_id': product_id,
+        }); 
+      }
+      popularProduct (product_id) 
+      {
+        this.props.navigation.navigate('ProductDetailScreen', {
+          'product_id': product_id,
+        }); 
+      }
       space(){
         return (
         <View style = {{height: 200, width: 2, backgroundColor: 'grey'}}
@@ -144,7 +156,7 @@ console.disableYellowBox = true;
             <View style={styles.swipercontainer}>
             <Swiper style={styles.wrapper} autoplay = {true} autoplayTimeout = {2.5}>
             <View style={styles.slide1}>
-            <TouchableHighlight onPress={() => alert('done')}>
+            <TouchableHighlight onPress={() => alert('done')}  underlayColor="###fff">
             <ImageBackground source={{uri:this.state.ads_data.ad_img}} style={{width: '100%', height: '100%'}}>
             </ImageBackground>
             </TouchableHighlight>
@@ -161,21 +173,24 @@ console.disableYellowBox = true;
             showsHorizontalScrollIndicator={false}
             data={ this.state.newProduct_data }
             renderItem={({item}) => 
+            <TouchableHighlight onPress={this.bestProuduct.bind(this, item.id
+            )} underlayColor="rgba(0,0,0,0)">
                 <View style={{flex:1, flexDirection: 'column', width: 150, alignItems: 'center',}}>
                   <Image source = {{ uri: item.product_cover_img }} style={styles.imageView} />
-                  <Text numberOfLines={1} onPress={this.GetItem.bind(this, item.product_name)} style={styles.textView} >,{item.product_name}
+                  <Text numberOfLines={1} style={styles.textView} >,{item.product_name}
                   </Text>
                   <Text>{'Rs.'+ item.prod_actual_price}</Text>
                 </View>
+            </TouchableHighlight >
               }
             keyExtractor={(item, index) => index.toString()}/>
             </View>
           </View>
           <View style={styles.adsConatiner}>
-            <TouchableHighlight onPress={() => alert('Done')}>
+            <TouchableHighlight onPress={() => alert('Done')} >
             <ImageBackground source={{uri:this.state.ads_data.ad_img}} style={{width: '100%', height: '100%'}}>
             </ImageBackground>
-            </TouchableHighlight>
+            </TouchableHighlight >
             </View>
           <View style={styles.sectionContainer}>
           <View style={styles.section2Container}>
@@ -188,12 +203,14 @@ console.disableYellowBox = true;
             showsHorizontalScrollIndicator={false}
             data={ this.state.popular_data }
             renderItem={({item}) => 
+            <TouchableHighlight onPress={this.popularProduct.bind(this, item.id )} underlayColor="rgba(0,0,0,0)">
                 <View style={{flex:1, flexDirection: 'column', width: 150, alignItems: 'center',}}>
                   <Image source = {{ uri: item.product_cover_img }} style={styles.imageView} />
-                  <Text numberOfLines={1} onPress={this.GetItem.bind(this, item.product_name)} style={styles.textView} >,{item.product_name}
+                  <Text numberOfLines={1} style={styles.textView} >,{item.product_name}
                   </Text>
                   <Text>{'Rs.'+ item.prod_actual_price}</Text>
                 </View>
+                </TouchableHighlight>
               }
             keyExtractor={(item, index) => index.toString()}  
             />

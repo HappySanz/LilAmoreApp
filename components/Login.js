@@ -5,14 +5,6 @@ import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken }fr
 import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import { Scene, Router, Actions } from 'react-native-router-flux';
 
-// GoogleSignin.getAccessToken()
-// .then(token => {
-// console.log(token);
-// })
-// .catch(err => {
-// console.log(err);
-// });
-
 export default class Login extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
