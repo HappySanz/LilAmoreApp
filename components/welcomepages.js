@@ -18,22 +18,22 @@ var styles = {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#9DD6EB'
+    //backgroundColor: '#9DD6EB'
   },
   slide2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#97CAE5'
+    //backgroundColor: '#97CAE5'
   },
   slide3: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#92BBD9'
+    //backgroundColor: '#92BBD9'
   },
   text: {
-    color: '#fff',
+    color: '#f3f3f3',
     fontSize: 30,
     fontWeight: 'bold'
   },
@@ -71,9 +71,9 @@ export default class welcomepages extends React.Component {
         return (
         <Swiper style={styles.wrapper}>
             <View style={styles.slide1}>
-             <ImageBackground source={require('./images/imageone.jpeg')} style={{width: '100%', height: '100%'}}>
+             <ImageBackground source={require('./images/splashscreen02.jpg')} style={{width: '100%', height: '100%'}}>
                <View style = {styles.fntcont}>
-                <Text style= {{ fontSize: 25, color: "#000" }}> Page One </Text>
+                <Text style= {{ fontSize: 25, color: "#000" }}>  </Text>
                </View>
                 <View style={styles.buttonContainernext}>
                   <Button style={styles.buttonContainerpre} onPress={this._onPressSkipButton} title="Skip"/>
@@ -81,9 +81,9 @@ export default class welcomepages extends React.Component {
              </ImageBackground>
             </View>
             <View style={styles.slide2}>
-             <ImageBackground source={require('./images/imageone.jpeg')} style={{width: '100%', height: '100%'}}>
+             <ImageBackground source={require('./images/splashscreen03.jpg')} style={{width: '100%', height: '100%'}}>
               <View style = {styles.fntcont}>
-               <Text style= {{ fontSize: 25, color: "#000" }}> Page Two  </Text>
+               <Text style= {{ fontSize: 25, color: "#000" }}> </Text>
               </View>
               <View style={styles.buttonContainernext}>
                <Button style={styles.buttonContainerpre} onPress={this._onPressSkipButton} title="Skip"/>
@@ -91,9 +91,9 @@ export default class welcomepages extends React.Component {
              </ImageBackground>
             </View>
             <View style={styles.slide3}>
-             <ImageBackground source={require('./images/imageone.jpeg')} style={{width: '100%', height: '100%'}}>
+             <ImageBackground source={require('./images/splashscreen04.jpg')} style={{width: '100%', height: '100%'}}>
              <View style = {styles.fntcont}>
-                <Text style= {{ fontSize: 25, color: "#000" }}> Page Three  </Text>
+                <Text style= {{ fontSize: 25, color: "#000" }}>  </Text>
                </View>
             <View style={styles.buttonContainernext}>
               <Button style={styles.buttonContainerpre} onPress={this._onPressNextButton} title="Next"/>

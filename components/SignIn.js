@@ -10,15 +10,11 @@ import { Item } from 'native-base';
 
 export default class SignIn extends React.Component {
 
-    // static navigationOptions = ({ navigation }) => {
-    //     let headerTitle = 'Sign In';
-    //     let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
-    //     let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
-    //     alignSelf: 'center' };
-    //     let headerTintColor = 'white';
-    //     return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
-    // () => this.props.navigation.navigate('LandingScreen')
-    // };
+    static navigationOptions = ({ navigation }) => {
+        let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
+        let headerTintColor = 'white';
+        return {headerStyle,headerTintColor};
+    };
 
     constructor(props) {
         super(props);
@@ -197,7 +193,7 @@ const styles = StyleSheet.create({
 },
    buttonSignin: {
         backgroundColor: "#81c341",
-        width: 150,
+        width: 270,
         height: 45,
         borderColor: "#81c341",
         borderWidth: 0,
