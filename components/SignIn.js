@@ -6,30 +6,29 @@ import {
 } from 'react-native'
 
 import eyeImg from './images/eye_black.png';
+import { Item } from 'native-base';
 
 export default class SignIn extends React.Component {
 
-    // static navigationOptions = ({ navigation }) => {
-    //     let headerTitle = 'Sign In';
-    //     let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
-    //     let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
-    //     alignSelf: 'center' };
-    //     let headerTintColor = 'white';
-    //     return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
-    // () => this.props.navigation.navigate('LandingScreen')
-    // };
+    static navigationOptions = ({ navigation }) => {
+        let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
+        let headerTintColor = 'white';
+        return {headerStyle,headerTintColor};
+    };
 
     constructor(props) {
         super(props);
         this.state = {
           showPass: true,
           press: false,
-          username    : '',
-          password    : ''
-        };
+          username : 'teaeast@mailinator.com',
+          password : 'admin',
+          statusVar  : '',
+          user_id  : '',
+            };
         this.showPass = this.showPass.bind(this);
     }
-    
+
     showPass() {
         this.state.press === false
           ? this.setState({showPass: false, press: true})
@@ -52,7 +51,6 @@ export default class SignIn extends React.Component {
         } 
         else
         {
-            alert(usernameValue);
             fetch("http://littleamore.in/demo/mobileapi/login", {
             method: 'POST',
             headers: new Headers({
@@ -66,29 +64,34 @@ export default class SignIn extends React.Component {
                 }),
 
             })
-            .then((response) => response.text())
+            .then((response) => response.json())
             .then((responseText) => {
-                alert(responseText)
-            //  (this.props.navigation.navigate('LandingScreen'))
+                console.log(responseText);
+                return responseText;                
             })
-            .catch((error) => {
-                console.error(error);
-            });
+            .then(res => {
+                this.setState({
+                statusVar:res.status,
+                user_id:res.userData.customer_id
+                });
+                if(this.state.statusVar === 'Success')
+                {   
+                 AsyncStorage.setItem("user_id",this.state.user_id,'id_token','1');
+                 this.props.navigation.navigate('LandingScreen');       
+                }
+                else
+                {
+                    alert('error');
+                }
+            })
         }
         Keyboard.dismiss();      
     }
-
-    // showData = async()=> {
-    //     let userData = await AsyncStorage.getItem('userData');
-    //     let d = JSON.parse(userData)
-    //     alert(d.username +" "+ d.password)
-    // }
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.txtContainer}>
-
                     <TextInput
                         style={styles.input}
                         placeholder="Username"
@@ -190,7 +193,7 @@ const styles = StyleSheet.create({
 },
    buttonSignin: {
         backgroundColor: "#81c341",
-        width: 150,
+        width: 270,
         height: 45,
         borderColor: "#81c341",
         borderWidth: 0,

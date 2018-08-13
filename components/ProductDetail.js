@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView, Picker } from "react-native";
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView, Picker, AsyncStorage } from "react-native";
 
 const qtty = [
     
@@ -72,15 +72,19 @@ export default class ProductDetail extends React.Component {
             select_color:false,
             qty_value: '', 
             color_data: [],
+            user_id: '',
         };
     }
     
-    componentDidMount() {
+    componentDidMount() 
+    {
+        AsyncStorage.getItem("user_id").then((value) => {
+            this.setState({
+              user_id : value
+            });
+          })
         this.makeRemoteRequest();
     }   
-
-
-    
     makeRemoteRequest = () => {
         const { navigation } = this.props;
         
@@ -144,12 +148,11 @@ export default class ProductDetail extends React.Component {
                         'Content-Type': 'application/x-www-form-urlencoded',
                 }),
                 body: JSON.stringify({
-                user_id: '2',
+                user_id: this.state.user_id,
                 product_id: prd_id,
                 product_comb_id: prd_comb_id,
                 quantity : qty
                 }),
-
             })
             .then(res => res.json())
             .then(res => {
@@ -174,7 +177,7 @@ export default class ProductDetail extends React.Component {
                         'Content-Type': 'application/x-www-form-urlencoded',
                 }),
                 body: JSON.stringify({
-                user_id: '2',
+                user_id: this.state.user_id,
                 product_id: prd_id,
                 }),
 
