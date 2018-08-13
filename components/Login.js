@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, BackHandler, Alert, AsyncStorage } from 'react-native'
 import { Button } from 'react-native-elements'
 import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken }from 'react-native-fbsdk'
-import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
+// import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import { Scene, Router, Actions } from 'react-native-router-flux';
 
 // GoogleSignin.getAccessToken()
@@ -24,7 +24,7 @@ export default class Login extends React.Component {
 
     getCurrentUser = async () => {
         try {
-          const user = await GoogleSignin.currentUserAsync();
+        //   const user = await GoogleSignin.currentUserAsync();
           this.setState({ user });
         } catch (error) {
           console.error(error);
@@ -42,8 +42,8 @@ export default class Login extends React.Component {
 
     signOut = async () => {
         try {
-          await GoogleSignin.revokeAccess();
-          await GoogleSignin.signOut();
+        //   await GoogleSignin.revokeAccess();
+        //   await GoogleSignin.signOut();
           this.setState({ user: null });
           alert("Logout successful!");
         } catch (error) {
@@ -55,12 +55,12 @@ export default class Login extends React.Component {
 
     signIn = async () => {
         try {
-            const user = await GoogleSignin.signIn();
-            this.setState({ user });
-            // alert("Name : "+user.name+"\n givenName : "+user.givenName+"\n familyName : "+user.familyName+"\n email : "+user.email+"\n photo : "+user.photo+"\n id : "+user.id)
-            alert(user.photo);
-            this.saveItem('img_url', user.photo);
-            this.props.navigation.navigate('LandingScreen');
+            // const user = await GoogleSignin.signIn();
+            // this.setState({ user });
+            // // alert("Name : "+user.name+"\n givenName : "+user.givenName+"\n familyName : "+user.familyName+"\n email : "+user.email+"\n photo : "+user.photo+"\n id : "+user.id)
+            // alert(user.photo);
+            // this.saveItem('img_url', user.photo);
+            // this.props.navigation.navigate('LandingScreen');
         } catch (error) {
             if (error.code === 'CANCELED') {
             // user cancelled the login flow
@@ -73,12 +73,12 @@ export default class Login extends React.Component {
     componentDidMount() 
     {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-        GoogleSignin.configure({
-        iosClientId: '329415591175-d09idaj0vte9iedtp43tadk04dhh85u0.apps.googleusercontent.com'
-        }).then(() => 
-        {
-        this.getCurrentUser;
-        });
+        // GoogleSignin.configure({
+        // iosClientId: '329415591175-d09idaj0vte9iedtp43tadk04dhh85u0.apps.googleusercontent.com'
+        // }).then(() => 
+        // {
+        // this.getCurrentUser;
+        // });
     }
     componentWillUnmount() 
     {
@@ -130,7 +130,7 @@ export default class Login extends React.Component {
             <View style={styles.container}>
               <View style={styles.centerbox}>
                 <Text style={styles.logo}>{'Lil` Amore'}</Text>
-                <Text style={styles.title}>{'Blah blah blah'}</Text>
+                <Text style={{color:'black'}}>{'Start \nyou \npurchase'}</Text>
               </View>
             <View style = {styles.signinView}>
               <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => this.props.navigation.navigate('SigninScreen')}/>
@@ -138,11 +138,11 @@ export default class Login extends React.Component {
             </View>
               <View style = {styles.socialMediaView}>
                 <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this.FBLogin.bind(this)}/>
-                <Button buttonStyle={styles.googleLogin}title="google plus Login"onPress={ this.signIn}/>
+                {/* <Button buttonStyle={styles.googleLogin}title="google plus Login"onPress={ this.signIn}/> */}
               </View>
-              <View style = {styles.socialMediaView}>
+              {/* <View style = {styles.socialMediaView}>
                 <Button buttonStyle={styles.googleLogin}title="google plus logout"onPress={ this.signOut}/>
-              </View>
+              </View> */}
             <View style = {styles.skipView}>
               <Text style={styles.buttonSkip}
                 onPress={() => {
