@@ -82,7 +82,9 @@ export default class ProductDetail extends React.Component {
 
     
     makeRemoteRequest = () => {
-        const { page, seed } = this.state;
+        const { navigation } = this.props;
+        
+        const prod_id = navigation.getParam('product_id' , 'NO-ID')
         const url = `http://littleamore.in/demo/mobileapi/product_details`;
         this.setState({ loading: true });
         fetch(url, {
@@ -91,7 +93,8 @@ export default class ProductDetail extends React.Component {
                         'Content-Type': 'application/x-www-form-urlencoded',
                 }),
                 body: JSON.stringify({
-                product_id: '5',
+                product_id: prod_id,
+                user_id:'2'
                 }),
 
             })
@@ -432,7 +435,7 @@ export default class ProductDetail extends React.Component {
                             ()=> {
                                 this.props.navigation.navigate('SelectAddressScreen', {
                                 user_id: 2,
-                                product_id: 'anything you want here',
+                                product_id: '',
                                 product_com_id: '',
                                 quantity:'',
                               });
