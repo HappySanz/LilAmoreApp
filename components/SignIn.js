@@ -2,10 +2,10 @@ import React from 'react'
 import { Button } from 'react-native-elements'
 import {
     StyleSheet, Text, View, Image,
-    AsyncStorage,TextInput, Keyboard, TouchableOpacity, Platform
+    AsyncStorage,TextInput, Keyboard, TouchableOpacity, Platform, TouchableHighlight
 } from 'react-native'
 
-import eyeImg from './images/eye_black.png';
+import eyeImg from './images/hide_password.png';
 import { Item } from 'native-base';
 
 export default class SignIn extends React.Component {
@@ -38,8 +38,8 @@ export default class SignIn extends React.Component {
           : this.setState({showPass: true, press: false});
     } 
     
-    saveData = ()=> {
-
+    saveData = ()=> 
+    {
         let usernameValue = this.state.username;
         let passwordValue = this.state.password;
         let mob_keyValue = '2';
@@ -94,6 +94,10 @@ export default class SignIn extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <View style={styles.Textcontainer}>
+                <Text style={styles.titleone}>{'Hello'}</Text>
+                <Text style={styles.titleTwo}>{'Welcome Back'}</Text>
+                </View>
                 <View style={styles.txtContainer}>
                     <TextInput
                         style={styles.input}
@@ -124,6 +128,11 @@ export default class SignIn extends React.Component {
                         onChangeText={password => this.setState({password})}
                     />
                 </View>
+                <View style= {styles.forgotpswrdcontainer}>
+                <TouchableHighlight onPress={alert('fp')}>
+                <Text style = {{fontSize: 20,color: 'grey'}}>Forgot Password</Text>
+                </TouchableHighlight>
+                </View>
                 <View style= {styles.container1}>
                     <Button 
                         buttonStyle={styles.buttonSignin}
@@ -135,8 +144,7 @@ export default class SignIn extends React.Component {
                          onPress={() => 
                          this.props.navigation.navigate('SignUpScreen')}>
                         {"Create account"}
-                    </Text>
-                    
+                    </Text>               
                 </View>
             </View>
         )
@@ -148,10 +156,31 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'column',
     },
-    btnEye: {
+    titleone: 
+    {
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: 'black',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        top: 45,
+        right: 140,
+    },
+    titleTwo: 
+    {    
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: 'black',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        top:65,
+        right: 96,
+    },
+    btnEye: 
+    {
         alignSelf: 'flex-end',
         top: 15,
-        right:90,
+        right:70,
     },
     iconEye: {
         width: 25,
@@ -161,6 +190,10 @@ const styles = StyleSheet.create({
     container1: {
         top: 0,
         flex: 1
+    },
+    forgotpswrdcontainer:
+    {
+        left: 30,
     },
     txtContainer: {
         marginTop: 80,
@@ -177,7 +210,7 @@ const styles = StyleSheet.create({
     input: {
         alignSelf: 'center',
         bottom:10,
-        width:220,
+        width:280,
         height: 55,
         paddingHorizontal: 10,
         borderColor: 'lightgrey',
@@ -187,7 +220,7 @@ const styles = StyleSheet.create({
    input1: {
         alignSelf: 'center',
         top: -25,
-        width:220,
+        width:280,
         height: 55,
         paddingHorizontal: 10,
         borderColor: 'lightgrey',
@@ -202,5 +235,5 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 30,
         alignSelf: 'center'
-    }
+    },
 })

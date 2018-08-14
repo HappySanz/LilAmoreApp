@@ -147,8 +147,6 @@ export default class Login extends React.Component {
                 this.props.navigation.navigate('SignUpScreen')}}>{'Signup here'}
               </Text>
             </View>
-           
-              
             <View style = {styles.skipView}>
               <Text style={styles.buttonSkip}
                 onPress={() => {
@@ -157,7 +155,7 @@ export default class Login extends React.Component {
               </Text>
               <View style = {styles.lineStyle} />
             </View>
-            </View>
+            // </View>
         )
     }
 }
