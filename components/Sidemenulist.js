@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
 MainContainer :{
     justifyContent: 'center',
     flex:1,
-    margin: 0,
     marginTop: 20,
     // borderBottomColor: 'black',
     // borderBottomWidth: 1,
