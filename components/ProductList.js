@@ -118,7 +118,7 @@ export default class ProductList extends React.Component {
                         loading: false,
                         refreshing: false
                     });
-                    alert("Product detail not found")
+                    alert("Product list not found")
                     throw new Error('Network response error.')
                 }
             })

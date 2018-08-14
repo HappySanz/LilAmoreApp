@@ -17,7 +17,8 @@ export default class UserProfile extends React.Component {
         super(props);
         this.state = {
         value : null,
-        address_data:[]};    
+        address_data:[],
+        rad_data:[]};    
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -50,7 +51,7 @@ export default class UserProfile extends React.Component {
                         'Content-Type': 'application/x-www-form-urlencoded',
                 }),
                 body: JSON.stringify({
-                user_id: user,
+                user_id: '2',
                 }),
 
             })
@@ -76,24 +77,38 @@ export default class UserProfile extends React.Component {
             this.setState({ error, loading: false });
         });
     };
+    
+    getval(){
+        let tempVal =[];
+        for(let i=0;i<this.state.address_data.length;i++){
+            const lol = ""+this.state.address_data[i].full_name+"\n"+this.state.address_data[i].house_no+
+                        ", "+this.state.address_data[i].street+"\n"+this.state.address_data[i].city+
+                        ""+this.state.address_data[i].state+" - "+this.state.address_data[i].pincode;
+            
+            tempVal.push({ label: lol, value: i});
+        }
+        this.setState({ rad_data: tempVal });
+        alert(this.state.rad_data)
+        return(this.state.rad_data);
+    }
 
     render() {
         
         return (
             <View style={styles.container}>
+
                 <View>
-                <RadioForm
-                    radio_props={radio_props}
-                    initial={0}
-                    formHorizontal={false}
-                    labelHorizontal={true}
-                    animation={false}
-                    
-                    onPress={(value) => {
-                        this.setState({value:value})
-                        alert(value)
-                    }}
-                />
+
+                    <RadioForm
+                        radio_props={radio_props}
+                        initial={0}
+                        formHorizontal={false}
+                        labelHorizontal={true}
+                        buttonColor={'#81c341'}
+                        animation={true}
+                        onPress={(value) => {this.setState({value:value})}}
+                    />
+
                 </View>
             </View>
         )

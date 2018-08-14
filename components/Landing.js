@@ -148,125 +148,181 @@ console.disableYellowBox = true;
       
       return (
           <SideMenu menu={menu} isOpen={this.state.isOpen}
-          onChange={isOpen => this.updateMenuState(isOpen)}>
-          <View style={styles.container}>
-          <Text style={styles.headerTitle}>
+           onChange={isOpen => this.updateMenuState(isOpen)}>
+           
+           <View style={styles.container}>
+
+            <TouchableOpacity
+              onPress={this.toggle}
+              style={styles.button}>
+
+              <Image
+                source={leftImg}
+                style={{ width: 30, height: 30 }}/>
+
+            </TouchableOpacity> 
+
+            <Text style={styles.headerTitle}>
               LilA'more!
             </Text>
-            <View style={styles.swipercontainer}>
-            <Swiper style={styles.wrapper} autoplay = {true} autoplayTimeout = {2.5}>
-            <View style={styles.slide1}>
-            <TouchableHighlight onPress={() => alert('done')}  underlayColor="#ffff">
-            <ImageBackground source={{uri:this.state.ads_data.ad_img}} style={{width: '100%', height: '100%'}}>
-            </ImageBackground>
-            </TouchableHighlight>
+
+            <TouchableOpacity
+              onPress={this.toggle}
+              style={styles.buttonTwo}>
+
+              <Image
+                source={rightImg_Two}
+                style={{ width: 32, height: 32 }}/>
+
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={this.toggle}
+              style={styles.buttonThree}>
+
+              <Image
+                source={rightImg_One}
+                style={{ width: 32, height: 32 }}/>
+
+            </TouchableOpacity> 
+
             </View>
-            </Swiper> 
-            </View>
-            <View style={styles.section1Container}>
-            <Text>Best Seller</Text>
-            </View>
-            <View style={styles.FlatListContainer}>
-            <FlatList
-            horizontal = {true}
-            ItemSeparatorComponent={this.space}
-            showsHorizontalScrollIndicator={false}
-            data={ this.state.newProduct_data }
-            renderItem={({item}) => 
-            <TouchableHighlight onPress={this.bestProuduct.bind(this, item.id
-            )} underlayColor="rgba(0,0,0,0)">
-                <View style={{flex:1, flexDirection: 'column', width: 150, alignItems: 'center',}}>
-                  <Image source = {{ uri: item.product_cover_img }} style={styles.imageView} />
-                  <Text numberOfLines={1} style={styles.textView} >,{item.product_name}
-                  </Text>
-                  <Text>{'Rs.'+ item.prod_actual_price}</Text>
+            <ScrollView style={{flex:1,flexDirection:'column', backgroundColor:'lightgrey'}}>
+
+              <View style={{flex:1,flexDirection:'column'}}>
+
+                
+                <View style={styles.swipercontainer}>
+
+                  <Swiper style={styles.wrapper} autoplay = {true} autoplayTimeout = {2.5}>
+
+                    <View style={styles.slide1}>
+
+                      <TouchableHighlight onPress={() => alert('done')}  underlayColor="#ffff">
+
+                        <ImageBackground source={{uri:this.state.ads_data.ad_img}} style={{width: '100%', height: '100%'}}>
+                      
+                        </ImageBackground>
+                      
+                      </TouchableHighlight>
+                    </View>
+                  </Swiper> 
                 </View>
-            </TouchableHighlight >
-              }
-            keyExtractor={(item, index) => index.toString()}/>
-            </View>
-          </View>
-          <View style={styles.adsConatiner}>
-            <TouchableHighlight onPress={() => alert('Done')} >
-            <ImageBackground source={{uri:this.state.ads_data.ad_img}} style={{width: '100%', height: '100%'}}>
-            </ImageBackground>
-            </TouchableHighlight >
-            </View>
-          <View style={styles.sectionContainer}>
-          <View style={styles.section2Container}>
-            <Text>New Products</Text>
-          </View>
-          <View style={styles.FlatListContainer}>
-            <FlatList
-            horizontal = {true}
-            ItemSeparatorComponent={this.space}
-            showsHorizontalScrollIndicator={false}
-            data={ this.state.popular_data }
-            renderItem={({item}) => 
-            <TouchableHighlight onPress={this.popularProduct.bind(this, item.id )} underlayColor="rgba(0,0,0,0)">
-                <View style={{flex:1, flexDirection: 'column', width: 150, alignItems: 'center',}}>
-                  <Image source = {{ uri: item.product_cover_img }} style={styles.imageView} />
-                  <Text numberOfLines={1} style={styles.textView} >,{item.product_name}
-                  </Text>
-                  <Text>{'Rs.'+ item.prod_actual_price}</Text>
+
+                <View style={styles.section1Container}>
+                  <Text>New Products</Text>
                 </View>
-                </TouchableHighlight>
-              }
-            keyExtractor={(item, index) => index.toString()}  
-            />
-            </View>
-            </View>
-          <TouchableOpacity
-            onPress={this.toggle}
-            style={styles.button}>
-            <Image
-              source={leftImg}
-              style={{ width: 30, height: 30 }}/>
-          </TouchableOpacity> 
-          <TouchableOpacity
-            onPress={this.toggle}
-            style={styles.buttonTwo}>
-            <Image
-              source={rightImg_Two}
-              style={{ width: 32, height: 32 }}/>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.toggle}
-            style={styles.buttonThree}>
-            <Image
-              source={rightImg_One}
-              style={{ width: 32, height: 32 }}/>
-          </TouchableOpacity>  
-          </SideMenu>     
+
+                <View style={styles.FlatListContainer}>
+
+                  <FlatList
+                    horizontal = {true}
+                    ItemSeparatorComponent={this.space}
+                    showsHorizontalScrollIndicator={false}
+                    data={ this.state.newProduct_data }
+                    renderItem={({item}) => 
+                      <TouchableHighlight 
+                      onPress={this.bestProuduct.bind(this, item.id)}
+                      underlayColor="rgba(0,0,0,0)">
+
+                        <View style={{flex:1, flexDirection: 'column', width: 150, alignItems: 'center',}}>
+
+                          <Image source = {{ uri: item.product_cover_img }} style={styles.imageView} />
+
+                          <Text numberOfLines={1} style={styles.textView} >,{item.product_name}
+                          
+                          </Text>
+
+                          <Text>{'Rs.'+ item.prod_actual_price}</Text>
+                        </View>
+
+                      </TouchableHighlight >
+                    }
+                  keyExtractor={(item, index) => index.toString()}/>
+
+                </View>
+
+                <View style={styles.adsConatiner}>
+
+                  <TouchableHighlight onPress={() => alert('Done')} >
+
+                    <ImageBackground source={{uri:this.state.ads_data.ad_img}} style={{width: '100%', height: '100%'}}>
+                    
+                    </ImageBackground>
+                  
+                  </TouchableHighlight >
+                
+                </View>
+                
+                <View style={styles.sectionContainer}>
+                
+                  <View style={styles.section2Container}>
+                  
+                    <Text>Popular Products</Text>
+                  
+                  </View>
+                
+                  <View style={styles.FlatListContainer}>
+                  
+                    <FlatList
+                      horizontal = {true}
+                      ItemSeparatorComponent={this.space}
+                      showsHorizontalScrollIndicator={false}
+                      data={ this.state.popular_data }
+                      renderItem={({item}) => 
+                      
+                        <TouchableHighlight onPress={this.popularProduct.bind(this, item.id )} underlayColor="rgba(0,0,0,0)">
+                          
+                          <View style={{flex:1, flexDirection: 'column', width: 150, alignItems: 'center',}}>
+                            
+                            <Image source = {{ uri: item.product_cover_img }} style={styles.imageView} />
+                            
+                            <Text numberOfLines={1} style={styles.textView} >,{item.product_name}
+                            
+                            </Text>
+                            
+                            <Text>{'Rs.'+ item.prod_actual_price}</Text>
+                          
+                          </View>
+                        
+                        </TouchableHighlight>
+                      }
+                    keyExtractor={(item, index) => index.toString()}/>
+
+                  </View>
+
+                </View>
+                
+              </View>
+
+          </ScrollView>
+           
+        </SideMenu>     
       );
     }
   }
 
   const styles = StyleSheet.create({
     button: {
-      position: 'absolute',
-      top: 20,
-      padding: 10,
-      alignSelf:'flex-start',
+      padding: 10,      
+      justifyContent:'center',
     },
     buttonTwo: {
-      position: 'absolute',
-      top: 20,
       padding: 10,
-      alignSelf:'flex-end',
+      flexDirection:'row',
+      position: 'absolute', right: 0,
+      justifyContent:'flex-end',
     },
     buttonThree:{
-      position: 'absolute',
-      top: -20,
-      padding: 50,
-      alignSelf:'flex-end',
+      padding: 10,      
+      justifyContent:'flex-end',
+      position: 'absolute', right: 40,
+      flexDirection:'row'
     },
     headerTitle:
     {
-      position: 'absolute',
-      top: 35,
-      left: Platform.OS === 'ios' ? 140 : 60 ,
-      alignSelf:'center',
+      left: Platform.OS === 'ios' ? 140 :33,
+      justifyContent:'center',
       color: 'white',
       fontSize: 20,
       fontWeight: '900',
@@ -275,7 +331,6 @@ console.disableYellowBox = true;
     {
       position: 'relative',
       height: 150,
-      top: 75,
     },
     FlatListContainer:
     {
@@ -292,7 +347,6 @@ console.disableYellowBox = true;
       justifyContent: 'center',
       backgroundColor:'#f3f3f3',
       height:36,
-      marginTop: 75,
       padding: 10,
     },
     section2Container:
@@ -304,6 +358,8 @@ console.disableYellowBox = true;
     },
     adsConatiner:
     {
+      marginTop:2,
+      marginBottom:2,
       backgroundColor: '#f3f3f3',
       justifyContent: 'center',
       height: 70,
@@ -330,9 +386,10 @@ console.disableYellowBox = true;
     alignItems: 'center',
     },
     container: {
-      flex: 1,
       backgroundColor: '#81c341',
-      height:200,
+      height:60,
+      alignItems:'center',
+      flexDirection:'row'
     },
     welcome: {
       fontSize: 20,
