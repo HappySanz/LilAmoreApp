@@ -148,10 +148,10 @@ export default class Login extends React.Component {
               {/* <View style = {styles.socialMediaView}>
                 <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this.FBLogin.bind(this)}/>
                 {/* <Button buttonStyle={styles.googleLogin}title="google plus Login"onPress={ this.signIn}/> */}
-              </View>
-              {/* <View style = {styles.socialMediaView}>
+              {/* </View> */}
+               {/* <View style = {styles.socialMediaView}>
                 <Button buttonStyle={styles.googleLogin}title="google plus logout"onPress={ this.signOut}/>
-              </View> */}
+              </View>  */}
             <View style = {styles.skipView}>
               <Text style={styles.buttonSkip}
                 onPress={() => {
@@ -160,7 +160,7 @@ export default class Login extends React.Component {
               </Text>
               <View style = {styles.lineStyle} />
             </View>
-            </View>
+            // </View>
         )
     }
 }
