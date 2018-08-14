@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, BackHandler, Alert, AsyncStorage, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken }from 'react-native-fbsdk'
-// import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import { Scene, Router, Actions } from 'react-native-router-flux';
 
 export default class Login extends React.Component {
@@ -32,36 +31,6 @@ export default class Login extends React.Component {
         }
     }
 
-    signOut = async () => {
-        try {
-        //   await GoogleSignin.revokeAccess();
-        //   await GoogleSignin.signOut();
-          this.setState({ user: null });
-          alert("Logout successful!");
-        } catch (error) {
-          this.setState({
-            error,
-          });
-        }
-      };
-
-    signIn = async () => {
-        try {
-            // const user = await GoogleSignin.signIn();
-            // this.setState({ user });
-            // // alert("Name : "+user.name+"\n givenName : "+user.givenName+"\n familyName : "+user.familyName+"\n email : "+user.email+"\n photo : "+user.photo+"\n id : "+user.id)
-            // alert(user.photo);
-            // this.saveItem('img_url', user.photo);
-            // this.props.navigation.navigate('LandingScreen');
-        } catch (error) {
-            if (error.code === 'CANCELED') {
-            // user cancelled the login flow
-            }
-            else{
-            // some other error happened
-            }
-        }
-    };
     componentDidMount() 
     {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
@@ -80,43 +49,7 @@ export default class Login extends React.Component {
     {
         return true;
     }
-    FBLogin () 
-    {
-        LoginManager.logInWithReadPermissions(['public_profile','email']).then(
-            function(result) {
-              if (result.isCancelled) {
-                alert('Login was cancelled');
-              } else  
-              {              
-                AccessToken.getCurrentAccessToken().then(
-                    (data) => 
-                    {
-                      let accessToken = data.accessToken;
-                       //alert(accessToken.toString());
-                      const infoRequest = new GraphRequest('/me',
-                        {
-                          accessToken: accessToken,parameters: {
-                            fields: {
-                              string: 'email,name,first_name,middle_name,last_name,picture'
-                            }
-                          }
-                        },
-                        (error, result) => 
-                        {
-                        let fbEmail = result.email;
-                        let fbUsername = result.name;
-                        let fbprofPic = result.picture.data.url;  
-                        AsyncStorage.setItem('img_url',fbprofPic);
-                        });
-                         new GraphRequestManager().addRequest(infoRequest).start();
-                    })       
-              }
-            },
-            function(error) {
-              alert('Login failed with error: ' + error);
-            }
-          );
-    }
+    
     render() {
         return (
             <View style={styles.container}>
@@ -251,7 +184,7 @@ const styles = StyleSheet.create({
     },
     singupView:
     {
-        margin:20,
+        margin: 5,
         flexDirection: 'row',
         justifyContent: 'center',
         alignContent: 'space-between'

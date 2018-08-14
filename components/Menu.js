@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {
   Dimensions,
@@ -8,14 +8,16 @@ import {
   Image,
   Text,
   AsyncStorage,
+  FlatList
 } from 'react-native';
 
 import Sidemenulist from './Sidemenulist';
+import { withNavigation } from 'react-navigation';
 
 const window = Dimensions.get('window');
 const uri = this._retrieveData;
 
-export default class Menu extends React.Component {
+ class Menu extends Component {
 
   static navigationOptions = ({ navigation }) => {
 
@@ -26,11 +28,14 @@ export default class Menu extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = 
-    {
-
+    this.state = { FlatListItems: [
+        {key: 'Account Setting'},
+        {key: 'About us'},
+        {key: 'Customer Service'},
+        {key: 'Privacy policy'},
+        {key: 'Contact us'},
+      ]}
     }
-  };
 
   componentDidMount() 
   {
@@ -41,32 +46,46 @@ export default class Menu extends React.Component {
     //   .catch(error => console.log('error!'));
       //alert('yes');
   }   
+
+  FlatListItemSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 30,
+          width: 20,
+        }}
+      />
+    );
+  }
+
+  GetItem (item) {
+   
+    if(item === 'Account Setting')
+    {
+      this.props.navigation.navigate('AccountDetailScreen')
+    }
+    else
+    {
+      alert('error')
+    }
+  }
+
   render() 
   {
     return (
       <ScrollView scrollsToTop={false} style={styles.menu}>
       <View style={styles.avatarContainer}>
-      <Text style={{color: 'black'}}>Categoery</Text>
+      <Text style={{color: 'black', fontWeight: 'bold',fontSize: 16,}}>Categoery</Text>
       </View>
       <View style={styles.sidemenuContainer}>
       < Sidemenulist /> 
       </View>
-      <View style = {styles.statiConatiner}>
-      <Text style = {styles.AcountSetting}>
-        Account Setting
-      </Text>
-      <Text style = {styles.AcountSetting}>
-        About Us
-      </Text>
-      <Text style = {styles.AcountSetting}>
-        Customer Service
-      </Text>
-      <Text style = {styles.AcountSetting}>
-        Privacy Policy
-      </Text>
-      <Text style = {styles.AcountSetting}>
-        Contact Us
-      </Text>
+      <View style = {styles.staticConatiner}>
+      <FlatList
+        data={ this.state.FlatListItems }
+        ItemSeparatorComponent = {this.FlatListItemSeparator}
+        renderItem={({item}) => <Text style={styles.item} onPress={this.GetItem.bind(this, item.key)} > {item.key} </Text>}
+        />
       </View>
       </ScrollView>
     );
@@ -83,33 +102,21 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   avatarContainer: {
-    marginBottom: 20,
-    marginTop: 20,
+    //marginBottom: 20,
+    marginTop: 30,
   },
   sidemenuContainer: 
   {
-    flex: 2,
-    
+    justifyContent: 'center',
+    flex:1,
+    marginBottom: 30,
   },
-  statiConatiner: 
-  {
-    flex: 3,
-  },
-  avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    flex: 1,
-  },
-  name: {
-    position: 'absolute',
-    left: 70,
-    top: 20,
-  },
-  item: {
-    fontSize: 14,
-    fontWeight: '300',
-    paddingTop: 5,
-    color: 'black',
-  },
+  textView: {
+    width:'50%', 
+    textAlignVertical:'center',
+    padding: 1,
+    color: 'black'
+},
 });
+
+ export default withNavigation(Menu);

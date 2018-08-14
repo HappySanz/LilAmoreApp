@@ -2,9 +2,10 @@ import React from 'react'
 import { Button } from 'react-native-elements'
 import {
     StyleSheet, Text, View, Image,
-    AsyncStorage,TextInput, Keyboard, TouchableOpacity, Platform, TouchableHighlight
+    AsyncStorage,TextInput, Keyboard, TouchableOpacity, Platform, TouchableHighlight, ImageBackground
 } from 'react-native'
-
+import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken }from 'react-native-fbsdk'
+import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import eyeImg from './images/hide_password.png';
 import { Item } from 'native-base';
 
@@ -91,6 +92,76 @@ export default class SignIn extends React.Component {
         Keyboard.dismiss();      
     }
 
+    signOut = async () => {
+        try {
+        //   await GoogleSignin.revokeAccess();
+        //   await GoogleSignin.signOut();
+          this.setState({ user: null });
+          alert("Logout successful!");
+        } catch (error) {
+          this.setState({
+            error,
+          });
+        }
+      };
+
+    signIn = async () => {
+        try {
+            // const user = await GoogleSignin.signIn();
+            // this.setState({ user });
+            // // alert("Name : "+user.name+"\n givenName : "+user.givenName+"\n familyName : "+user.familyName+"\n email : "+user.email+"\n photo : "+user.photo+"\n id : "+user.id)
+            // alert(user.photo);
+            // this.saveItem('img_url', user.photo);
+            // this.props.navigation.navigate('LandingScreen');
+        } catch (error) {
+            if (error.code === 'CANCELED') {
+            // user cancelled the login flow
+            }
+            else{
+            // some other error happened
+            }
+        }
+    };
+
+    FBLogin () 
+    {
+        LoginManager.logInWithReadPermissions(['public_profile','email']).then(
+            function(result) {
+              if (result.isCancelled) {
+                alert('Login was cancelled');
+              } else  
+              {              
+                AccessToken.getCurrentAccessToken().then(
+                    (data) => 
+                    {
+                      let accessToken = data.accessToken;
+                       //alert(accessToken.toString());
+                      const infoRequest = new GraphRequest('/me',
+                        {
+                          accessToken: accessToken,parameters: {
+                            fields: {
+                              string: 'email,name,first_name,middle_name,last_name,picture'
+                            }
+                          }
+                        },
+                        (error, result) => 
+                        {
+                        let fbEmail = result.email;
+                        let fbUsername = result.name;
+                        let fbprofPic = result.picture.data.url;  
+                        AsyncStorage.setItem('img_url',fbprofPic);
+                        });
+                         new GraphRequestManager().addRequest(infoRequest).start();
+                    })       
+              }
+            },
+            
+            function(error) {
+              alert('Login failed with error: ' + error);
+            }
+          );
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -127,24 +198,26 @@ export default class SignIn extends React.Component {
                         underlineColorAndroid="transparent"
                         onChangeText={password => this.setState({password})}
                     />
-                </View>
-                    <View style= {styles.forgotpswrdcontainer}>
-                    <Text style={styles.fpText} onPress={alert('done')}>
+                    </View>
+                    <View style= {styles.fpConatiner}>
+                    <Text style={styles.fpText} onPress={() =>{this.props.navigation.navigate('ForgotPasswordScreen')}}>
                     Forgot Password
                     </Text>
                     </View>
-                <View style= {styles.container1}>
+                    <View style= {styles.container1}>
                     <Button 
                         buttonStyle={styles.buttonSignin}
                         title="SIGN IN"
                         onPress={this.saveData}/>
-                    <Text 
-                        style= {styles.title}
-                        // onPress={this.showData}>
-                         onPress={() => 
-                         this.props.navigation.navigate('SignUpScreen')}>
-                        {"Create account"}
-                    </Text>               
+                    <Text style = {{left: 165,margin: 10,top: -150}}> Or </Text>
+                    <View style = {styles.socailmediaConatainer}>
+                    <View style = {styles.facebbokView}>
+                     <Text style = {styles.fbtxt} onPress ={() =>{this.FBLogin()}}>Facebook</Text>
+                    </View> 
+                    <View style = {styles.gmailView}>
+                     <Text style = {styles.gmailtxt} onPress ={() =>{this.signIn()}}> Google +</Text>
+                    </View>   
+                    </View>            
                 </View>
             </View>
         )
@@ -179,8 +252,8 @@ const styles = StyleSheet.create({
     btnEye: 
     {
         alignSelf: 'flex-end',
-        top: 15,
-        right:70,
+        top: 23,
+        right: 65,
     },
     iconEye: {
         width: 25,
@@ -188,17 +261,24 @@ const styles = StyleSheet.create({
         tintColor: 'rgba(0,0,0,0.2)',
     },
     container1: {
-        top: 0,
-        flex: 1
     },
-    forgotpswrdcontainer:
+    fpConatiner: 
     {
-        left: 30,
+      flex: 1,
+      left: 218,
+      top: -31,
+    },
+    fpText:
+    {
+        // flex: 1,
+        // top: -50,
+        // left: 218,
+        color: 'grey'
     },
     txtContainer: {
         marginTop: 80,
         justifyContent: 'center',
-        flex: 1
+        // flex: 1,
     },
     title: {
         color: '#81c341',
@@ -211,29 +291,72 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         bottom:10,
         width:280,
-        height: 55,
+        height: 45,
         paddingHorizontal: 10,
         borderColor: 'lightgrey',
         borderWidth: 1,
-        borderRadius: 5
+        borderRadius: 0,
    },
    input1: {
         alignSelf: 'center',
-        top: -25,
+        top: -15,
         width:280,
-        height: 55,
+        height: 45,
         paddingHorizontal: 10,
         borderColor: 'lightgrey',
         borderWidth: 1,
-        borderRadius: 5
+        borderRadius: 0
 },
    buttonSignin: {
         backgroundColor: "#81c341",
-        width: 270,
+        width: 250,
         height: 45,
         borderColor: "#81c341",
         borderWidth: 0,
         borderRadius: 30,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        top: -150,
     },
+    socailmediaConatainer:
+    {
+       //flex: 1,
+       flexDirection: 'row',
+       alignItems: 'center',
+       justifyContent:'space-between',
+       paddingHorizontal: 60,
+       top: -160,
+       
+    },
+    facebbokView: 
+    {
+        backgroundColor: '#3B5998',
+        width: 120,
+        height: 40,
+        borderRadius: 30,
+    },
+    fbtxt: 
+    {
+        //flex: 1,
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 14,
+        top: 12,
+        alignSelf: 'center',
+    },
+    gmailView: 
+    {
+        backgroundColor: '#d34836',
+        width: 120,
+        height: 40,
+        borderRadius: 30,
+    },
+    gmailtxt: 
+    {
+       // flex: 1,
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 14,
+        top: 12,
+        alignSelf: 'center',
+    }
 })
