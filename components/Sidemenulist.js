@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, Platform, View, ActivityIndicator, FlatList, Text, Image, Alert, YellowBox } from 'react-native';
 // import { StyleSheet, Text, View, Button, TouchableOpacity, YellowBox, Platform, TouchableHighlight, Image, FlatList, ScrollView, AsyncStorage} from 'react-native'
-import { StackNavigator } from  'react-navigation';
-import { DrawerNavigator } from 'react-navigation';
-import { Scene, Router, Actions } from 'react-native-router-flux';
+import { withNavigation } from 'react-navigation';
  
-export default class Sidemenulist extends Component {
+class Sidemenulist extends Component {
  
  constructor(props) {
    super(props);
@@ -19,12 +17,12 @@ export default class Sidemenulist extends Component {
  }
  
 GetItem (category, subCategory) {
-  
-    // this.props.navigation.navigate('ProductListScreen', {
-    //     category_id : category,
-    //     sub_category : subCategory
-    //   });
-    alert(""+category+""+subCategory)
+    
+    this.props.navigation.navigate('ProductListScreen', {
+        category_id : category,
+        sub_category : subCategory
+      });
+    // alert(""+category+""+subCategory)
  
  }
  
@@ -104,3 +102,5 @@ textView: {
     color: '#000'
 }
 });
+
+export default withNavigation(Sidemenulist);
