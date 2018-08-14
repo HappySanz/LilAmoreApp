@@ -134,7 +134,10 @@ export default class Login extends React.Component {
                 </View>
               </View>
             <View style = {styles.signinView}>
-              <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => this.props.navigation.navigate('SigninScreen')}/>
+                <Button 
+                    buttonStyle={styles.buttonSignin}
+                    title="SIGN IN"
+                    onPress={() => this.props.navigation.navigate('SigninScreen')}/>
               {/* <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => Actions.signin()}/> */}
             </View>
             <View style = {styles.singupView}>
@@ -249,6 +252,7 @@ const styles = StyleSheet.create({
     },
     singupView:
     {
+        margin:20,
         flexDirection: 'row',
         justifyContent: 'center',
         alignContent: 'space-between'

@@ -156,7 +156,7 @@ console.disableYellowBox = true;
             <View style={styles.swipercontainer}>
             <Swiper style={styles.wrapper} autoplay = {true} autoplayTimeout = {2.5}>
             <View style={styles.slide1}>
-            <TouchableHighlight onPress={() => alert('done')}  underlayColor="###fff">
+            <TouchableHighlight onPress={() => alert('done')}  underlayColor="#ffff">
             <ImageBackground source={{uri:this.state.ads_data.ad_img}} style={{width: '100%', height: '100%'}}>
             </ImageBackground>
             </TouchableHighlight>
@@ -294,7 +294,6 @@ console.disableYellowBox = true;
       height:36,
       marginTop: 75,
       padding: 10,
-      fontSize : 6,
     },
     section2Container:
     {

@@ -18,9 +18,13 @@ export default class Sidemenulist extends Component {
   ]);
  }
  
-GetItem (flower_name) {
+GetItem (category, subCategory) {
   
- Alert.alert(flower_name);
+    // this.props.navigation.navigate('ProductListScreen', {
+    //     category_id : category,
+    //     sub_category : subCategory
+    //   });
+    alert(""+category+""+subCategory)
  
  }
  
@@ -73,7 +77,7 @@ render() {
             ItemSeparatorComponent = {this.FlatListItemSeparator}
             renderItem={({item}) => 
             <View style={{flex:1, flexDirection: 'row'}}>
-            <Text onPress={this.GetItem.bind(this, item.flower_name)} style={styles.textView} >{item.category_name}</Text>
+            <Text onPress={()=>{this.GetItem(item.id,item.parent_id)}} style={styles.textView} >{item.category_name}</Text>
             </View>
             }
             keyExtractor={(item, index) => index.toString()}
