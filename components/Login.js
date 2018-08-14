@@ -151,6 +151,7 @@ export default class Login extends React.Component {
               <Text style={styles.buttonSkip}
                 onPress={() => {
                 this.saveItem('id_token','1')
+                AsyncStorage.setItem("user_id",'0');
                 this.props.navigation.navigate('LandingScreen')}}>{'Skip Login'}
               </Text>
               <View style = {styles.lineStyle} />

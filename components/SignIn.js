@@ -128,11 +128,11 @@ export default class SignIn extends React.Component {
                         onChangeText={password => this.setState({password})}
                     />
                 </View>
-                <View style= {styles.forgotpswrdcontainer}>
-                <Text style={styles.fpText} onPress={alert('done')}>
-                Forgot Password
-                </Text>
-                </View>
+                    <View style= {styles.forgotpswrdcontainer}>
+                    <Text style={styles.fpText} onPress={alert('done')}>
+                    Forgot Password
+                    </Text>
+                    </View>
                 <View style= {styles.container1}>
                     <Button 
                         buttonStyle={styles.buttonSignin}
