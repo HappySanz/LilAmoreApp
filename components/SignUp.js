@@ -10,10 +10,13 @@ import eyeImg from './images/eye_black.png';
 export default class SignIn extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
-        return {
-            header: () => null
-          }
-        };
+        let headerTitle = 'Sign Up';
+        let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
+        let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
+        alignSelf: 'center' };
+        let headerTintColor = 'white';
+        return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
+    };
         constructor(props) {
             super(props);
             this.state = {
@@ -179,7 +182,7 @@ const styles = StyleSheet.create({
         tintColor: 'rgba(0,0,0,0.2)',
     },
     container1: {
-        top: 0,
+        top: 20,
         flex: 1
     },
     txtContainer: {

@@ -134,7 +134,10 @@ export default class Login extends React.Component {
                 </View>
               </View>
             <View style = {styles.signinView}>
-              <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => this.props.navigation.navigate('SigninScreen')}/>
+                <Button 
+                    buttonStyle={styles.buttonSignin}
+                    title="SIGN IN"
+                    onPress={() => this.props.navigation.navigate('SigninScreen')}/>
               {/* <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => Actions.signin()}/> */}
             </View>
             <View style = {styles.singupView}>
@@ -144,14 +147,6 @@ export default class Login extends React.Component {
                 this.props.navigation.navigate('SignUpScreen')}}>{'Signup here'}
               </Text>
             </View>
-           
-              {/* <View style = {styles.socialMediaView}>
-                <Button buttonStyle={styles.buttonFbLogin}title="Facebook Login"onPress={ this.FBLogin.bind(this)}/>
-                {/* <Button buttonStyle={styles.googleLogin}title="google plus Login"onPress={ this.signIn}/> */}
-              {/* </View> */}
-               {/* <View style = {styles.socialMediaView}>
-                <Button buttonStyle={styles.googleLogin}title="google plus logout"onPress={ this.signOut}/>
-              </View>  */}
             <View style = {styles.skipView}>
               <Text style={styles.buttonSkip}
                 onPress={() => {
@@ -255,6 +250,7 @@ const styles = StyleSheet.create({
     },
     singupView:
     {
+        margin:20,
         flexDirection: 'row',
         justifyContent: 'center',
         alignContent: 'space-between'

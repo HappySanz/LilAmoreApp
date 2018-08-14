@@ -11,9 +11,12 @@ import { Item } from 'native-base';
 export default class SignIn extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
+        let headerTitle = 'Sign In';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
+        let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
+        alignSelf: 'center' };
         let headerTintColor = 'white';
-        return {headerStyle,headerTintColor};
+        return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
     };
 
     constructor(props) {
