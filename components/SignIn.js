@@ -129,9 +129,9 @@ export default class SignIn extends React.Component {
                     />
                 </View>
                 <View style= {styles.forgotpswrdcontainer}>
-                <TouchableHighlight onPress={alert('fp')}>
-                <Text style = {{fontSize: 20,color: 'grey'}}>Forgot Password</Text>
-                </TouchableHighlight>
+                <Text style={styles.fpText} onPress={alert('done')}>
+                Forgot Password
+                </Text>
                 </View>
                 <View style= {styles.container1}>
                     <Button 
