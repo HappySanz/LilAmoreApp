@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     },
     singupView:
     {
-        margin: 5,
+        margin: 10,
         flexDirection: 'row',
         justifyContent: 'center',
         alignContent: 'space-between'
