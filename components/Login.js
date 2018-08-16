@@ -83,8 +83,8 @@ export default class Login extends React.Component {
             <View style = {styles.skipView}>
               <Text style={styles.buttonSkip}
                 onPress={() => {
-                this.saveItem('id_token','1')
                 AsyncStorage.setItem("user_id",'0');
+                AsyncStorage.setItem("userid_token_id",'1');
                 this.props.navigation.navigate('LandingScreen')}}>{'Skip Login'}
               </Text>
               <View style = {styles.lineStyle} />
