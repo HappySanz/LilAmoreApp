@@ -21,6 +21,7 @@ import ChangeAddress from './components/ChangeAddress';
 import ProductDetail from './components/ProductDetail';
 import SelectAddress from './components/SelectAddress';
 import ProductList from './components/ProductList';
+import Userdetails from './components/Userdetails';
 
 
 
@@ -43,6 +44,8 @@ const AppNavigator = createStackNavigator(
     ProductDetailScreen : ProductDetail,
     SelectAddressScreen : SelectAddress,
     ProductListScreen : ProductList,
+    UserdetailScreen : Userdetails,
+
   },
   {
     initialRouteName: 'SplashScreen',
@@ -69,6 +72,7 @@ const AppNavigator1 = createStackNavigator(
     ProductDetailScreen : ProductDetail,
     SelectAddressScreen : SelectAddress,
     ProductListScreen : ProductList,
+    UserdetailScreen : Userdetails,
 
   },
   {

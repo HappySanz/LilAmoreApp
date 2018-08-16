@@ -89,7 +89,23 @@ export default class Login extends React.Component {
                 </Text>
                 <View style = {styles.lineStyle} />
             </View>
-        </View>
+            <View style = {styles.singupView}>
+            <Text>You don't have any account?</Text>
+            <Text style={{fontWeight: 'bold' }}
+                onPress={() => {
+                this.props.navigation.navigate('SignUpScreen')}}>{'Signup here'}
+              </Text>
+            </View>
+            <View style = {styles.skipView}>
+              <Text style={styles.buttonSkip}
+                onPress={() => {
+                AsyncStorage.setItem("user_id",'0');
+                AsyncStorage.setItem("userid_token_id",'1');
+                this.props.navigation.navigate('LandingScreen')}}>{'Skip Login'}
+              </Text>
+              <View style = {styles.lineStyle} />
+            </View>
+            // </View>
         )
     }
 }

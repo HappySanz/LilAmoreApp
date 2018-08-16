@@ -5,7 +5,7 @@ import {
     AsyncStorage,TextInput, Keyboard, TouchableOpacity, Platform, TouchableHighlight, ImageBackground
 } from 'react-native'
 import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken }from 'react-native-fbsdk'
-// import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
+//import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import eyeImg from './images/hide_password.png';
 import { Item } from 'native-base';
 
@@ -25,8 +25,8 @@ export default class SignIn extends React.Component {
         this.state = {
           showPass: true,
           press: false,
-          username : 'teaeast@mailinator.com',
-          password : 'admin',
+          username : '',
+          password : '',
           statusVar  : '',
           user_id  : '',
             };
