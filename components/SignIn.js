@@ -18,7 +18,8 @@ export default class SignIn extends React.Component {
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
         alignSelf: 'center' };
         let headerTintColor = 'white';
-        return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
+        let headerBackTitle = ' '
+        return { headerTitle, headerStyle, headerTitleStyle, headerTintColor,headerBackTitle};
     };
 
     constructor(props) {
@@ -28,7 +29,7 @@ export default class SignIn extends React.Component {
           press: false,
           username : '',
           password : '',
-          statusVar  : '',
+          statusVar: '',
           user_id  : '',
             };
         this.showPass = this.showPass.bind(this);
@@ -79,7 +80,7 @@ export default class SignIn extends React.Component {
                 statusVar:res.status,
                 user_id:res.userData.customer_id
                 });
-                if(this.state.statusVar === 'Success')
+                if(this.state.statusVar === 'success')
                 {   
                  AsyncStorage.setItem("user_id",this.state.user_id);
                  AsyncStorage.setItem('id_token','1');
@@ -162,6 +163,10 @@ export default class SignIn extends React.Component {
               alert('Login failed with error: ' + error);
             }
           );
+    }
+    navFpScreen () {
+       
+        this.props.navigation.navigate('ForgotPasswordScreen')
     }
 
     renderImage() {
@@ -301,7 +306,7 @@ const styles = StyleSheet.create({
         color: 'grey'
     },
     txtContainer: {
-        marginTop: 80,
+        marginTop: 120,
         justifyContent: 'center',
         flexDirection:'column'
         // flex: 1,

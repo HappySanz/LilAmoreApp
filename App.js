@@ -22,8 +22,8 @@ import ProductDetail from './components/ProductDetail';
 import SelectAddress from './components/SelectAddress';
 import ProductList from './components/ProductList';
 import Userdetails from './components/Userdetails';
-
-
+import Otp from './components/Otp';
+import Changepasword from './components/Changepasword';
 
 const AppNavigator = createStackNavigator(
   {
@@ -45,6 +45,8 @@ const AppNavigator = createStackNavigator(
     SelectAddressScreen : SelectAddress,
     ProductListScreen : ProductList,
     UserdetailScreen : Userdetails,
+    OtpScreen : Otp,
+    ChangepaswordScreen : Changepasword,
 
   },
   {
@@ -73,6 +75,8 @@ const AppNavigator1 = createStackNavigator(
     SelectAddressScreen : SelectAddress,
     ProductListScreen : ProductList,
     UserdetailScreen : Userdetails,
+    OtpScreen : Otp,
+    ChangepaswordScreen : Changepasword,
 
   },
   {
