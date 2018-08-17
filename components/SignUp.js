@@ -5,7 +5,8 @@ import {
     AsyncStorage,TextInput, Keyboard, TouchableOpacity, Platform, Alert
 } from 'react-native'
 
-import eyeImg from './images/eye_black.png';
+import eyeImgHide from './images/hide_password.png';
+import eyeImgShow from './images/show_password.png';
 
 export default class SignIn extends React.Component {
 
@@ -17,24 +18,34 @@ export default class SignIn extends React.Component {
         let headerTintColor = 'white';
         return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
     };
-        constructor(props) {
-            super(props);
-            this.state = {
-            showPass: true,
-            press: false,
-            nameField : '',
-            mobileNumberField : '',
-            emailField : '',
-            passwordField : ''
-            };
-            this.showPass = this.showPass.bind(this);
-        }
+    constructor(props) {
+        super(props);
+        this.state = {
+        showPass: true,
+        press: false,
+        nameField : '',
+        mobileNumberField : '',
+        emailField : '',
+        passwordField : ''
+        };
+        this.showPass = this.showPass.bind(this);
+    }
 
-        showPass() {
-            this.state.press === false
-              ? this.setState({showPass: false, press: true})
-              : this.setState({showPass: true, press: false});
-        } 
+    showPass() {
+        this.state.press === false
+            ? this.setState({showPass: false, press: true})
+            : this.setState({showPass: true, press: false});
+    } 
+
+    renderImage() {
+        var imgSource = this.state.press? eyeImgShow : eyeImgHide;
+        return (
+            <Image
+            style={ styles.iconEye }
+            source={ imgSource }
+            />
+        );
+    }
     
     saveData = ()=> 
     {
@@ -98,58 +109,78 @@ export default class SignIn extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.txtContainer}>
-                    <TextInput
-                        style={styles.nametextField}
-                        placeholder="Name"
-                        autoCapitalize={'none'}
-                        returnKeyType={'done'}
-                        autoCorrect={false}
-                        placeholderTextColor="lightgrey"
-                        underlineColorAndroid="transparent"
-                        onChangeText={nameField => this.setState({nameField})}
+                <View >
+                        <TextInput
+                        style={{marginTop:15,marginLeft:60,marginRight:60,borderColor:'lightgrey',
+                        borderWidth:1,}}
+                            placeholder="Name"
+                            autoCapitalize={'none'}
+                            returnKeyType={'done'}
+                            autoCorrect={false}
+                            placeholderTextColor="lightgrey"
+                            underlineColorAndroid="transparent"
+                            onChangeText={nameField => this.setState({nameField})}
                         value = {this.state.nameField}
-                    />
-                    <TextInput
-                        style={styles.mobileNumbertextField}
-                        placeholder="Mobile Number"
-                        autoCapitalize={'none'}
-                        returnKeyType={'done'}
-                        autoCorrect={false}
-                        placeholderTextColor="lightgrey"
-                        underlineColorAndroid="transparent"
-                        onChangeText={mobileNumberField => this.setState({mobileNumberField})}
+                        />
+                    </View>
+                    <View >
+                        <TextInput
+                        style={{marginTop:15,marginLeft:60,marginRight:60,borderColor:'lightgrey',
+                        borderWidth:1,}}
+                            placeholder="Mobile Number"
+                            autoCapitalize={'none'}
+                            returnKeyType={'done'}
+                            autoCorrect={false}
+                            placeholderTextColor="lightgrey"
+                            underlineColorAndroid="transparent"
+                            onChangeText={mobileNumberField => this.setState({mobileNumberField})}
                         value = {this.state.mobileNumberField}
-                    />
-                    <TextInput
-                        style={styles.emailtextField}
-                        placeholder="Email"
-                        autoCapitalize={'none'}
-                        returnKeyType={'done'}
-                        autoCorrect={false}
-                        placeholderTextColor="lightgrey"
-                        underlineColorAndroid="transparent"
-                        onChangeText={emailField => this.setState({emailField})}
+                        />
+                        
+                    </View>
+                    <View >
+                        <TextInput
+                        style={{marginTop:15,marginLeft:60,marginRight:60,borderColor:'lightgrey',
+                        borderWidth:1,}}
+                            placeholder="Email"
+                            autoCapitalize={'none'}
+                            returnKeyType={'done'}
+                            autoCorrect={false}
+                            placeholderTextColor="lightgrey"
+                            underlineColorAndroid="transparent"
+                            onChangeText={emailField => this.setState({emailField})}
                         value = {this.state.emailField}
-                    />
-                    <TouchableOpacity
-                        activeOpacity={0.7}
-                        style={styles.btnEye}
-                        onPress={this.showPass}>
-                        <Image 
-                            source={eyeImg} style={styles.iconEye} />
-                    </TouchableOpacity>
+                        />
+                        
+                    </View>
+                    
+                    <View >
                     <TextInput
-                        style={styles.passwordtextField}
-                        secureTextEntry={this.state.showPass}
-                        placeholder="Password"
-                        returnKeyType={'done'}
-                        autoCapitalize={'none'}
-                        autoCorrect={false}
-                        placeholderTextColor="lightgrey"
-                        underlineColorAndroid="transparent"
-                        onChangeText={passwordField => this.setState({passwordField})}
-                        value = {this.state.passwordField}
-                    />
+                        style={{marginLeft:60,marginRight:60,borderColor:'lightgrey',
+                        borderWidth:1,marginTop:15,}}
+                            placeholder="Password"
+                            autoCapitalize={'none'}
+                            returnKeyType={'done'}
+                            autoCorrect={false}
+                            placeholderTextColor="lightgrey"
+                            underlineColorAndroid="transparent"
+                            onChangeText={passwordField => this.setState({passwordField})}
+                            value = {this.state.passwordField}
+                        />
+                        
+                        
+                        <TouchableOpacity
+                            style = {{padding: 10,marginTop:18,
+                                flexDirection:'row',
+                                position: 'absolute', right: 60,
+                                justifyContent:'flex-end',}}
+                            activeOpacity={0.7}
+                            onPress={() =>{this.showPass()}}>
+                            {
+                            this.renderImage()}
+                        </TouchableOpacity>
+                    </View>
+                    
                 </View>
                 <View style= {styles.container1}>
                     <Button 
@@ -183,11 +214,11 @@ const styles = StyleSheet.create({
         tintColor: 'rgba(0,0,0,0.2)',
     },
     container1: {
-        top: 20,
+        top: 40,
         flex: 1
     },
     txtContainer: {
-        marginTop: 100,
+        marginTop: 80,
         justifyContent: 'center',
         flex: 1
     },
@@ -232,7 +263,6 @@ const styles = StyleSheet.create({
 },
     passwordtextField: {
         alignSelf: 'center',
-        top: -25,
         width:220,
         height: 55,
         paddingHorizontal: 10,

@@ -57,12 +57,13 @@ export default class UserProfile extends React.Component {
             })
             .then(res => res.json())
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 if(res.status==='success'){
                     this.setState({
                         address_data : res.address_list
                     }); 
-                    console.log(this.state.address_data)
+                    this.getvalaaa();
+                    // console.log(this.state.address_data)
                 } else {
                     this.setState({
                         error: res.status,
@@ -78,18 +79,23 @@ export default class UserProfile extends React.Component {
         });
     };
     
-    getval(){
+    getvalaaa(){
         let tempVal =[];
         for(let i=0;i<this.state.address_data.length;i++){
-            const lol = ""+this.state.address_data[i].full_name+"\n"+this.state.address_data[i].house_no+
+            let lol = (""+this.state.address_data[i].full_name+"\n"+this.state.address_data[i].house_no+
                         ", "+this.state.address_data[i].street+"\n"+this.state.address_data[i].city+
-                        ""+this.state.address_data[i].state+" - "+this.state.address_data[i].pincode;
+                        ""+this.state.address_data[i].state+" - "+this.state.address_data[i].pincode);
             
             tempVal.push({ label: lol, value: i});
+            
+            
         }
+        // console.log(tempVal)
         this.setState({ rad_data: tempVal });
-        alert(this.state.rad_data)
-        return(this.state.rad_data);
+        // alert(this.state.rad_data)
+        console.log(this.state.rad_data)
+
+        // return(this.state.rad_data);
     }
 
     render() {
@@ -100,14 +106,18 @@ export default class UserProfile extends React.Component {
                 <View>
 
                     <RadioForm
-                        radio_props={radio_props}
+                        radio_props={this.state.rad_data}
                         initial={0}
                         formHorizontal={false}
                         labelHorizontal={true}
                         buttonColor={'#81c341'}
+                        buttonInnerColor={'#81c341'}
+                        buttonOuterColor={'#81c341'}
+                        buttonSize={15}
                         animation={true}
                         onPress={(value) => {this.setState({value:value})}}
                     />
+                    
 
                 </View>
             </View>

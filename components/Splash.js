@@ -17,8 +17,16 @@ export default class Splash extends React.Component {
 }
 
     componentDidMount() {
-      setTimeout(() => {
-          this.props.navigation.navigate('WelcomeScreen')}, 3000);
+        const { navigation } = this.props;
+        const user = navigation.getParam('old_user' , 'NO-ID')
+        if (user){
+            setTimeout(() => {
+                this.props.navigation.navigate('LoginScreen')}, 3000);
+        } else {
+            setTimeout(() => {
+                this.props.navigation.navigate('WelcomeScreen')}, 3000);
+        }
+      
     }
 
     render() {

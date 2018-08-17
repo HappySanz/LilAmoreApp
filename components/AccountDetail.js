@@ -11,6 +11,7 @@ export default class AccountDetail extends React.Component {
         email: '',
         username: '',
         userImage: '',
+        user
         };  
       }
 
@@ -24,10 +25,16 @@ export default class AccountDetail extends React.Component {
     };
     componentDidMount ()
     {
+        AsyncStorage.getItem("user_id").then((value) => {
+            this.setState({
+                user : value
+            });
+          })
         this.fetchapicall ();
     }
     fetchapicall ()
     {
+        
         let apicall = global.baseurl + "get_profile_details"
         fetch(apicall, {
         method: 'POST',
@@ -35,7 +42,7 @@ export default class AccountDetail extends React.Component {
         'Content-Type': 'application/x-www-form-urlencoded',
         }),
         body: JSON.stringify ({
-            username: '0',
+            user_id: this.state.user,
         }),
         })
         .then(res => res.json())
@@ -59,9 +66,11 @@ export default class AccountDetail extends React.Component {
 
     logout() 
     {
-        AsyncStorage.setItem("user_id",'0');
-        AsyncStorage.setItem("userid_token_id",'1');
-        this.props.navigation.navigate('LoginScreen')
+        AsyncStorage.setItem("user_id",null);
+        AsyncStorage.setItem("userid_token_id",null);
+        this.props.navigation.navigate('SplashScreen',{
+            old_user :'1'
+        })
     }
 
     render() {

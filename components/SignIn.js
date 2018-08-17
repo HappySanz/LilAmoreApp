@@ -6,7 +6,8 @@ import {
 } from 'react-native'
 import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken }from 'react-native-fbsdk'
 //import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
-import eyeImg from './images/hide_password.png';
+import eyeImgHide from './images/hide_password.png';
+import eyeImgShow from './images/show_password.png';
 import { Item } from 'native-base';
 
 export default class SignIn extends React.Component {
@@ -34,10 +35,10 @@ export default class SignIn extends React.Component {
     }
 
     showPass() {
-        this.state.press === false
-          ? this.setState({showPass: false, press: true})
-          : this.setState({showPass: true, press: false});
+        this.state.press === false? 
+            this.setState({showPass: false, press: true}) : this.setState({showPass: true, press: false});
     } 
+    
     
     saveData = ()=> 
     {
@@ -163,61 +164,89 @@ export default class SignIn extends React.Component {
           );
     }
 
+    renderImage() {
+        var imgSource = this.state.press? eyeImgShow : eyeImgHide;
+        return (
+          <Image
+            style={ styles.iconEye }
+            source={ imgSource }
+          />
+        );
+    }
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.Textcontainer}>
-                <Text style={styles.titleone}>{'Hello'}</Text>
-                <Text style={styles.titleTwo}>{'Welcome Back'}</Text>
+                <View style={{flexDirection:'column'}}>
+
+                    <Text style={styles.titleone}>{'Hello'}</Text>
+
+                    <Text style={styles.titleTwo}>{'Welcome Back'}</Text>
+
                 </View>
                 <View style={styles.txtContainer}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Username"
-                        autoCapitalize={'none'}
-                        returnKeyType={'done'}
-                        autoCorrect={false}
-                        placeholderTextColor="lightgrey"
-                        underlineColorAndroid="transparent"
-                        onChangeText={username => this.setState({username})}
-                    />
-                    <TouchableOpacity
-                        activeOpacity={0.7}
-                        style={styles.btnEye}
-                        onPress={this.showPass}>
-                        <Image 
-                            source={eyeImg} style={styles.iconEye} />
-                    </TouchableOpacity>
-                    <TextInput
-                        style={styles.input1}
-                        secureTextEntry={this.state.showPass}
-                        placeholder="Password"
-                        returnKeyType={'done'}
-                        autoCapitalize={'none'}
-                        autoCorrect={false}
-                        placeholderTextColor="lightgrey"
-                        underlineColorAndroid="transparent"
-                        onChangeText={password => this.setState({password})}
-                    />
+                    <View >
+                        <TextInput
+                        style={{marginLeft:60,marginRight:60,borderColor:'lightgrey',
+                        borderWidth:1,}}
+                            placeholder="Username"
+                            autoCapitalize={'none'}
+                            returnKeyType={'done'}
+                            autoCorrect={false}
+                            placeholderTextColor="lightgrey"
+                            underlineColorAndroid="transparent"
+                            onChangeText={username => this.setState({username})}
+                        />
                     </View>
-                    <View style= {styles.fpConatiner}>
-                    <Text style={styles.fpText} onPress={() =>{this.props.navigation.navigate('ForgotPasswordScreen')}}>
-                    Forgot Password
+
+                    <View >
+                        
+                        <TextInput
+                        style={{marginTop:20,marginLeft:60,marginRight:60,borderColor:'lightgrey',
+                        borderWidth:1,}}
+                            secureTextEntry={this.state.showPass}
+                            placeholder="Password"
+                            returnKeyType={'done'}
+                            autoCapitalize={'none'}
+                            autoCorrect={false}
+                            placeholderTextColor="lightgrey"
+                            underlineColorAndroid="transparent"
+                            onChangeText={password => this.setState({password})}
+                        />
+                        <TouchableOpacity
+                            style = {{padding: 10,marginTop:20,
+                                flexDirection:'row',
+                                position: 'absolute', right: 60,
+                                justifyContent:'flex-end',}}
+                            activeOpacity={0.7}
+                            onPress={() =>{this.showPass()}}>
+                            {
+                            this.renderImage()}
+                        </TouchableOpacity>
+                    </View>
+                    
+                    
+                </View>
+                <View style= {styles.fpConatiner}>
+                    <Text style={{padding: 10,
+                                flexDirection:'row',
+                                position: 'absolute', right: 60,
+                                justifyContent:'flex-end',color:'black'}} onPress={() =>{this.props.navigation.navigate('ForgotPasswordScreen')}}>
+                        Forgot Password
                     </Text>
-                    </View>
-                    <View style= {styles.container1}>
+                </View>
+                <View style= {styles.container1}>
                     <Button 
                         buttonStyle={styles.buttonSignin}
                         title="SIGN IN"
                         onPress={this.saveData}/>
-                    <Text style = {{left: 165,margin: 10,top: -150}}> Or </Text>
+                    <Text style = {{left: 165,margin: 10,}}> Or </Text>
                     <View style = {styles.socailmediaConatainer}>
-                    <View style = {styles.facebbokView}>
-                     <Text style = {styles.fbtxt} onPress ={() =>{this.FBLogin()}}>Facebook</Text>
-                    </View> 
-                    <View style = {styles.gmailView}>
-                     <Text style = {styles.gmailtxt} onPress ={() =>{this.signIn()}}> Google +</Text>
-                    </View>   
+                        <View style = {styles.facebbokView}>
+                            <Text style = {styles.fbtxt} onPress ={() =>{this.FBLogin()}}>Facebook</Text>
+                        </View>
+                        <View style = {styles.gmailView}>
+                            <Text style = {styles.gmailtxt} onPress ={() =>{this.signIn()}}> Google +</Text>
+                        </View> 
                     </View>            
                 </View>
             </View>
@@ -235,39 +264,34 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         color: 'black',
-        justifyContent: 'center',
-        alignSelf: 'center',
         top: 45,
-        right: 140,
+        left: 45,
     },
     titleTwo: 
     {    
         fontWeight: 'bold',
         fontSize: 20,
         color: 'black',
-        justifyContent: 'center',
-        alignSelf: 'center',
-        top:65,
-        right: 96,
+        top: 45,
+        left: 45,
     },
     btnEye: 
     {
-        alignSelf: 'flex-end',
-        top: 23,
-        right: 65,
+        alignItems:'flex-end',
+        justifyContent:'center',
+        right: 50,
     },
     iconEye: {
         width: 25,
-        height: 25,
         tintColor: 'rgba(0,0,0,0.2)',
+        height: 25,
     },
     container1: {
+        marginTop:50
     },
     fpConatiner: 
     {
-      flex: 1,
-      left: 218,
-      top: -31,
+      
     },
     fpText:
     {
@@ -279,7 +303,25 @@ const styles = StyleSheet.create({
     txtContainer: {
         marginTop: 80,
         justifyContent: 'center',
+        flexDirection:'column'
         // flex: 1,
+    },
+    txtInputBorder:{
+        flexDirection:'row', 
+        borderColor:'lightgrey',
+        borderWidth:1,
+        marginLeft:20,
+        marginRight:20,
+        marginTop:10
+    },
+    txtInputBorderPassword:{
+        flexDirection:'row', 
+        borderColor:'lightgrey',
+        borderWidth:1,
+        marginLeft:20,
+        marginRight:20,
+        marginTop:10,
+        
     },
     title: {
         color: '#81c341',
@@ -316,16 +358,13 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 30,
         alignSelf: 'center',
-        top: -150,
     },
     socailmediaConatainer:
     {
        //flex: 1,
        flexDirection: 'row',
        alignItems: 'center',
-       justifyContent:'space-between',
-       paddingHorizontal: 60,
-       top: -160,
+       justifyContent:'space-evenly',
        
     },
     facebbokView: 

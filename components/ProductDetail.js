@@ -68,7 +68,9 @@ export default class ProductDetail extends React.Component {
             wishlist: false,
             error: null,
             message: null,
-            select_size:'',
+            sizes_available:false,
+            colors_available:false,
+            size_selected:false,
             select_color:false,
             qty_value: '', 
             color_data: [],
@@ -110,19 +112,20 @@ export default class ProductDetail extends React.Component {
                         this.setState({
                             prod_data: res.product_details.product_details,
                         });
-                        console.log(this.state.prod_data)
+                        // console.log(this.state.prod_data)
                     }
                     if(res.product_specification.status === 'success'){
                         this.setState({
                             spec_data: res.product_specification.spec_prod,
                         });
-                        console.log(this.state.spec_data)
+                        // console.log(this.state.spec_data)
                     }
                     if(res.comb_product.status === 'success'){
                         this.setState({
+                            sizes_available: true,
                             size_data: res.comb_product.comb_product_list
                         });
-                        console.log(this.state.size_data)
+                        // console.log(this.state.size_data)
                     }                    
                 } else {
                     this.setState({
@@ -156,7 +159,7 @@ export default class ProductDetail extends React.Component {
             })
             .then(res => res.json())
             .then(res => {
-            console.log(res)
+            // console.log(res)
             if(res.status==='success'){
                 
             }
@@ -184,39 +187,9 @@ export default class ProductDetail extends React.Component {
             })
             .then(res => res.json())
             .then(res => {
-            console.log(res)
+            // console.log(res)
             if(res.status==='success'){
                 alert("Product moved to wishlist successfully");
-            }
-            throw new Error('Network response error.')
-            })
-            .catch(error => {
-            this.setState({ error, loading: false });
-            });
-    };
-
-    moveToCart = (prd_id,comb_id,quanty) => {
-       
-        const url = `http://littleamore.in/demo/mobileapi/product_cart`;
-        this.setState({ loading: true });
-        fetch(url, {
-            method: 'POST',
-            headers: new Headers({
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                }),
-                body: JSON.stringify({
-                user_id: '2',
-                product_id: prd_id,
-                product_comb_id : comb_id,
-                quantity: quanty
-                }),
-
-            })
-            .then(res => res.json())
-            .then(res => {
-            console.log(res)
-            if(res.status==='success'){
-                alert("Product added to cart");
             }
             throw new Error('Network response error.')
             })
@@ -246,8 +219,13 @@ export default class ProductDetail extends React.Component {
             if(res.status === 'success'){
                 this.setState({
                     color_data: res.product_color,
+                    colors_available: true,
                 });
-                console.log(this.state.color_data)
+                // console.log(this.state.color_data)
+            } else {
+                this.setState({
+                    colors_available: false,
+                });
             }
             throw new Error('Network response error.')
             })
@@ -341,45 +319,8 @@ export default class ProductDetail extends React.Component {
                         </View>
                     </View>
                 </View>
-
-                <View style={{marginTop:2,backgroundColor:'white',flexDirection:'row'}}>
-                    <View style={{backgroundColor:'white',flexDirection:'row',marginLeft:10}}>
-                        <Text style={{color:'black',textAlignVertical:'center',textAlign: 'center',fontWeight:'bold',fontSize:18}}>{"Select size : "}</Text>
-                        <FlatList
-                        
-                            data={this.state.size_data}
-                            horizontal={true}
-                            renderItem={({ item }) => (
-
-                                <View >
-                                <TouchableOpacity 
-                                    
-                                    onPress={()=> {
-                                        this.getColors(item.mas_size_id,item.product_id)
-                                        this.setState({select_color:true})
-                                        this.forceUpdate();
-                                    }}>
-                                    
-                                    <Text style={{
-                                        borderWidth:1, 
-                                        borderColor:'black',
-                                        borderRadius:35,
-                                        width:35,
-                                        backgroundColor:this.checkForPressBg(),
-                                        color:this.checkForPressText(),
-                                        textAlignVertical:'center',textAlign: 'center',
-                                        margin:10,
-                                        height:35}}>
-                                        {item.size}</Text>
-                                        
-                                </TouchableOpacity>
-                                </View>
-                                    
-                            )}
-                            keyExtractor={item => item.id}
-                        />
-                    </View>
-                </View>
+                
+                {this.showSizeAvail()}
 
                 {this.showColorsAvail()}
                 
@@ -422,6 +363,7 @@ export default class ProductDetail extends React.Component {
                         onPress = {
                             ()=> {
                                 if(this.state.user_id){
+                                    if(this.state.select_color&&this.state.size_selected)
                                     this.addToCart();
                                 } else {
                                     alert('Login to create your own cart')
@@ -443,18 +385,33 @@ export default class ProductDetail extends React.Component {
                         margin:1}}  
                         onPress = {
                             ()=> {
-                                //if(this.state.user_id){
-                                    this.props.navigation.navigate('SelectAddressScreen'
-                                    // , {
-                                    //     user_id: 2,
-                                    //     product_id: this.state.prod_data.id,
-                                    //     product_com_id: this.state.color_data.id,
-                                    //     quantity:this.state.qty_value,
+                                if(this.state.user_id){
+                                    // if(this.state.sizes_available){
+                                    //     if(this.state.sizes_available&&this.state.colors_available){
+                                    //         this.props.navigation.navigate('SelectAddressScreen'
+                                    //         , {
+                                    //             user_id: this.state.user_id,
+                                    //             product_id: this.state.prod_data.id,
+                                    //             product_com_id: this.state.color_data.id,
+                                    //             quantity:this.state.qty_value,
+                                    //         }
+                                    //         );
+                                    //     } else {
+                                    //         this.props.navigation.navigate('SelectAddressScreen'
+                                    //         , {
+                                    //             user_id: this.state.user_id,
+                                    //             product_id: this.state.prod_data.id,
+                                    //             product_com_id: this.state.color_data.id,
+                                    //             quantity:this.state.qty_value,
+                                    //         }
+                                    //         );
+                                    //     }
                                     // }
-                                );
-                                //} else {
-                                //    alert('Login to purchase product')
-                                //}
+                                    
+                                    
+                                } else {
+                                   alert('Login to purchase product')
+                                }
                                 
                               }}> 
                         {"BUY NOW"} 
@@ -466,60 +423,122 @@ export default class ProductDetail extends React.Component {
             
         );
     }
-    checkForPressBg() {
-        if(this.state.select_color){
-            return ('black');
+    // checkForPressBg() {
+    //     if(this.state.select_color){
+    //         return ('black');
+    //     } else {
+    //         return ('white');
+    //     }
+    // }
+    // checkForPressText() {
+    //     if(this.state.select_color){
+    //         return ('white');
+    //     } else {
+    //         return ('black');
+    //     }
+    // }
+
+    showSizeAvail() {
+        console.log(this.state.prod_data.combined_status)
+        if(this.state.sizes_available){
+            return (
+                <View style={{marginTop:2,backgroundColor:'white',flexDirection:'row'}}>
+                    <View style={{backgroundColor:'white',flexDirection:'row',marginLeft:10}}>
+                        <Text 
+                        style={{color:'black',
+                        textAlignVertical:'center',
+                        textAlign: 'center',
+                        fontWeight:'bold',
+                        fontSize:18}}>
+                        {"Select size : "}
+                        </Text>
+                        <FlatList
+                        
+                            data={this.state.size_data}
+                            horizontal={true}
+                            renderItem={({ item }) => (
+
+                                <View >
+                                <TouchableOpacity 
+                                    
+                                    onPress={()=> {
+                                        this.getColors(item.mas_size_id,item.product_id)
+                                        this.setState({size_selected:true})
+                                        this.forceUpdate();
+                                    }}>
+                                    
+                                    <Text style={{
+                                        borderWidth:1, 
+                                        borderColor:'black',
+                                        borderRadius:35,
+                                        width:35,
+                                        textAlignVertical:'center',textAlign: 'center',
+                                        margin:10,
+                                        height:35}}>
+                                        {item.size}</Text>
+                                        
+                                </TouchableOpacity>
+                                </View>
+                                    
+                            )}
+                            keyExtractor={item => item.id}
+                        />
+                    </View>
+                </View>
+            )
         } else {
-            return ('white');
+            console.log("No special size available")
         }
     }
-    checkForPressText() {
-        if(this.state.select_color){
-            return ('white');
-        } else {
-            return ('black');
-        }
-    }
+
+
     showColorsAvail() {
-        if((this.state.prod_data.combined_status)&&(this.state.select_color)){
-            console.log(this.state.color_data)
+        if((this.state.prod_data.combined_status)&&(this.state.size_selected)(this.state.colors_available)){
+            // console.log(this.state.color_data)
             return(
 
                 <View style={{marginTop:2,backgroundColor:'white'}}>
-                <View style={{backgroundColor:'white',flexDirection:'row',marginLeft:10}}>
-                    <Text style={{color:'black',textAlignVertical:'center',textAlign: 'center',fontWeight:'bold',fontSize:18}}>{"Select colour : "}</Text>
-                    <FlatList
-                    
-                        data={this.state.color_data}
-                        horizontal={true}
-                        renderItem={({ item }) => (
+                    <View style={{backgroundColor:'white',flexDirection:'row',marginLeft:10}}>
+                        <Text 
+                            style={{color:'black',
+                            textAlignVertical:'center',
+                            textAlign: 'center',
+                            fontWeight:'bold',
+                            fontSize:18}}>
+                            {"Select colour : "}
+                        </Text>
+                        <FlatList
+                        
+                            data={this.state.color_data}
+                            horizontal={true}
+                            renderItem={({ item }) => (
 
                             <View >
-                            <TouchableOpacity 
+                                <TouchableOpacity 
+                                    
+                                    onPress={()=> {
+                                        // console.log('does not work');
+                                    }}>
+                                    
+                                    <Text style={{
+                                        borderWidth:1, 
+                                        borderColor:'white',
+                                        borderRadius:20,
+                                        width:20,
+                                        margin:10,
+                                        textAlign:'center',
+                                        backgroundColor: item.color_code,
+                                        height:20}}>
+                                        {""}</Text>
                                 
-                                onPress={()=> {
-                                    console.log('does not work');
-                                }}>
-                                
-                                <Text style={{
-                                    borderWidth:1, 
-                                    borderColor:'white',
-                                    borderRadius:20,
-                                    width:20,
-                                    margin:10,
-                                    textAlign:'center',
-                                    backgroundColor: item.color_code,
-                                    height:20}}>
-                                    {""}</Text>
-                            
-                            </TouchableOpacity>
+                                </TouchableOpacity>
                             </View>
-                                
-                        )}
-                        keyExtractor={item => item.id}
-                    />
+                                    
+                            )}
+                            keyExtractor={item => item.id}
+                        />
+                    </View>
                 </View>
-            </View>
             );
         }
     }
