@@ -420,7 +420,14 @@ export default class ProductDetail extends React.Component {
                          height:40,
                          margin:1}}  
                         onPress = {
-                            ()=> {}}> 
+                            ()=> {
+                                if(this.state.user_id){
+                                    this.addToCart();
+                                } else {
+                                    alert('Login to create your own cart')
+                                }
+
+                              }}> 
                         {"ADD TO CART"} 
                     </Text>
                     <Text style = {{
@@ -436,12 +443,19 @@ export default class ProductDetail extends React.Component {
                         margin:1}}  
                         onPress = {
                             ()=> {
-                                this.props.navigation.navigate('SelectAddressScreen', {
-                                user_id: 2,
-                                product_id: '',
-                                product_com_id: '',
-                                quantity:'',
-                              });
+                                //if(this.state.user_id){
+                                    this.props.navigation.navigate('SelectAddressScreen'
+                                    // , {
+                                    //     user_id: 2,
+                                    //     product_id: this.state.prod_data.id,
+                                    //     product_com_id: this.state.color_data.id,
+                                    //     quantity:this.state.qty_value,
+                                    // }
+                                );
+                                //} else {
+                                //    alert('Login to purchase product')
+                                //}
+                                
                               }}> 
                         {"BUY NOW"} 
                     </Text>

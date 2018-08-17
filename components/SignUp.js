@@ -84,8 +84,9 @@ export default class SignIn extends React.Component {
         })
         .then((response) => response.text())
         .then((responseText) => {
-        console.log(responseText)
-        alert(responseText);
+        if(responseText.success==='success'){
+            alert("User created successfully");
+        }
         })
         .catch((error) => {
             console.error(error);

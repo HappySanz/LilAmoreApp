@@ -65,13 +65,29 @@ export default class Login extends React.Component {
                 <Text style={styles.titleTwo}>{'Your'}</Text>
                 <Text style={styles.titleThree}>{'Purchase'}</Text>
                 </View>
-              </View>
-            <View style = {styles.signinView}>
+            </View>
+                <View style = {styles.signinView}>
                 <Button 
                     buttonStyle={styles.buttonSignin}
                     title="SIGN IN"
                     onPress={() => this.props.navigation.navigate('SigninScreen')}/>
               {/* <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => Actions.signin()}/> */}
+                </View>
+                <View style = {styles.singupView}>
+                <Text>You don't have any account?</Text>
+                <Text style={{fontWeight: 'bold' }}
+                    onPress={() => {
+                    this.props.navigation.navigate('SignUpScreen')}}>{'Signup here'}
+                </Text>
+                </View>
+                <View style = {styles.skipView}>
+                <Text style={styles.buttonSkip}
+                    onPress={() => {
+                    this.saveItem('id_token','1')
+                    AsyncStorage.setItem("user_id",'0');
+                    this.props.navigation.navigate('LandingScreen')}}>{'Skip Login'}
+                </Text>
+                <View style = {styles.lineStyle} />
             </View>
             <View style = {styles.singupView}>
             <Text>You don't have any account?</Text>
@@ -184,7 +200,7 @@ const styles = StyleSheet.create({
     },
     singupView:
     {
-        margin: 5,
+        margin: 10,
         flexDirection: 'row',
         justifyContent: 'center',
         alignContent: 'space-between'

@@ -81,7 +81,8 @@ export default class SignIn extends React.Component {
                 });
                 if(this.state.statusVar === 'success')
                 {   
-                 AsyncStorage.setItem("user_id",this.state.user_id,'id_token','1');
+                 AsyncStorage.setItem("user_id",this.state.user_id);
+                 AsyncStorage.setItem('id_token','1');
                  this.props.navigation.navigate('LandingScreen');       
                 }
                 else
