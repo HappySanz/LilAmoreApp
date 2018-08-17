@@ -59,8 +59,8 @@ export default class AccountDetail extends React.Component {
 
     logout() 
     {
-        AsyncStorage.setItem("user_id",'0');
-        AsyncStorage.setItem("userid_token_id",'1');
+        AsyncStorage.setItem("user_id",'');
+        AsyncStorage.setItem("userid_token_id",'');
         this.props.navigation.navigate('LoginScreen')
     }
 
