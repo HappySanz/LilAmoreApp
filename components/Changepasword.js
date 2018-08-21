@@ -19,24 +19,37 @@ export default class Changepasword extends React.Component {
             confirmPassword : '',
             status : '',
             msg : '',
-            email_phone : '',
+            user_id : '',
+            password : '',
         }
       };
 
     componentDidMount() 
     {
-        AsyncStorage.getItem("email_phone").then((value) => {
+        AsyncStorage.getItem("user_id").then((user_id) => {
           this.setState({
-            email_phone : value
+            user_id : user_id
           });
-          alert (this.state.email_phone)
         })
         
       }
 
     _submit () 
     {
-        if (this.state.Otp.length != 0) 
+
+        if (this.state.newPassword.length == 0) 
+        {
+            alert ('Newpassword field cannot be empty')
+        }
+        else if (this.state.confirmPassword.length == 0)
+        {
+            alert ('ConfirmPassword field cannot be empty')
+        }
+        else if (this.state.newPassword !== this.state.confirmPassword)
+        {
+            alert ('Password incorrect')
+        }
+        else 
         {
             this._fetchapicall ()
         }
@@ -44,15 +57,15 @@ export default class Changepasword extends React.Component {
 
     _fetchapicall () 
     {
-        let apicall = global.baseurl + "verify_otp_password"
+        let apicall = global.baseurl + "password_update"
             fetch(apicall, {
             method: 'POST',
             headers: new Headers ({
             'Content-Type': 'application/x-www-form-urlencoded',
             }),
             body: JSON.stringify ({
-                email_phone: this.state.email_phone,
-                otp: this.state.Otp
+                user_id: this.state.user_id,
+                password: this.state.Otp
             }),
             })
             .then(res => res.json())
@@ -67,47 +80,12 @@ export default class Changepasword extends React.Component {
                   });
                   if(this.state.status === 'success')
                   {
-                    
+                    alert ('Password changed succesfully')
+                    this.props.navigation.navigate('SigninScreen')
                   }
                   else
                   {
-                      alert (this.state.msg)
-                  }
-                })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-
-    resendOtp () 
-    {
-            let apicall = global.baseurl + "forgot_password"
-            fetch(apicall, {
-            method: 'POST',
-            headers: new Headers ({
-            'Content-Type': 'application/x-www-form-urlencoded',
-            }),
-            body: JSON.stringify ({
-                email_phone: this.state.email_phone,
-            }),
-            })
-            .then(res => res.json())
-            .then((responseText) => {
-                    return responseText;
-                })
-            .then(res => {
-                console.log(res)
-                this.setState({
-                    status: res.status ,
-                    msg: res.msg ,
-                  });
-                  if(this.state.status === 'success')
-                  {
-                    
-                  }
-                  else
-                  {
-                      alert (this.state.msg)
+                    alert (this.state.msg)
                   }
                 })
             .catch((error) => {
@@ -151,9 +129,10 @@ export default class Changepasword extends React.Component {
                 </View>
                  <View style = {styles.sendButtonContainer}>
                  <Button 
-                    buttonStyle={styles.buttonSignin}
+                    buttonStyle={styles.buttonDone}
                     title="Done"
-                    onPress={() => this.props.navigation.navigate('SigninScreen')}/>
+                    color= 'white'
+                    onPress={() => this._submit()}/>
                 </View>
             </View>
             </View>
@@ -207,14 +186,15 @@ const styles = StyleSheet.create({
        justifyContent: 'center',
        backgroundColor: '#81c341',
        alignItems: 'center',
-       borderRadius: 50,
-    //    width: 50,
-    //    height: 50,
+       borderRadius: 30,
+       width: 70,
+       height: 40,
     },
     resendButtonContainer: 
     {
         top: 90,
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+
 })

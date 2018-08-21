@@ -140,7 +140,7 @@ export default class ForgotPassword extends React.Component {
                     />
                 </View>
                  <View style = {styles.sendButtonContainer}>
-                  <TouchableHighlight onPress={() => this.props.navigation.navigate('OtpScreen')}>
+                  <TouchableHighlight onPress={() => this._submit()}>
                     <Image style={{width: 35, height: 35,}}
                     source={require('./images/next_arrow.png')}/>
                    </TouchableHighlight>

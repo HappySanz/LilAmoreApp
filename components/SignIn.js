@@ -34,7 +34,6 @@ export default class SignIn extends React.Component {
             };
         this.showPass = this.showPass.bind(this);
     }
-
     showPass() {
         this.state.press === false? 
             this.setState({showPass: false, press: true}) : this.setState({showPass: true, press: false});
@@ -94,7 +93,6 @@ export default class SignIn extends React.Component {
         }
         Keyboard.dismiss();      
     }
-
     signOut = async () => {
         try {
         //   await GoogleSignin.revokeAccess();
@@ -107,7 +105,6 @@ export default class SignIn extends React.Component {
           });
         }
       };
-
     signIn = async () => {
         try {
             // const user = await GoogleSignin.signIn();
@@ -125,7 +122,6 @@ export default class SignIn extends React.Component {
             }
         }
     };
-
     FBLogin () 
     {
         LoginManager.logInWithReadPermissions(['public_profile','email']).then(
@@ -152,6 +148,7 @@ export default class SignIn extends React.Component {
                         let fbEmail = result.email;
                         let fbUsername = result.name;
                         let fbprofPic = result.picture.data.url;  
+                        alert (result.email)
                         AsyncStorage.setItem('img_url',fbprofPic);
                         });
                          new GraphRequestManager().addRequest(infoRequest).start();
@@ -164,8 +161,8 @@ export default class SignIn extends React.Component {
             }
           );
     }
-    navFpScreen () {
-       
+    navFpScreen () 
+    {
         this.props.navigation.navigate('ForgotPasswordScreen')
     }
 
