@@ -53,59 +53,62 @@ export default class Login extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-              <View style={styles.centerbox}>
-              <View style={styles.logoContainer}>
-              <Image
-               style={{width: 230, height: 60}}
-               source={require('./images/logo.png')} />
-              </View>
-                {/* <Text style={styles.logo}>{'Lil` Amore'}</Text> */}
-                <View style={styles.secondbox}>
-                <Text style={styles.titleone}>{'Start'}</Text>
-                <Text style={styles.titleTwo}>{'Your'}</Text>
-                <Text style={styles.titleThree}>{'Purchase'}</Text>
+
+                <View style={styles.centerbox}>
+                    <View style={styles.logoContainer}>
+                        <Image
+                            style={{width: 230, height: 60}}
+                            source={require('./images/logo.png')} />
+                    </View>
+                    {/* <Text style={styles.logo}>{'Lil` Amore'}</Text> */}
+
+                    <View style={styles.secondbox}>
+
+                        <Text style={styles.titleone}>{'Start'}</Text>
+
+                        <Text style={styles.titleTwo}>{'Your'}</Text>
+
+                        <Text style={styles.titleThree}>{'Purchase'}</Text>
+
+                    </View>
+
                 </View>
-            </View>
+
                 <View style = {styles.signinView}>
-                <Button 
-                    buttonStyle={styles.buttonSignin}
-                    title="SIGN IN"
-                    onPress={() => this.props.navigation.navigate('SigninScreen')}/>
-              {/* <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => Actions.signin()}/> */}
+
+                    <Button 
+                        buttonStyle={styles.buttonSignin}
+                        title="SIGN IN"
+                        onPress={() => this.props.navigation.navigate('SigninScreen')}/>
+
+                    {/* <Button buttonStyle={styles.buttonSignin}title="SIGN IN"onPress={() => Actions.signin()}/> */}
+                
                 </View>
+
                 <View style = {styles.singupView}>
-                <Text>You don't have any account?</Text>
-                <Text style={{fontWeight: 'bold' }}
-                    onPress={() => {
-                    this.props.navigation.navigate('SignUpScreen')}}>{'Signup here'}
-                </Text>
+
+                    <Text>You don't have any account?</Text>
+
+                    <Text style={{fontWeight: 'bold' }}
+                        onPress={() => {
+                        this.props.navigation.navigate('SignUpScreen')}}>{'Signup here'}
+                    </Text>
+
                 </View>
+
                 <View style = {styles.skipView}>
-                <Text style={styles.buttonSkip}
-                    onPress={() => {
-                    this.saveItem('id_token','1')
-                    AsyncStorage.setItem("user_id",'0');
-                    this.props.navigation.navigate('LandingScreen')}}>{'Skip Login'}
-                </Text>
-                <View style = {styles.lineStyle} />
+
+                    <Text style={styles.buttonSkip}
+                        onPress={() => {
+                        this.saveItem('id_token','1')
+                        AsyncStorage.setItem("user_id",'0');
+                        this.props.navigation.navigate('LandingScreen')}}>{'Skip Login'}
+                    </Text>
+
+                    <View style = {styles.lineStyle} />
+
+                </View>
             </View>
-            <View style = {styles.singupView}>
-            <Text>You don't have any account?</Text>
-            <Text style={{fontWeight: 'bold' }}
-                onPress={() => {
-                this.props.navigation.navigate('SignUpScreen')}}>{'Signup here'}
-              </Text>
-            </View>
-            <View style = {styles.skipView}>
-              <Text style={styles.buttonSkip}
-                onPress={() => {
-                AsyncStorage.setItem("user_id",'0');
-                AsyncStorage.setItem("userid_token_id",'1');
-                this.props.navigation.navigate('LandingScreen')}}>{'Skip Login'}
-              </Text>
-              <View style = {styles.lineStyle} />
-            </View>
-            // </View>
         )
     }
 }
@@ -200,7 +203,7 @@ const styles = StyleSheet.create({
     },
     singupView:
     {
-        margin: 10,
+        margin: 20,
         flexDirection: 'row',
         justifyContent: 'center',
         alignContent: 'space-between'
