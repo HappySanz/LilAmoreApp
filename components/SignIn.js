@@ -47,11 +47,11 @@ export default class SignIn extends React.Component {
         let passwordValue = this.state.password;
         let mob_keyValue = '2';
         let mobile_typeValue = '2';
-        if (usernameValue.length = 0)
+        if (usernameValue.length === 0)
         {
             alert("Enter valid username")
         } 
-        else if (passwordValue.length = 0) 
+        else if (passwordValue.length === 0) 
         {
             alert("Enter valid password")
         } 

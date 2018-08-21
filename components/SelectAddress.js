@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View,TextInput } from 'react-native'
+import { StyleSheet, Text, View,TextInput, AsyncStorage } from 'react-native'
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import { withNavigation } from 'react-navigation'; 
 var radio_props = [
@@ -16,9 +16,11 @@ export default class UserProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        value : null,
-        address_data:[],
-        rad_data:[]};    
+            value : '0',
+            user_id : '',
+            address_data : [],
+            rad_data : []
+        }    
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -32,6 +34,11 @@ export default class UserProfile extends React.Component {
 
 
     componentDidMount() {
+        AsyncStorage.getItem("user_id").then((value) => {
+            this.setState({
+              user_id : value
+            });
+          })
         this.makeRemoteRequest();
     }   
 
@@ -93,33 +100,93 @@ export default class UserProfile extends React.Component {
         // console.log(tempVal)
         this.setState({ rad_data: tempVal });
         // alert(this.state.rad_data)
-        console.log(this.state.rad_data)
+        // console.log(this.state.rad_data)
 
         // return(this.state.rad_data);
     }
+    sendSelectedPin() {
+        console.log(this.state.value)
+        // console.log(this.state.address_data)
+        const pin = this.state.address_data[this.state.value].pincode;
+        const url = `http://littleamore.in/demo/mobileapi/check_pincode`;
+        this.setState({ loading: true });
+        fetch(url, {
+            method: 'POST',
+            headers: new Headers({
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                }),
+                body: JSON.stringify({
+                pin_code: pin,
+                }),
+
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                if(res.status==='success'){
+                    
+                } else {
+                    this.setState({
+                        error: res.status,
+                        loading: false,
+                        refreshing: false
+                    });
+                    alert("Address detail not found")
+                    throw new Error('Network response error.')
+                }
+            })
+            .catch(error => {
+            this.setState({ error, loading: false });
+        });
+    };
 
     render() {
         
         return (
             <View style={styles.container}>
 
-                <View>
+                <View style={styles.topTextContainer}>
+                    <Text style={styles.textNoBorder}>{"Confirm shipping address"}</Text>
+                    <Text 
+                        style={styles.textBorder}
+                        onPress = {()=>{}}>
+                        {"+ ADD NEW"}
+                    </Text>
+                </View>
+
+                <View style={styles.centerbox}>
 
                     <RadioForm
                         radio_props={this.state.rad_data}
                         initial={0}
+                        style={styles.radStyleContainer}
                         formHorizontal={false}
                         labelHorizontal={true}
                         buttonColor={'#81c341'}
                         buttonInnerColor={'#81c341'}
                         buttonOuterColor={'#81c341'}
-                        buttonSize={15}
+                        buttonSize={10}
                         animation={true}
                         onPress={(value) => {this.setState({value:value})}}
                     />
-                    
-
                 </View>
+                <View 
+                    style={styles.contText} >
+
+                        <Text 
+                            style = {{
+                            color:'white',
+                            textAlign:'center',
+                            textAlignVertical:'center',
+                            height:40,
+                            margin:1}}  
+                            onPress = {
+                                ()=> {
+                                    this.sendSelectedPin()
+                                }}> 
+                            {"CONTINUE"} 
+                        </Text>
+                    </View>
             </View>
         )
     }
@@ -127,48 +194,45 @@ export default class UserProfile extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        backgroundColor: 'white',
-        justifyContent: 'center'
     },
     centerbox: {
-        flex:1,
-        justifyContent: 'center',
-        alignSelf: 'center'
+        backgroundColor:'white',
+        justifyContent:'flex-start',
+        alignItems:'flex-start',
+
     },
-    logo: {
-        
-        fontWeight: 'bold',
-        fontSize: 42,
-        color: '#81c341',
-        top:10,
-        justifyContent: 'center',
-        alignSelf: 'center'
+    topTextContainer: {
+       flexDirection:'row',
+       justifyContent:"space-between",
+       alignItems:'center',
+       marginTop:10,
+       marginBottom:10,
+       paddingHorizontal:5
     },
-    title: {
-        
-        fontWeight: 'bold',
-        fontSize: 42,
-        color: '#81c341',
-        justifyContent: 'center',
-        alignSelf: 'center'
+    textBorder:{
+        borderWidth:1,
+        borderColor:'black',
+        padding:5,
+        color:'black',
+        fontSize:12
     },
-    buttonSignin: {
-        backgroundColor: "#81c341",
-        width: 150,
-        height: 45,
-        borderColor: "#81c341",
-        borderWidth: 0,
-        borderRadius: 30,
-        top: 50,
-        justifyContent: 'center',
-        alignSelf: 'center'
+    textNoBorder:{
+        fontSize:15,
+        color:'black'
     },
-    buttonSkip: {
-        fontWeight: 'bold',
-        fontSize: 20,
-        color: '#81c341',
-        top: 60,
-        justifyContent: 'center',
-        alignSelf: 'center'
+    contText:{
+        backgroundColor:'rgb(129, 195, 65)',
+        height:40,
+        flexDirection:'column',
+        justifyContent:'space-between',
+        position:'absolute',
+        left:0,
+        right:0,
+        bottom:0
+    },
+    radStyleContainer: {
+        alignItems:'flex-start',
+        justifyContent:'space-evenly',
+        margin:10
     }
 })

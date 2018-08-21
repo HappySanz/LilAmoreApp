@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity,ScrollView } from "react-native";
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView, AsyncStorage } from "react-native";
 import { List, ListItem } from "react-native-elements"
 
 export default class CartItemList extends React.Component {
@@ -25,10 +25,16 @@ export default class CartItemList extends React.Component {
           seed: 1,
           error: null,
           refreshing: false,
+          user_id: '',
         };
     }
     
     componentDidMount() {
+        AsyncStorage.getItem("user_id").then((value) => {
+            this.setState({
+              user_id : value
+            });
+          })
         this.makeRemoteRequest();
     }   
 
@@ -44,20 +50,19 @@ export default class CartItemList extends React.Component {
                         'Content-Type': 'application/x-www-form-urlencoded',
                 }),
                 body: JSON.stringify({
-                user_id: '2',
+                user_id: this.state.user_id,
                 }),
 
             })
             .then(res => res.json())
             .then(res => {
                 if(res.status==='success'){
+                    console.log(this.state.user_id)
                     console.log(res)
                     this.setState({
-                        data: page === 1 ? res.view_cart_items : [...this.state.data, ...res.view_cart_items],
+                        data: res.view_cart_items,
                         cartTotal: res.cart_payment.cart_payment,
-                        error: res.error || null,
-                        loading: false,
-                        refreshing: false
+                        
                     });
                     console.log(this.state.cartTotal)
                     
@@ -85,7 +90,7 @@ export default class CartItemList extends React.Component {
                         'Content-Type': 'application/x-www-form-urlencoded',
                 }),
                 body: JSON.stringify({
-                user_id: '2',
+                user_id: this.state.user_id,
                 cart_id: prd_id,
                 }),
 
@@ -113,7 +118,7 @@ export default class CartItemList extends React.Component {
                         'Content-Type': 'application/x-www-form-urlencoded',
                 }),
                 body: JSON.stringify({
-                user_id: '2',
+                user_id: this.state.user_id,
                 product_id: prd_id,
                 }),
 
@@ -223,6 +228,57 @@ export default class CartItemList extends React.Component {
                     )}
                     keyExtractor={item => item.id}
                 />
+                <View style={{backgroundColor:'rgb(129, 195, 65)',height:40,flexDirection:'row',justifyContent:'space-evenly'}} >
+
+                    <Text 
+                        style = {{
+                        color:'white',
+                        textAlign:'center',
+                        textAlignVertical:'center',
+                        height:40,
+                        margin:1}}  
+                        onPress = {
+                            ()=> {
+                                if(this.state.user_id){
+                                    this.addToCart();
+                                } else {
+                                    alert('Login to create your own cart')
+                                }
+
+                            }}> 
+                        {"Continue Shopping"} 
+                    </Text>
+                    <Text style = {{
+                        height:40,
+                        width:1,
+                        backgroundColor:'white'}} >{""}</Text>
+                    <Text 
+                        style = {{
+                        color:'white',
+                        textAlign:'center',
+                        textAlignVertical:'center',
+                        height:40,
+                        margin:1}}  
+                        onPress = {
+                            ()=> {
+                                //if(this.state.user_id){
+                                    this.props.navigation.navigate('SelectAddressScreen'
+                                    // , {
+                                    //     user_id: 2,
+                                    //     product_id: this.state.prod_data.id,
+                                    //     product_com_id: this.state.color_data.id,
+                                    //     quantity:this.state.qty_value,
+                                    // }
+                                );
+                                //} else {
+                                //    alert('Login to purchase product')
+                                //}
+                                
+                            }}> 
+                        {"Checkout"} 
+                    </Text>
+
+                </View>
             </ScrollView>
             
         );
@@ -269,6 +325,7 @@ const styles = StyleSheet.create ({
         alignSelf:'center',
         justifyContent: 'space-evenly',
         alignItems: 'center',
+        color:'black'
     },
     txtContainer: {
         flex:1,

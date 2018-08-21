@@ -17,7 +17,7 @@ import { withNavigation } from 'react-navigation';
 const window = Dimensions.get('window');
 const uri = this._retrieveData;
 
- class Menu extends Component {
+class Menu extends Component {
 
   static navigationOptions = ({ navigation }) => {
 
@@ -62,7 +62,13 @@ const uri = this._retrieveData;
    
     if(item === 'Account Setting')
     {
-      this.props.navigation.navigate('AccountDetailScreen')
+      const user = AsyncStorage.getItem("user_id")
+      if(user){
+        this.props.navigation.navigate('AccountDetailScreen')
+      } else {
+        alert("Login to access")
+      }
+      
     }
     else
     {

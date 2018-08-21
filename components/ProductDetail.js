@@ -45,6 +45,10 @@ const qtty = [
     }
   ];
 
+const wishlistImg = require('./images/add_wishlist.png');
+const shareImg = require('./images/share.png');
+
+
 export default class ProductDetail extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
@@ -72,6 +76,9 @@ export default class ProductDetail extends React.Component {
             colors_available:false,
             size_selected:false,
             select_color:false,
+            bg_color:'white',
+            text_color:'black',
+            select_id:'',
             qty_value: '', 
             color_data: [],
             user_id: '',
@@ -100,7 +107,7 @@ export default class ProductDetail extends React.Component {
                 }),
                 body: JSON.stringify({
                 product_id: prod_id,
-                user_id:'2'
+                user_id: this.state.user_id,
                 }),
 
             })
@@ -159,9 +166,9 @@ export default class ProductDetail extends React.Component {
             })
             .then(res => res.json())
             .then(res => {
-            // console.log(res)
+            console.log(res)
             if(res.status==='success'){
-                
+                this.props.navigation.navigate('CartScreen');         
             }
             throw new Error('Network response error.')
             })
@@ -187,7 +194,7 @@ export default class ProductDetail extends React.Component {
             })
             .then(res => res.json())
             .then(res => {
-            // console.log(res)
+            console.log(res)
             if(res.status==='success'){
                 alert("Product moved to wishlist successfully");
             }
@@ -266,15 +273,28 @@ export default class ProductDetail extends React.Component {
                     <View style={{
                             flexDirection:"row",flex:1}}>
 
-                        <TouchableOpacity style={{
-                            flexDirection:"row",
-                            borderRadius:0,
-                            borderWidth:1,
-                            margin:10,
-                            borderColor:'black',
-                            alignSelf: 'flex-start'}} 
-                            
-                            onPress={()=> { alert("WISHLIST")}}>
+                        <TouchableOpacity 
+                            style={{
+                                flexDirection:"row",
+                                borderRadius:0,
+                                borderWidth:1,
+                                margin:10,
+                                borderColor:'black',
+                                alignSelf: 'flex-start'
+                            }} 
+                            onPress={()=> { 
+                                console.log(this.state.user_id)
+                                if(this.state.user_id){
+                                    this.moveToWishList(this.state.prod_data.id)
+                                } else {
+                                    alert("Login to create your own wishlist")
+                                }
+                            }}>
+
+                            <Image
+                                source={wishlistImg}
+                                style={{ width: 15, height: 15, alignSelf:'center',marginLeft:5 }}
+                            />
                         
                             <Text 
                             style={{color:'black',
@@ -284,7 +304,7 @@ export default class ProductDetail extends React.Component {
 
                         <TouchableOpacity style={{
                             flexDirection:"row",
-                            borderRadius:0,
+                            borderRadius:1,
                             borderWidth:1,
                             margin:10,
                             borderColor:'black',
@@ -293,6 +313,11 @@ export default class ProductDetail extends React.Component {
                             onPress={()=> {
                                 alert("Share")
                             }}>
+
+                            <Image
+                                source={shareImg}
+                                style={{ width: 15, height: 15, alignSelf:'center',marginLeft:5 }}
+                            />
                             
                             <Text
                             style={{color:'black',
@@ -351,70 +376,29 @@ export default class ProductDetail extends React.Component {
                     </View>
                 </View>
                 
-                <View style={{backgroundColor:'rgb(129, 195, 65)',height:40,flexDirection:'row',justifyContent:'space-evenly'}} >
-
+                <View style={styles.cartContainer} >
                     <Text 
-                        style = {{
-                         color:'white',
-                         textAlign:'center',
-                         textAlignVertical:'center',
-                         height:40,
-                         margin:1}}  
+                        style = {styles.cartText}  
                         onPress = {
                             ()=> {
-                                if(this.state.user_id){
-                                    if(this.state.select_color&&this.state.size_selected)
-                                    this.addToCart();
-                                } else {
-                                    alert('Login to create your own cart')
-                                }
-
-                              }}> 
-                        {"ADD TO CART"} 
-                    </Text>
-                    <Text style = {{
-                        height:40,
-                        width:1,
-                        backgroundColor:'white'}} >{""}</Text>
-                    <Text 
-                        style = {{
-                        color:'white',
-                        textAlign:'center',
-                        textAlignVertical:'center',
-                        height:40,
-                        margin:1}}  
-                        onPress = {
-                            ()=> {
-                                if(this.state.user_id){
-                                    // if(this.state.sizes_available){
-                                    //     if(this.state.sizes_available&&this.state.colors_available){
-                                    //         this.props.navigation.navigate('SelectAddressScreen'
-                                    //         , {
-                                    //             user_id: this.state.user_id,
-                                    //             product_id: this.state.prod_data.id,
-                                    //             product_com_id: this.state.color_data.id,
-                                    //             quantity:this.state.qty_value,
-                                    //         }
-                                    //         );
-                                    //     } else {
-                                    //         this.props.navigation.navigate('SelectAddressScreen'
-                                    //         , {
-                                    //             user_id: this.state.user_id,
-                                    //             product_id: this.state.prod_data.id,
-                                    //             product_com_id: this.state.color_data.id,
-                                    //             quantity:this.state.qty_value,
-                                    //         }
-                                    //         );
-                                    //     }
-                                    // }
-                                    
-                                    
-                                } else {
-                                   alert('Login to purchase product')
-                                }
-                                
-                              }}> 
-                        {"BUY NOW"} 
+                                // if(this.state.user_id){
+                                    console.log(this.state.sizes_available)
+                                    if(this.state.sizes_available){
+                                        if(this.state.select_color){
+                                            this.addToCart(this.state.prod_data.id, this.state.select_id, this.state.qty_value);
+                                        } else {
+                                            alert("Select Size and color")
+                                        }
+                                        
+                                    }   else {
+                                            this.addToCart(this.state.prod_data.id, '', this.state.qty_value);
+                                        }
+                                // } else {
+                                //    alert('Login to purchase product')
+                                // } 
+                            }
+                        }> 
+                        {"Add to cart"} 
                     </Text>
 
                 </View>
@@ -423,20 +407,20 @@ export default class ProductDetail extends React.Component {
             
         );
     }
-    // checkForPressBg() {
-    //     if(this.state.select_color){
-    //         return ('black');
-    //     } else {
-    //         return ('white');
-    //     }
-    // }
-    // checkForPressText() {
-    //     if(this.state.select_color){
-    //         return ('white');
-    //     } else {
-    //         return ('black');
-    //     }
-    // }
+    checkForPressBg() {
+        if(this.state.size_selected){
+            this.setState({
+                bg_color: 'white',
+                text_color : 'black'
+            })
+        } else {
+            this.setState({
+                bg_color: 'black',
+                white : 'white'
+            })
+        }
+    }
+    
 
     showSizeAvail() {
         console.log(this.state.prod_data.combined_status)
@@ -464,12 +448,15 @@ export default class ProductDetail extends React.Component {
                                     onPress={()=> {
                                         this.getColors(item.mas_size_id,item.product_id)
                                         this.setState({size_selected:true})
+                                        this.checkForPressBg();
                                         this.forceUpdate();
                                     }}>
                                     
                                     <Text style={{
                                         borderWidth:1, 
                                         borderColor:'black',
+                                        backgroundColor:this.state.bg_color,
+                                        color:this.state.text_color,
                                         borderRadius:35,
                                         width:35,
                                         textAlignVertical:'center',textAlign: 'center',
@@ -493,7 +480,7 @@ export default class ProductDetail extends React.Component {
 
 
     showColorsAvail() {
-        if((this.state.prod_data.combined_status)&&(this.state.size_selected)(this.state.colors_available)){
+        if((this.state.prod_data.combined_status)&&(this.state.size_selected)&&(this.state.colors_available)){
             // console.log(this.state.color_data)
             return(
 
@@ -517,6 +504,11 @@ export default class ProductDetail extends React.Component {
                                 <TouchableOpacity 
                                     
                                     onPress={()=> {
+                                        this.setState({
+                                            select_color:true,
+                                            select_id : item.id
+                                        })
+
                                         // console.log('does not work');
                                     }}>
                                     
@@ -545,5 +537,22 @@ export default class ProductDetail extends React.Component {
 }
 
 const styles = StyleSheet.create ({
+    cartContainer : {
+        backgroundColor:'rgb(129, 195, 65)',
+        height:40,
+        flexDirection:'column',
+        justifyContent:'space-between',
+        position:'absolute',
+        left:0,
+        right:0,
+        bottom:0
+    },
+    cartText : {
+        color:'white',
+        textAlign:'center',
+        textAlignVertical:'center',
+        height:40,
+        margin:1
+    }
    
 })

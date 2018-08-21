@@ -59,19 +59,19 @@ export default class SignIn extends React.Component {
         let mobileType = '2';
         let newletter  = '1';
         
-        if (nameValue.length == 0)
+        if (nameValue.length === 0)
         {
             alert("Please Enter the username");
         }
-        else if (mobile .length == 0)
+        else if (mobile .length === 0)
         {
             alert("Please Enter the mobile");
         }
-        else if (email.length == 0)
+        else if (email.length === 0)
         {
             alert("Please Enter the email");
         }
-        else if (passwordValue.length == 0)
+        else if (passwordValue.length === 0)
         {
             alert("Please Enter the assword");
         }
