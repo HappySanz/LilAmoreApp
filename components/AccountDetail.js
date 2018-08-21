@@ -1,6 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity,TouchableHighlight, AsyncStorage, Button, PixelRatio } from 'react-native'
-import ImagePicker from 'react-native-image-picker';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity,TouchableHighlight, AsyncStorage, Button,CameraRoll } from 'react-native'
 export default class AccountDetail extends React.Component 
 {
     constructor(props) 
@@ -15,7 +14,6 @@ export default class AccountDetail extends React.Component
         user_id: '',
         status: '',
         msg: '',
-        ImageSource: null,
         };  
       }
     static navigationOptions = ({ navigation }) => {
@@ -26,42 +24,7 @@ export default class AccountDetail extends React.Component
         let headerTintColor = 'white';
         return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
     };
-    selectPhotoTapped() {
-        const options = {
-          quality: 1.0,
-          maxWidth: 500,
-          maxHeight: 500,
-          storageOptions: {
-            skipBackup: true
-          }
-        };
-
-        ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
-      
-            if (response.didCancel) {
-              console.log('User cancelled photo picker');
-            }
-            else if (response.error) {
-              console.log('ImagePicker Error: ', response.error);
-            }
-            else if (response.customButton) {
-              console.log('User tapped custom button: ', response.customButton);
-            }
-            else {
-              let source = { uri: response.uri };
-      
-              // You can also display the image using data:
-              // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-      
-              this.setState({
-     
-                ImageSource: source
-     
-              });
-            }
-          });
-        }
+    
     componentDidMount ()
     {
         AsyncStorage.getItem("user_id").then((value) => {
@@ -97,7 +60,7 @@ export default class AccountDetail extends React.Component
                 profiledata : res.get_profile_details,
                 username : res.get_profile_details.first_name,
                 email : res.get_profile_details.email,
-                ImageSource : res.get_profile_details.profile_picture
+                userImage : res.get_profile_details.profile_picture
             });
             }
             console.log(res);
@@ -114,15 +77,26 @@ export default class AccountDetail extends React.Component
             old_user :'1'
         })
     }
+    _handleButtonPress = () => {
+        CameraRoll.getPhotos({
+            first: 20,
+            assetType: 'Photos',
+          })
+          .then(r => {
+            this.setState({ photos: r.edges });
+          })
+          .catch((err) => {
+             //Error Loading Images
+          });
+        };
     render()
     {  
         return (
             <View style={styles.container}>
                 <View style = {styles.imageConatiner}>
-                  <TouchableHighlight onPress={this.selectPhotoTapped.bind(this)} underlayColor="#ffff">
-                    { this.state.ImageSource === null ? <Text>Select a Photo</Text> :
+                  <TouchableHighlight onPress={this._handleButtonPress()} underlayColor="#ffff">
                     <Image 
-                        source={{uri: this.state.ImageSource}}
+                        source={{uri: this.state.userImage}}
                         style={{height:100,
                         width:100,
                         borderRadius:50,
@@ -130,7 +104,6 @@ export default class AccountDetail extends React.Component
                         borderColor:'white',
                         resizeMode: 'stretch'}}>
                     </Image>
-                    }
                  </TouchableHighlight>
                 </View>
                 <View style={styles.txtcontainer}>
@@ -279,15 +252,4 @@ const styles = StyleSheet.create({
         backgroundColor: '#81c341',
         borderRadius: 20,
     },
-    ImageContainer: {
-        borderRadius: 10,
-        width: 250,
-        height: 250,
-        borderColor: '#9B9B9B',
-        borderWidth: 1 / PixelRatio.get(),
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#CDDC39',
-        
-      },
 })
