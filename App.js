@@ -24,7 +24,8 @@ import ProductList from './components/ProductList';
 import Userdetails from './components/Userdetails';
 import Otp from './components/Otp';
 import Changepasword from './components/Changepasword';
-import WishList from './components/WishList';
+import Wishlist from './components/WishList';
+import AddAddress from './components/AddAddress';
 
 const AppNavigator = createStackNavigator(
   {
@@ -48,7 +49,8 @@ const AppNavigator = createStackNavigator(
     UserdetailScreen : Userdetails,
     OtpScreen : Otp,
     ChangepaswordScreen : Changepasword,
-    WishListScreen : WishList,
+    WishListScreen : Wishlist,
+    AddAddressScreen : AddAddress,
 
   },
   {
@@ -79,7 +81,8 @@ const AppNavigator1 = createStackNavigator(
     UserdetailScreen : Userdetails,
     OtpScreen : Otp,
     ChangepaswordScreen : Changepasword,
-    WishListScreen : WishList,
+    WishListScreen : Wishlist,
+    AddAddressScreen : AddAddress,
 
   },
   {

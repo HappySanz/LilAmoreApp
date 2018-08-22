@@ -130,9 +130,10 @@ export default class ForgotPassword extends React.Component {
                             onChangeText={mobile_num => this.setState({mobile_num})}
                         />
                     </View>
-                    <View style = {styles.sendButtonContainer}>
-                        <TouchableHighlight onPress={() => this._submit()}>
-                            <Image style={{width: 20, height: 20,}}
+                    <View >
+                        <TouchableHighlight style = {styles.sendButtonContainer} onPress={() => this._submit()}>
+                            <Image 
+                            style={{width: 20, height: 20,}}
                             source={require('./images/next_arrow.png')}/>
                         </TouchableHighlight>
                     </View>

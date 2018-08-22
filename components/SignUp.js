@@ -93,7 +93,7 @@ export default class SignIn extends React.Component {
             mobile_type: mobileType ,
           }),
         })
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((responseText) => {
         if(responseText.success==='success'){
             alert("User created successfully");

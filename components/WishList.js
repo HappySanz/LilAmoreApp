@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity,ScrollView } from "react-native";
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView, AsyncStorage } from "react-native";
 import { List, ListItem } from "react-native-elements"
 
 export default class Wishlist extends React.Component {
@@ -25,16 +25,25 @@ export default class Wishlist extends React.Component {
           seed: 1,
           error: null,
           refreshing: false,
+          user_id: '',
         };
     }
     
     componentDidMount() {
+        AsyncStorage.getItem("user_id").then((value) => {
+            this.setState({
+              user_id : value
+            });
+        //   console.log(this.state.user_id)
         this.makeRemoteRequest();
+          })
+        
     }   
 
 
     
     makeRemoteRequest = () => {
+        console.log(this.state.user_id)
         const { page, seed } = this.state;
         const url = `http://littleamore.in/demo/mobileapi/view_wishlist`;
         this.setState({ loading: true });
@@ -44,16 +53,16 @@ export default class Wishlist extends React.Component {
                         'Content-Type': 'application/x-www-form-urlencoded',
                 }),
                 body: JSON.stringify({
-                user_id: '2',
+                user_id: this.state.user_id
                 }),
 
             })
             .then(res => res.json())
             .then(res => {
-                if(res.status==='success'){
                     console.log(res)
+                    if(res.status==='success'){
                     this.setState({
-                        data: page === 1 ? res.view_wishlist : [...this.state.data, ...res.view_wishlist],
+                        data: res.product_list,
                         error: res.error || null,
                         loading: false,
                         refreshing: false
@@ -84,8 +93,8 @@ export default class Wishlist extends React.Component {
                         'Content-Type': 'application/x-www-form-urlencoded',
                 }),
                 body: JSON.stringify({
-                user_id: '2',
-                cart_id: prd_id,
+                user_id: this.state.user_id,
+                product_id: prd_id,
                 }),
 
             })
@@ -102,33 +111,6 @@ export default class Wishlist extends React.Component {
             });
     };
 
-    moveToWishList = (prd_id) => {
-       
-        const url = `http://littleamore.in/demo/mobileapi/wishlist`;
-        this.setState({ loading: true });
-        fetch(url, {
-            method: 'POST',
-            headers: new Headers({
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                }),
-                body: JSON.stringify({
-                user_id: '2',
-                product_id: prd_id,
-                }),
-
-            })
-            .then(res => res.json())
-            .then(res => {
-            console.log(res)
-            if(res.status==='success'){
-                alert("Product moved to wishlist successfully");
-            }
-            throw new Error('Network response error.')
-            })
-            .catch(error => {
-            this.setState({ error, loading: false });
-            });
-    };
     
     render() {
         return (
@@ -156,7 +138,7 @@ export default class Wishlist extends React.Component {
                                         {item.category_name} 
                                     </Text>
                                     
-                                    <View style={styles.sizeContainer} >
+                                    {/* <View style={styles.sizeContainer} >
                                         
                                         <Text style={styles.catName} > 
                                             {"Quantity: "+item.quantity} 
@@ -164,10 +146,21 @@ export default class Wishlist extends React.Component {
                                         <Text style={styles.catName} > 
                                             {"Size: "+item.size} 
                                         </Text>
+                                    </View> */}
+                                    <View style={{flexDirection: 'row',flex:1,margin:10}}>
+                                        <Text 
+                                            style={{textDecorationLine: 'line-through',
+                                            textDecorationStyle: 'solid',
+                                            color:'black',fontSize:15,}}>
+                                            {"Rs."+item.prod_mrp_price}
+                                        </Text>
+
+                                        <Text style={styles.catName} 
+                                            style={{color:'black',fontSize:15,marginLeft:10}}>
+                                            {"Rs."+item.prod_actual_price}
+                                        </Text>
                                     </View>
-                                    <Text style={styles.catName} > 
-                                            {"\nRs. "+item.price} 
-                                    </Text>
+                                    
 
                                 </View>
                         </TouchableOpacity>
@@ -182,6 +175,15 @@ export default class Wishlist extends React.Component {
                                             }}
                                 > 
                                     {"REMOVE"} 
+                                </Text>
+                                <Text 
+                                    style = {styles.actionTxt}  
+                                    onPress = {
+                                        ()=> {
+                                            this.deleteProduct(item)
+                                            }}
+                                > 
+                                    {"ADD TO CART"} 
                                 </Text>
 
                             </View>

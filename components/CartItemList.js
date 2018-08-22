@@ -240,7 +240,7 @@ export default class CartItemList extends React.Component {
                         onPress = {
                             ()=> {
                                 if(this.state.user_id){
-                                    this.addToCart();
+                                    this.props.navigation.navigate('LandingScreen')
                                 } else {
                                     alert('Login to create your own cart')
                                 }
@@ -262,7 +262,7 @@ export default class CartItemList extends React.Component {
                         onPress = {
                             ()=> {
                                 //if(this.state.user_id){
-                                    this.props.navigation.navigate('SelectAddressScreen'
+                                    this.props.navigation.navigate('AddAddressScreen'
                                     // , {
                                     //     user_id: 2,
                                     //     product_id: this.state.prod_data.id,

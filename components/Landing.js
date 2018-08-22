@@ -153,7 +153,7 @@ console.disableYellowBox = true;
            <View style={styles.container}>
 
             <TouchableOpacity
-              onPress={this.toggle}
+              onPress={()=> {this.toggle}}
               style={styles.button}>
 
               <Image
@@ -167,7 +167,7 @@ console.disableYellowBox = true;
             </Text>
 
             <TouchableOpacity
-              onPress={this.toggle}
+              onPress={()=> {this.props.navigation.navigate('CartScreen')}}
               style={styles.buttonTwo}>
 
               <Image
@@ -177,7 +177,7 @@ console.disableYellowBox = true;
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={this.toggle}
+              onPress={()=> {this.props.navigation.navigate('WishListScreen')}}
               style={styles.buttonThree}>
 
               <Image
