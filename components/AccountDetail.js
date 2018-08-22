@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity,TouchableHighlight, AsyncStorage, Button,CameraRoll } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity,TouchableHighlight, AsyncStorage, Button, ScrollView } from 'react-native'
 export default class AccountDetail extends React.Component 
 {
     constructor(props) 
@@ -36,7 +36,6 @@ export default class AccountDetail extends React.Component
     }
     fetchapicall ()
     {
-        alert (this.state.user_id)
         let apicall = global.baseurl + "get_profile_details"
         fetch(apicall, {
         method: 'POST',
@@ -77,24 +76,13 @@ export default class AccountDetail extends React.Component
             old_user :'1'
         })
     }
-    _handleButtonPress = () => {
-        CameraRoll.getPhotos({
-            first: 20,
-            assetType: 'Photos',
-          })
-          .then(r => {
-            this.setState({ photos: r.edges });
-          })
-          .catch((err) => {
-             //Error Loading Images
-          });
-        };
     render()
     {  
         return (
             <View style={styles.container}>
+            <ScrollView style={{flex:1,flexDirection:'column', backgroundColor:'#f3f3f3'}}>
                 <View style = {styles.imageConatiner}>
-                  <TouchableHighlight onPress={this._handleButtonPress()} underlayColor="#ffff">
+                  <TouchableHighlight onPress={() =>alert ('done')} underlayColor="#ffff">
                     <Image 
                         source={{uri: this.state.userImage}}
                         style={{height:100,
@@ -107,13 +95,13 @@ export default class AccountDetail extends React.Component
                  </TouchableHighlight>
                 </View>
                 <View style={styles.txtcontainer}>
-                <Text style={{alignSelf:'center',color:'black',fontSize: 20}}>
-                {this.state.username}</Text>
-                <Text style={{alignSelf:'center',color:'black',}}>
-                {this.state.email}</Text>
+                  <Text style={{alignSelf:'center',color:'black',fontSize: 20}}>
+                   {this.state.username}</Text>
+                 <Text style={{alignSelf:'center',color:'black',}}>
+                  {this.state.email}</Text>
                 </View>
                 <View style={styles.Maincontainer}>
-                <TouchableHighlight onPress={() => {this.props.navigation.navigate('WishListScreen')}} underlayColor="#ffff">
+                 <TouchableHighlight onPress={() => {this.props.navigation.navigate('WishListScreen')}} underlayColor="#ffff">
                   <View style={styles.Whishlistcontainer}>
                      <Text style = {styles.Whishlist}>Whishlist</Text>
                       <Image 
@@ -122,7 +110,7 @@ export default class AccountDetail extends React.Component
                         width:20,}}>
                       </Image>
                   </View>
-                  </TouchableHighlight>
+                </TouchableHighlight>
                   <TouchableHighlight onPress={() => {this.props.navigation.navigate('ChangepaswordScreen')}} underlayColor="#ffff">
                   <View style={styles.ChangePasswordcontainer}>
                       <Text style = {styles.ChangePassword}>ChangePassword</Text>
@@ -161,6 +149,7 @@ export default class AccountDetail extends React.Component
                     onPress={() => this.logout()}/>
                     </View>
                 </View>
+                </ScrollView>
             </View>
         )
     }

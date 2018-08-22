@@ -1,15 +1,7 @@
 import React ,{ Component } from 'react';
 import { StyleSheet, Text, View,Image, TextInput, TouchableHighlight, Alert, AsyncStorage, Button, Icon } from 'react-native'
 
-const Left = ({ onPress }) => (
-    <View style={{ padding: 15}}>
-    <TouchableHighlight onPress={() =>alert('done')}>
-      <Image style={{width: 30, height: 30,}}
-        source={require('./images/top_cart.png')}
-      />
-    </TouchableHighlight>
-    </View>
-  );
+
 
 export default class ForgotPassword extends React.Component {
 
@@ -28,7 +20,6 @@ export default class ForgotPassword extends React.Component {
         headerTitle: 'Forgot Password',
         headerTintColor: 'white',
         headerStyle: {backgroundColor: 'rgb(129, 195, 65)'},
-        headerRight: <Left />,
       };
 
     constructor(props) {
@@ -115,36 +106,36 @@ export default class ForgotPassword extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-              <View style = {styles.logoContainer}>
-                <Image style={{width: 100, height: 100}}
-                 source={require('./images/forgot_password.png')} />
-               <Text style = {{margin: 15,fontWeight:'bold',fontSize:18}}>
-                Forgot Password
-               </Text>
-               <Text style = {{margin: 10,fontSize:14,color:'grey',}}>
-               Enter Your Mobile Number below {"\n"}      
-               </Text>
-               <Text style = {{marginTop:-20,fontSize:14,color:'grey',}}>
-               to receive your OTP
-               </Text>
-               <View style={styles.txtContainer}>
-                    <TextInput
-                        style={styles.inputOne}
-                        placeholder="Mobile No/Email"
-                        autoCapitalize={'none'}
-                        returnKeyType={'done'}
-                        autoCorrect={false}
-                        placeholderTextColor="lightgrey"
-                        underlineColorAndroid="transparent"
-                        onChangeText={mobile_num => this.setState({mobile_num})}
-                    />
-                </View>
-                 <View style = {styles.sendButtonContainer}>
-                  <TouchableHighlight onPress={() => this._submit()}>
-                    <Image style={{width: 35, height: 35,}}
-                    source={require('./images/next_arrow.png')}/>
-                   </TouchableHighlight>
-                   </View>
+                <View style = {styles.logoContainer}>
+                    <Image style={{width: 100, height: 100}}
+                    source={require('./images/forgot_password.png')} />
+                    <Text style = {{margin: 15,fontWeight:'bold',fontSize:18}}>
+                        Forgot Password
+                    </Text>
+                    <Text style = {{margin: 10,fontSize:14,color:'grey',}}>
+                        Enter Your Mobile Number below {"\n"}      
+                    </Text>
+                    <Text style = {{marginTop:-20,fontSize:14,color:'grey',}}>
+                        to receive your OTP
+                    </Text>
+                    <View style={styles.txtContainer}>
+                        <TextInput
+                            style={styles.inputOne}
+                            placeholder="Mobile No/Email"
+                            autoCapitalize={'none'}
+                            returnKeyType={'done'}
+                            autoCorrect={false}
+                            placeholderTextColor="lightgrey"
+                            underlineColorAndroid="transparent"
+                            onChangeText={mobile_num => this.setState({mobile_num})}
+                        />
+                    </View>
+                    <View style = {styles.sendButtonContainer}>
+                        <TouchableHighlight onPress={() => this._submit()}>
+                            <Image style={{width: 20, height: 20,}}
+                            source={require('./images/next_arrow.png')}/>
+                        </TouchableHighlight>
+                    </View>
                 </View>
             </View>
         )
@@ -161,7 +152,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     logoContainer: {
-        marginBottom: 200,
+        
         justifyContent: 'center',
         alignItems: 'center',
     },
