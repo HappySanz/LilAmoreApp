@@ -60,8 +60,6 @@ export default class ProductDetail extends React.Component {
         return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
     };
 
-    
-
     constructor(props) {
         super(props);
     
@@ -109,7 +107,6 @@ export default class ProductDetail extends React.Component {
                 product_id: prod_id,
                 user_id: this.state.user_id,
                 }),
-
             })
             .then(res => res.json())
             .then(res => {
