@@ -101,7 +101,6 @@ export default class UserProfile extends React.Component {
         this.setState({ rad_data: tempVal });
         // alert(this.state.rad_data)
         // console.log(this.state.rad_data)
-
         // return(this.state.rad_data);
     }
     sendSelectedPin() {
@@ -118,7 +117,6 @@ export default class UserProfile extends React.Component {
                 body: JSON.stringify({
                 pin_code: pin,
                 }),
-
             })
             .then(res => res.json())
             .then(res => {
@@ -141,10 +139,8 @@ export default class UserProfile extends React.Component {
     };
 
     render() {
-        
         return (
             <View style={styles.container}>
-
                 <View style={styles.topTextContainer}>
                     <Text style={styles.textNoBorder}>{"Confirm shipping address"}</Text>
                     <Text 
@@ -153,7 +149,6 @@ export default class UserProfile extends React.Component {
                         {"+ ADD NEW"}
                     </Text>
                 </View>
-
                 <View style={styles.centerbox}>
 
                     <RadioForm

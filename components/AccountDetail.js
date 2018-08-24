@@ -1,7 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity,TouchableHighlight, AsyncStorage, Button, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity,TouchableHighlight, AsyncStorage, Button, ScrollView,BackHandler } from 'react-native'
+
 export default class AccountDetail extends React.Component 
 {
+
     constructor(props) 
     {
         super(props);
@@ -10,6 +12,12 @@ export default class AccountDetail extends React.Component
         profiledata: [],
         email: '',
         username: '',
+        id: '',
+        last_name: '',
+        birth_date: '',
+        gender: '',
+        phone_number: '',
+        newsletter_status: '',
         userImage: '',
         user_id: '',
         status: '',
@@ -22,9 +30,9 @@ export default class AccountDetail extends React.Component
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
         alignSelf: 'center' };
         let headerTintColor = 'white';
-        return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
+        let headerBackTitle = ' '
+        return { headerTitle, headerStyle, headerTitleStyle, headerTintColor,headerBackTitle};
     };
-    
     componentDidMount ()
     {
         AsyncStorage.getItem("user_id").then((value) => {
@@ -57,16 +65,29 @@ export default class AccountDetail extends React.Component
             {
             this.setState({
                 profiledata : res.get_profile_details,
+                id : res.get_profile_details.id,
                 username : res.get_profile_details.first_name,
+                last_name : res.get_profile_details.last_name,
                 email : res.get_profile_details.email,
+                phone_number : res.get_profile_details.phone_number,
+                birth_date : res.get_profile_details.birth_date,
+                newsletter_status : res.get_profile_details.newsletter_status,
+                gender : res.get_profile_details.gender,
                 userImage : res.get_profile_details.profile_picture
             });
             }
-            console.log(res);
             })
         .catch((error) => {
             console.error(error);
         });
+    }
+    _userdetailPage () 
+    {
+        this.props.navigation.navigate('UserdetailScreen', {
+            'id': this.state.id,
+            'first_name': this.state.first_name, 'last_name': this.state.last_name, 'email': this.state.email, 'birth_date':this.state.birth_date, 'gender':this.state.gender,
+            'phone_number': this.state.phone_number, 'newsletter_status': this.state.newsletter_status,
+          }); 
     }
     logout() 
     {
@@ -131,7 +152,7 @@ export default class AccountDetail extends React.Component
                       </Image>
                   </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {this.props.navigation.navigate('UserdetailScreen')}} underlayColor="#ffff">
+                  <TouchableHighlight onPress={() => {this._userdetailPage()}} underlayColor="#ffff">
                   <View style={styles.userDetailscontainer}>
                       <Text style = {styles.userDetails}>Update My Details</Text>
                       <Image 
