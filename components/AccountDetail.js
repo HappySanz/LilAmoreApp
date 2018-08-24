@@ -121,7 +121,7 @@ export default class AccountDetail extends React.Component
                        </Image>
                   </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => alert('order')}>
+                  <TouchableHighlight onPress={() => this.props.navigation.navigate('OrderListScreen')}>
                   <View style={styles.ordercontainer}>
                        <Text style = {styles.order}>Order</Text>
                        <Image 

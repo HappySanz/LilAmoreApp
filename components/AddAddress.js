@@ -99,19 +99,27 @@ export default class AddAddress extends React.Component {
             }),
         //body:"name = 'nameValue' & phone = mobile & email= email & password= passwordValue & newsletter= newletter & mob_key= mobileKey & mobile_type= mobileType" // <-- Post parameters
         body: JSON.stringify({
-            name: nameValue,
-            phone: mobile,
-            email: email,
-            password: passwordValue,
-            newsletter: newletter,
-            mob_key: mobileKey,
-            mobile_type: mobileType ,
+            user_id : this.state.user_id,
+            country_id : this.state.country_id,
+            state : this.state.state,
+            city : this.state.city,
+            pincode : this.state.pincode,
+            house_no : this.state.house_no,
+            street : this.state.street,
+            landmark : this.state.landmark,
+            full_name : this.state.full_name,
+            mobile_number : this.state.mobile_number,
+            email_address : this.state.email_address,
+            alternative_mobile_number : this.state.alternative_mobile_number,
+            address_type_id : '1',
+            address_mode : this.state.address_mode,
           }),
         })
         .then((response) => response.text())
         .then((responseText) => {
         if(responseText.success==='success'){
-            alert("User created successfully");
+            alert("Address added successfully");
+            this.props.navigation.navigate('SelectAddressScreen');  
         }
         })
         .catch((error) => {

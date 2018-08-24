@@ -124,7 +124,9 @@ export default class Wishlist extends React.Component {
                         <TouchableOpacity 
                             style={styles.imgContainer} 
                             onPress={()=> {
-                                console.log('does not work');
+                                this.props.navigation.navigate('ProductDetailScreen',{
+                                    product_id:item.id
+                                });
                             }}>
                             <Image source={{uri: item.product_cover_img}}
                                     style={styles.img  }>
@@ -176,15 +178,7 @@ export default class Wishlist extends React.Component {
                                 > 
                                     {"REMOVE"} 
                                 </Text>
-                                <Text 
-                                    style = {styles.actionTxt}  
-                                    onPress = {
-                                        ()=> {
-                                            this.deleteProduct(item)
-                                            }}
-                                > 
-                                    {"ADD TO CART"} 
-                                </Text>
+                                
 
                             </View>
 

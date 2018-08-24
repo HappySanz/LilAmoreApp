@@ -155,9 +155,10 @@ export default class SignIn extends React.Component {
                     </View>
                     
                     <View >
-                    <TextInput
-                        style={{marginLeft:60,marginRight:60,borderColor:'lightgrey',
-                        borderWidth:1,marginTop:15,}}
+                        <TextInput
+                            style={{marginLeft:60,marginRight:60,borderColor:'lightgrey',
+                            borderWidth:1,marginTop:15,}}
+                            secureTextEntry={this.state.showPass}
                             placeholder="Password"
                             autoCapitalize={'none'}
                             returnKeyType={'done'}

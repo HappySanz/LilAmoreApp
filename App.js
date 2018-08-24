@@ -26,6 +26,8 @@ import Otp from './components/Otp';
 import Changepasword from './components/Changepasword';
 import Wishlist from './components/WishList';
 import AddAddress from './components/AddAddress';
+import OrderList from './components/OrderList';
+import OrderListDetail from './components/OrderListDetail';
 
 const AppNavigator = createStackNavigator(
   {
@@ -51,6 +53,8 @@ const AppNavigator = createStackNavigator(
     ChangepaswordScreen : Changepasword,
     WishListScreen : Wishlist,
     AddAddressScreen : AddAddress,
+    OrderListScreen : OrderList,
+    OrderListDetailScreen : OrderListDetail,
 
   },
   {
@@ -83,7 +87,8 @@ const AppNavigator1 = createStackNavigator(
     ChangepaswordScreen : Changepasword,
     WishListScreen : Wishlist,
     AddAddressScreen : AddAddress,
-
+    OrderListScreen : OrderList,
+    OrderListDetailScreen : OrderListDetail,
   },
   {
     initialRouteName: 'SplashScreen1',
