@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, ScrollView, Button, AsyncStorage} from 'react-native'
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import { BackHandler } from 'react-native';
 
 var radio_props_gender = [
     {label: 'Male', value: 0 },
@@ -13,13 +12,10 @@ var radio_props_newsletter = [
     {label: 'No', value: 1 },
 ];
 
-
 export default class AccountDetail extends React.Component 
 {
-    _didFocusSubscription;
-    _willBlurSubscription;
-
-    constructor(props) {
+    constructor(props) 
+    {
         super(props);
         this.state = {
             value_gender : 0,
@@ -33,8 +29,10 @@ export default class AccountDetail extends React.Component
             gender: '',
             user_id: '',
         };  
-      }
-    static navigationOptions = ({ navigation }) => {
+    }
+
+    static navigationOptions = ({ navigation }) => 
+    {
         let headerTitle = 'User Details';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',alignSelf: 'center' };
@@ -45,13 +43,15 @@ export default class AccountDetail extends React.Component
 
     componentDidMount ()
     {
-        AsyncStorage.getItem("user_id").then((value) => {
+        AsyncStorage.getItem("user_id").then((value) => 
+        {
             this.setState({
               user_id : value
             });
             this.fetchapicall ();
-          })
+        })
     }
+
     fetchapicall ()
     {
         let apicall = global.baseurl + "get_profile_details"
@@ -102,11 +102,13 @@ export default class AccountDetail extends React.Component
             console.error(error);
         });
     }
-    render() {
+    
+    render() 
+    {
         return (
             <View style={styles.container}>
              <ScrollView style={{flex:1,flexDirection:'column', backgroundColor:'#f3f3f3'}}>
-             <View style= {styles.txtInputContainerOne}>
+              <View style= {styles.txtInputContainerOne}>
                <Text style = {{margin:10,padding:10}}> First Name </Text>
                 <TextInput
                 style={styles.inputOne}
@@ -194,13 +196,14 @@ export default class AccountDetail extends React.Component
                     }}/>
                 </View> 
                 <Text style = {{margin:10,padding:10}}> Subscribe to our news letter and stay up-to-date
-                   with new collections,the latest new lookbooks and   exclusive offers </Text>
-               </View>
+                 with new collections,the latest new lookbooks and   exclusive offers </Text>
+                </View>
              </ScrollView>
             </View>
         )
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex:1,
@@ -208,8 +211,8 @@ const styles = StyleSheet.create({
     },
     txtInputContainer: 
     {
-       justifyContent: 'center',
-       alignItems: 'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     inputOne:{
         width: 300,

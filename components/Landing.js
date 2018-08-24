@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, YellowBox, Platform, TouchableHighlight, Image, FlatList, ScrollView, AsyncStorage, Alert} from 'react-native'
 import { StackNavigator } from  'react-navigation';
 import { DrawerNavigator } from 'react-navigation';
-import SideMenu from 'react-native-side-menu';
 import { ImageBackground } from 'react-native';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import Swiper from 'react-native-swiper'
+import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
 import { Card } from "react-native-elements";
 
@@ -109,7 +109,6 @@ console.disableYellowBox = true;
       this.setState({
         isOpen: false,
         selectedItem: item,
-
       });
 
       FlatListItemSeparator = () => {
@@ -153,19 +152,15 @@ console.disableYellowBox = true;
            <View style={styles.container}>
 
             <TouchableOpacity
-              onPress={()=> {this.toggle}}
+              onPress={this.toggle}
               style={styles.button}>
-
               <Image
                 source={leftImg}
                 style={{ width: 30, height: 30 }}/>
-
             </TouchableOpacity> 
-
             <Text style={styles.headerTitle}>
               LilA'more!
             </Text>
-
             <TouchableOpacity
               onPress={()=> {this.props.navigation.navigate('CartScreen')}}
               style={styles.buttonTwo}>
@@ -304,6 +299,7 @@ console.disableYellowBox = true;
 
   const styles = StyleSheet.create({
     button: {
+
       padding: 10,      
       justifyContent:'center',
     },

@@ -17,7 +17,7 @@ import { withNavigation } from 'react-navigation';
 const window = Dimensions.get('window');
 const uri = this._retrieveData;
 
-class Menu extends Component {
+class Menu extends Component  {
 
   static navigationOptions = ({ navigation }) => {
 
