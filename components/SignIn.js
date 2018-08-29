@@ -4,13 +4,15 @@ import {
     StyleSheet, Text, View, Image,
     AsyncStorage,TextInput, Keyboard, TouchableOpacity, BackHandler, TouchableHighlight, ImageBackground
 } from 'react-native'
-import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken }from 'react-native-fbsdk'
+import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken, LoginButton }from 'react-native-fbsdk'
 //import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import eyeImgHide from './images/hide_password.png';
 import eyeImgShow from './images/show_password.png';
 import { Item } from 'native-base';
 
 export default class SignIn extends React.Component {
+    
+
 
     static navigationOptions = ({ navigation }) => {
         let headerTitle = 'Sign In';
@@ -31,6 +33,9 @@ export default class SignIn extends React.Component {
           password : '',
           statusVar: '',
           user_id  : '',
+          fb_user_id : '',
+          fb_first_name : '',
+          fb_last_name : '',
             };
         this.showPass = this.showPass.bind(this);
     }
@@ -110,8 +115,8 @@ export default class SignIn extends React.Component {
     }
     signOut = async () => {
         try {
-        //   await GoogleSignin.revokeAccess();
-        //   await GoogleSignin.signOut();
+        //await GoogleSignin.revokeAccess();
+        //await GoogleSignin.signOut();
           this.setState({ user: null });
           alert("Logout successful!");
         } catch (error) {
@@ -137,7 +142,7 @@ export default class SignIn extends React.Component {
             }
         }
     };
-    FBLogin () 
+    FBLogin = (navigate) => 
     {
         LoginManager.logInWithReadPermissions(['public_profile','email']).then(
             function(result) {
@@ -149,7 +154,6 @@ export default class SignIn extends React.Component {
                     (data) => 
                     {
                       let accessToken = data.accessToken;
-                       //alert(accessToken.toString());
                       const infoRequest = new GraphRequest('/me',
                         {
                           accessToken: accessToken,parameters: {
@@ -160,27 +164,53 @@ export default class SignIn extends React.Component {
                         },
                         (error, result) => 
                         {
-                        let fbEmail = result.email;
-                        let fbUsername = result.name;
-                        let fbprofPic = result.picture.data.url;  
-                        alert (result.email)
-                        AsyncStorage.setItem('img_url',fbprofPic);
+                          console.log (result)
+                          let fbEmail = result.email;
+                         // let fbUsername = result.name;
+                          let fbfirst_name = result.first_name;
+                          let fblast_name = result.fblast_name;
+                          let fbprofPic = result.picture.data.url;  
+                          AsyncStorage.setItem('img_url',fbprofPic);
+                           let apicall = global.baseurl + "social_login"
+                            fetch(apicall, {
+                            method: 'POST',
+                            headers: new Headers ({
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            }),
+                            body: JSON.stringify ({
+                            username: fbEmail,
+                            first_name: fbfirst_name,
+                            last_name: fblast_name,
+                            mobile_type: '2',
+                            login_type: 'fb',
+                            mob_key: '0',
+                            }),
+                            })
+                            .then(res => res.json())
+                            .then((responseText) => {
+                                let _id = responseText.userData.customer_id
+                                let first_name = responseText.userData.first_name
+                                let last_name = responseText.userData.last_name
+                                AsyncStorage.setItem('user_id',_id);
+                                AsyncStorage.setItem('first_name',first_name);
+                                AsyncStorage.setItem('last_name',last_name);
+                                navigate ('LandingScreen')
+                                return responseText;
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
                         });
-                         new GraphRequestManager().addRequest(infoRequest).start();
-                    })       
+                        new GraphRequestManager().addRequest(infoRequest).start();
+                    })   
+                   
               }
             },
-            
             function(error) {
-              alert('Login failed with error: ' + error);
-            }
-          );
+                console.log('Login fail with error: ' + error);
+              }//functionError
+            )//loginManager     
     }
-    navFpScreen () 
-    {
-        this.props.navigation.navigate('ForgotPasswordScreen')
-    }
-
     renderImage() {
         var imgSource = this.state.press? eyeImgShow : eyeImgHide;
         return (
@@ -190,7 +220,9 @@ export default class SignIn extends React.Component {
           />
         );
     }
+    
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
                 <View style={{flexDirection:'column'}}>
@@ -231,17 +263,15 @@ export default class SignIn extends React.Component {
                         />
                         <TouchableOpacity
                             style = {{padding: 10,marginTop:20,
-                                flexDirection:'row',
-                                position: 'absolute', right: 60,
-                                justifyContent:'flex-end',}}
+                            flexDirection:'row',
+                            position: 'absolute', right: 60,
+                            justifyContent:'flex-end',}}
                             activeOpacity={0.7}
                             onPress={() =>{this.showPass()}}>
                             {
                             this.renderImage()}
                         </TouchableOpacity>
                     </View>
-                    
-                    
                 </View>
                 <View style= {styles.fpConatiner}>
                     <Text style={{padding: 10,
@@ -259,7 +289,7 @@ export default class SignIn extends React.Component {
                     <Text style = {{left: 165,margin: 10,}}> Or </Text>
                     <View style = {styles.socailmediaConatainer}>
                         <View style = {styles.facebbokView}>
-                            <Text style = {styles.fbtxt} onPress ={() =>{this.FBLogin()}}>Facebook</Text>
+                            <Text style = {styles.fbtxt} onPress ={() =>{this.FBLogin(navigate)}}>Facebook</Text>
                         </View>
                         <View style = {styles.gmailView}>
                             <Text style = {styles.gmailtxt} onPress ={() =>{this.signIn()}}> Google +</Text>
@@ -337,8 +367,7 @@ const styles = StyleSheet.create({
         borderWidth:1,
         marginLeft:20,
         marginRight:20,
-        marginTop:10,
-        
+        marginTop:10, 
     },
     title: {
         color: '#81c341',
