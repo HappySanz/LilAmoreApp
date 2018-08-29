@@ -77,9 +77,11 @@ export default class ProductDetail extends React.Component {
             bg_color:'white',
             text_color:'black',
             select_id:'',
-            qty_value: '', 
+            qty_value: '1', 
             color_data: [],
             user_id: '',
+            mrp_price:'',
+            actual_price:'',
         };
     }
     
@@ -91,6 +93,8 @@ export default class ProductDetail extends React.Component {
             });
           })
         this.makeRemoteRequest();
+        
+
     }   
     makeRemoteRequest = () => {
         const { navigation } = this.props;
@@ -110,7 +114,7 @@ export default class ProductDetail extends React.Component {
             })
             .then(res => res.json())
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 if(res.status==='success'){
                     if(res.product_details.status === 'success'){
                         this.setState({
@@ -130,7 +134,20 @@ export default class ProductDetail extends React.Component {
                             size_data: res.comb_product.comb_product_list
                         });
                         // console.log(this.state.size_data)
-                    }                    
+                    }    
+                    if(res.comb_product.status === 'success' ){
+                        this.getActualPrice(0);
+                        this.getMrpPrice(0);
+            
+                    } else if(res.comb_product.status === 'error'){
+                        this.setState({ 
+                            mrp_price : res.product_details.product_details.product_details.prod_mrp_price,
+                            actual_price : res.product_details.product_details.product_details.prod_actual_price
+                        });
+                        console.log("this.state.mrp_price")
+                    console.log("this.state.actual_price")  
+                    }
+                    
                 } else {
                     this.setState({
                         error: res.status,
@@ -163,7 +180,7 @@ export default class ProductDetail extends React.Component {
             })
             .then(res => res.json())
             .then(res => {
-            console.log(res)
+            // console.log(res)
             if(res.status==='success'){
                 this.props.navigation.navigate('CartScreen');         
             }
@@ -191,7 +208,7 @@ export default class ProductDetail extends React.Component {
             })
             .then(res => res.json())
             .then(res => {
-            console.log(res)
+            // console.log(res)
             if(res.status==='success'){
                 alert("Product moved to wishlist successfully");
             }
@@ -219,7 +236,7 @@ export default class ProductDetail extends React.Component {
             })
             .then(res => res.json())
             .then(res => {
-            console.log(res)
+            // console.log(res)
             if(res.status === 'success'){
                 this.setState({
                     color_data: res.product_color,
@@ -237,7 +254,7 @@ export default class ProductDetail extends React.Component {
             this.setState({ error, loading: false });
             });
     };
-    
+
     render() {
         return (
             
@@ -258,12 +275,12 @@ export default class ProductDetail extends React.Component {
                             style={{textDecorationLine: 'line-through',
                             textDecorationStyle: 'solid',
                             color:'black',fontSize:15,}}>
-                            {"Rs."+this.state.prod_data.prod_mrp_price}
+                            {"Rs."+this.state.mrp_price}
                         </Text>
 
                         <Text 
                             style={{color:'black',fontSize:15,marginLeft:10}}>
-                            {"Rs."+this.state.prod_data.prod_actual_price}
+                            {"Rs."+this.state.actual_price}
                         </Text>
                     </View>
 
@@ -280,7 +297,7 @@ export default class ProductDetail extends React.Component {
                                 alignSelf: 'flex-start'
                             }} 
                             onPress={()=> { 
-                                console.log(this.state.user_id)
+                                // console.log(this.state.user_id)
                                 if(this.state.user_id){
                                     this.moveToWishList(this.state.prod_data.id)
                                 } else {
@@ -378,8 +395,8 @@ export default class ProductDetail extends React.Component {
                         style = {styles.cartText}  
                         onPress = {
                             ()=> {
-                                // if(this.state.user_id){
-                                    console.log(this.state.sizes_available)
+                                if(this.state.user_id){
+                                    // console.log(this.state.sizes_available)
                                     if(this.state.sizes_available){
                                         if(this.state.select_color){
                                             this.addToCart(this.state.prod_data.id, this.state.select_id, this.state.qty_value);
@@ -390,9 +407,9 @@ export default class ProductDetail extends React.Component {
                                     }   else {
                                             this.addToCart(this.state.prod_data.id, '', this.state.qty_value);
                                         }
-                                // } else {
-                                //    alert('Login to purchase product')
-                                // } 
+                                } else {
+                                   alert('Login to purchase product')
+                                } 
                             }
                         }> 
                         {"Add to cart"} 
@@ -417,10 +434,47 @@ export default class ProductDetail extends React.Component {
             })
         }
     }
+
+    getMrpPrice(index){
+
+        if(this.state.prod_data.combined_status){
+            console.log(this.state.size_data)
+
+            this.setState({ 
+                mrp_price : this.state.size_data[index].prod_mrp_price
+            });
+            console.log(this.state.mrp_price)
+
+        } else {
+            this.setState({ 
+                mrp_price : this.state.prod_data.prod_mrp_price
+            });
+            console.log(this.state.mrp_price)
+
+        }
+    }
+    getActualPrice(index){
+        var data = [...this.state.size_data]
+
+        if(this.state.prod_data.combined_status){
+            
+            this.setState({ 
+                actual_price : this.state.size_data[index].prod_actual_price
+            });
+            console.log(this.state.actual_price)
+
+        } else {
+            this.setState({ 
+                actual_price : this.state.prod_data.prod_actual_price
+            });
+            console.log(this.state.actual_price)
+
+        }
+    }
     
 
     showSizeAvail() {
-        console.log(this.state.prod_data.combined_status)
+        // console.log(this.state.prod_data.combined_status)
         if(this.state.sizes_available){
             return (
                 <View style={{marginTop:2,backgroundColor:'white',flexDirection:'row'}}>
@@ -446,6 +500,8 @@ export default class ProductDetail extends React.Component {
                                         this.getColors(item.mas_size_id,item.product_id)
                                         this.setState({size_selected:true})
                                         this.checkForPressBg();
+                                        this.getMrpPrice(this.state.size_data.indexOf(item));
+                                        this.getActualPrice(this.state.size_data.indexOf(item));
                                         this.forceUpdate();
                                     }}>
                                     
@@ -471,7 +527,7 @@ export default class ProductDetail extends React.Component {
                 </View>
             )
         } else {
-            console.log("No special size available")
+            // console.log("No special size available")
         }
     }
 

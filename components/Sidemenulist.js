@@ -18,7 +18,7 @@ class Sidemenulist extends Component {
  
 GetItem (category, subCategory) {
     
-    this.props.navigation.navigate('ProductListScreen', {
+    this.props.navigation.navigate('SubCategoryListScreen', {
         category_id : category,
         sub_category : subCategory
       });

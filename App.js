@@ -28,6 +28,9 @@ import Wishlist from './components/WishList';
 import AddAddress from './components/AddAddress';
 import OrderList from './components/OrderList';
 import OrderListDetail from './components/OrderListDetail';
+import SubCategoryList from './components/SubCategoryList';
+import SearchResult from './components/SearchResult';
+
 
 const AppNavigator = createStackNavigator(
   {
@@ -55,6 +58,9 @@ const AppNavigator = createStackNavigator(
     AddAddressScreen : AddAddress,
     OrderListScreen : OrderList,
     OrderListDetailScreen : OrderListDetail,
+    SubCategoryListScreen : SubCategoryList,
+    SearchResultScreen : SearchResult,
+
 
   },
   {
@@ -89,6 +95,9 @@ const AppNavigator1 = createStackNavigator(
     AddAddressScreen : AddAddress,
     OrderListScreen : OrderList,
     OrderListDetailScreen : OrderListDetail,
+    SubCategoryListScreen : SubCategoryList,
+    SearchResultScreen : SearchResult,
+
   },
   {
     initialRouteName: 'SplashScreen1',

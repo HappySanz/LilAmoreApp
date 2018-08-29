@@ -95,15 +95,15 @@ def enableProguardInReleaseBuilds = false
 
 android {
 
-    //   signingConfigs {
-    //       config {
-    //           keyAlias 'lilamore_alias'
-    //           keyPassword 'LilAmore@123'
-    //           storeFile file('E:/LilAmore/LilAmoreApp/android/app/lilamore.jks')
-    //           storePassword 'LilAmore@123'
-    //           flavorDimensions "default"
-    //       }
-    //   }
+    //    signingConfigs {
+    //        config {
+    //            keyAlias 'lilamore_alias'
+    //            keyPassword 'LilAmore@123'
+    //            storeFile file('E:/LilAmore/LilAmoreApp/android/app/lilamore.jks')
+    //            storePassword 'LilAmore@123'
+    //            flavorDimensions "default"
+    //        }
+    //    }
 
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -114,35 +114,35 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 3
         versionName "1.0.2"
-        //  multiDexEnabled true
+        //   multiDexEnabled true
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
     }
-    //   dexOptions {
-    //       preDexLibraries = false
-    //       javaMaxHeapSize "4g"
-    //   }
-    //   afterEvaluate {
-    //       tasks.matching {
-    //           it.name.startsWith('dex')
-    //       }.each { dx ->
-    //           if (dx.additionalParameters == null) {
-    //               dx.additionalParameters = []
-    //           }
-    //           dx.additionalParameters += "--set-max-idx-number=55000"
-    //       }
-    //   }
-    //   packagingOptions {
-    //       exclude 'META-INF/DEPENDENCIES'
-    //       exclude 'META-INF/LICENSE'
-    //       exclude 'META-INF/LICENSE.txt'
-    //       exclude 'META-INF/license.txt'
-    //       exclude 'META-INF/NOTICE'
-    //       exclude 'META-INF/NOTICE.txt'
-    //       exclude 'META-INF/notice.txt'
-    //       exclude 'META-INF/ASL2.0'
-    //   }
+    //    dexOptions {
+    //        preDexLibraries = false
+    //        javaMaxHeapSize "4g"
+    //    }
+    //    afterEvaluate {
+    //        tasks.matching {
+    //            it.name.startsWith('dex')
+    //        }.each { dx ->
+    //            if (dx.additionalParameters == null) {
+    //                dx.additionalParameters = []
+    //            }
+    //            dx.additionalParameters += "--set-max-idx-number=55000"
+    //        }
+    //    }
+    //    packagingOptions {
+    //        exclude 'META-INF/DEPENDENCIES'
+    //        exclude 'META-INF/LICENSE'
+    //        exclude 'META-INF/LICENSE.txt'
+    //        exclude 'META-INF/license.txt'
+    //        exclude 'META-INF/NOTICE'
+    //        exclude 'META-INF/NOTICE.txt'
+    //        exclude 'META-INF/notice.txt'
+    //        exclude 'META-INF/ASL2.0'
+    //    }
     splits {
         abi {
             reset()
@@ -155,11 +155,11 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            //   shrinkResources false
-            //   debuggable false
-            //   jniDebuggable false
-            //   zipAlignEnabled true
-            //   signingConfig signingConfigs.config
+            //    shrinkResources false
+            //    debuggable false
+            //    jniDebuggable false
+            //    zipAlignEnabled true
+            //    signingConfig signingConfigs.config
         }
     }
 
@@ -176,15 +176,15 @@ android {
             }
         }
     }
-    //   productFlavors {
-    //       flavor {
-    //           signingConfig signingConfigs.config
-    //       }
-    //   }
-    //   lintOptions {
-    //       abortOnError false
-    //       disable 'RestrictedApi'
-    //   }
+    //    productFlavors {
+    //        flavor {
+    //            signingConfig signingConfigs.config
+    //        }
+    //    }
+    //    lintOptions {
+    //        abortOnError false
+    //        disable 'RestrictedApi'
+    //    }
 }
 
 dependencies {

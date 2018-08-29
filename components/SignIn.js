@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from 'react-native-elements'
 import {
     StyleSheet, Text, View, Image,
-    AsyncStorage,TextInput, Keyboard, TouchableOpacity, Platform, TouchableHighlight, ImageBackground
+    AsyncStorage,TextInput, Keyboard, TouchableOpacity, BackHandler, TouchableHighlight, ImageBackground
 } from 'react-native'
 import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken }from 'react-native-fbsdk'
 //import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
@@ -38,6 +38,21 @@ export default class SignIn extends React.Component {
         this.state.press === false? 
             this.setState({showPass: false, press: true}) : this.setState({showPass: true, press: false});
     } 
+
+    componentDidMount() 
+    {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        
+    }
+    componentWillUnmount() 
+    {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+    handleBackButton() 
+    {
+        return false;
+    }
+    
     
     
     saveData = ()=> 
@@ -87,7 +102,7 @@ export default class SignIn extends React.Component {
                 }
                 else
                 {
-                    alert('error');
+                    alert(this.state.statusVar);
                 }
             })
         }

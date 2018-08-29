@@ -34,8 +34,10 @@ export default class CartItemList extends React.Component {
             this.setState({
               user_id : value
             });
-          })
+            console.log(this.state.user_id)
         this.makeRemoteRequest();
+
+          })
     }   
 
 
@@ -261,18 +263,17 @@ export default class CartItemList extends React.Component {
                         margin:1}}  
                         onPress = {
                             ()=> {
-                                //if(this.state.user_id){
-                                    this.props.navigation.navigate('AddAddressScreen'
-                                    // , {
-                                    //     user_id: 2,
-                                    //     product_id: this.state.prod_data.id,
-                                    //     product_com_id: this.state.color_data.id,
-                                    //     quantity:this.state.qty_value,
-                                    // }
+                                if(this.state.user_id){
+                                    this.props.navigation.navigate('SelectAddressScreen'
+                                    , {
+                                        // product_id: this.state.prod_data.id,
+                                        // product_com_id: this.state.color_data.id,
+                                        // quantity:this.state.qty_value,
+                                    }
                                 );
-                                //} else {
-                                //    alert('Login to purchase product')
-                                //}
+                                } else {
+                                   alert('Login to purchase product')
+                                }
                                 
                             }}> 
                         {"Checkout"} 
