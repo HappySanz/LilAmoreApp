@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, BackHandler, Alert, AsyncStorage, Image } from 'react-native'
+import { StyleSheet, Text, View, AsyncStorage, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken }from 'react-native-fbsdk'
 import { Scene, Router, Actions } from 'react-native-router-flux';
@@ -31,24 +31,7 @@ export default class Login extends React.Component {
         }
     }
 
-    componentDidMount() 
-    {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-        // GoogleSignin.configure({
-        // iosClientId: '329415591175-d09idaj0vte9iedtp43tadk04dhh85u0.apps.googleusercontent.com'
-        // }).then(() => 
-        // {
-        // this.getCurrentUser;
-        // });
-    }
-    componentWillUnmount() 
-    {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    }
-    handleBackButton() 
-    {
-        return true;
-    }
+    
     
     render() {
         return (

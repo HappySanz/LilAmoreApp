@@ -81,16 +81,16 @@ export default class ProductList extends React.Component {
             this.setState({
               user_id : value
             });
-          })
-        this.makeRemoteRequest();
+            this.makeRemoteRequest();
+        })
     }   
 
 
     
     makeRemoteRequest = () => {
         const { navigation } = this.props;
-        const category =navigation.getParam('category_id' , 'NO-ID');
-        const subCategory =navigation.getParam('sub_category' , 'NO-ID');
+        const category =navigation.getParam('category_id' , '');
+        const subCategory =navigation.getParam('sub_category' , '');
         const url = `http://littleamore.in/demo/mobileapi/product_list`;
         this.setState({ loading: true });
         fetch(url, {
@@ -101,7 +101,7 @@ export default class ProductList extends React.Component {
                 body: JSON.stringify({
                     cat_id : category,
                     sub_cat_id : subCategory,
-                    user_id : this.state.user_id
+                    // user_id : this.state.user_id
                 }),
 
             })

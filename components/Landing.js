@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, YellowBox, Platform, TouchableHighlight, Image, FlatList, ScrollView, AsyncStorage, Alert} from 'react-native'
+import { StyleSheet, Text, View, Button, TouchableOpacity, 
+  YellowBox, Platform, TouchableHighlight, Image, 
+  FlatList, ScrollView, AsyncStorage, TextInput} from 'react-native'
 import { StackNavigator } from  'react-navigation';
 import { DrawerNavigator } from 'react-navigation';
 import { ImageBackground } from 'react-native';
@@ -12,6 +14,7 @@ import { Card } from "react-native-elements";
 const leftImg = require('./images/side_menu.png');
 const rightImg_One = require('./images/top_wishlist.png');
 const rightImg_Two = require('./images/top_cart.png');
+const rightImg_three = require('./images/search.png');
 
 console.disableYellowBox = true;
 
@@ -47,6 +50,9 @@ console.disableYellowBox = true;
         ads_image: '',
         statarr: [], 
         user_id: '',
+        clicked: false,
+        searchField:'',
+        showCancel: false,
       }
     };
 
@@ -144,6 +150,43 @@ console.disableYellowBox = true;
         />)
       }
 
+      toggleCancel(){
+        this.setState({
+            showCancel: !this.state.showCancel
+        });
+    }
+    
+      handleSearch(rex){
+        this.toggleCancel();
+        this.props.navigation.navigate('SearchResultScreen', {
+            'searchKey': rex,
+        })
+        console.log(rex)
+        
+     }
+      searchClick(){
+        if (this.state.showCancel) {
+          return (
+            <View style = {{height: 50, backgroundColor: '#81c341'}}>
+              <TextInput
+                style={{marginTop:15,
+                    color:"white"}}
+                    placeholder="Search"
+                    autoCapitalize={'none'}
+                    returnKeyType={'search'}
+                    autoCorrect={false}
+                    placeholderTextColor="lightgrey"
+                    underlineColorAndroid="white"
+                    onChangeText={(searchField) => this.setState({searchField})}
+                    onSubmitEditing={this.handleSearch.bind(this,this.state.searchField)}
+                value = {this.state.searchField}
+              />
+            </View>
+            )
+        } else {
+          return null;
+      }
+      }
     render() 
     {
       const menu = <Menu onItemSelected={this.onMenuItemSelected}/>;
@@ -164,6 +207,19 @@ console.disableYellowBox = true;
             <Text style={styles.headerTitle}>
               LilA'more!
             </Text>
+            <View style={styles.buttonFour}>
+            <TouchableOpacity
+            
+              onPress={()=> {this.toggleCancel()}}
+              >
+
+              <Image
+                source={rightImg_three}
+                style={{ width: 32, height: 32 }}/>
+
+            </TouchableOpacity>
+            </View>
+            
             <TouchableOpacity
               onPress={()=> {this.props.navigation.navigate('CartScreen')}}
               style={styles.buttonTwo}>
@@ -183,8 +239,9 @@ console.disableYellowBox = true;
                 style={{ width: 25, height: 25 }}/>
 
             </TouchableOpacity> 
-
+            
             </View>
+            {this.searchClick()}
             <ScrollView style={{flex:1,flexDirection:'column', backgroundColor:'lightgrey'}}>
 
               <View style={{flex:1,flexDirection:'column'}}>
@@ -316,6 +373,12 @@ console.disableYellowBox = true;
       padding: 10,      
       justifyContent:'flex-end',
       position: 'absolute', right: 40,
+      flexDirection:'row'
+    },
+    buttonFour:{
+      padding: 10,      
+      justifyContent:'flex-end',
+      position: 'absolute', right: 80,
       flexDirection:'row'
     },
     headerTitle:

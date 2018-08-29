@@ -38,8 +38,9 @@ export default class UserProfile extends React.Component {
             this.setState({
               user_id : value
             });
-          })
         this.makeRemoteRequest();
+
+        })
     }   
 
     makeRemoteRequest = () => {
@@ -58,7 +59,7 @@ export default class UserProfile extends React.Component {
                         'Content-Type': 'application/x-www-form-urlencoded',
                 }),
                 body: JSON.stringify({
-                user_id: '2',
+                user_id: this.state.user_id,
                 }),
 
             })
@@ -122,14 +123,20 @@ export default class UserProfile extends React.Component {
             .then(res => {
                 console.log(res)
                 if(res.status==='success'){
-                    
+                    // this.props.navigation.navigate('SelectAddressScreen'
+                    //                 , {
+                    //                     product_id: this.state.prod_data.id,
+                    //                     product_com_id: this.state.color_data.id,
+                    //                     quantity:this.state.qty_value,
+                    //                 })
+                    alert(res.status)
                 } else {
                     this.setState({
                         error: res.status,
                         loading: false,
                         refreshing: false
                     });
-                    alert("Address detail not found")
+                    alert("Delivery unavailable for selected location")
                     throw new Error('Network response error.')
                 }
             })
@@ -145,7 +152,7 @@ export default class UserProfile extends React.Component {
                     <Text style={styles.textNoBorder}>{"Confirm shipping address"}</Text>
                     <Text 
                         style={styles.textBorder}
-                        onPress = {()=>{}}>
+                        onPress = {()=>{this.props.navigation.navigate('AddAddressScreen')}}>
                         {"+ ADD NEW"}
                     </Text>
                 </View>

@@ -73,7 +73,7 @@ export default class SignIn extends React.Component {
         }
         else if (passwordValue.length === 0)
         {
-            alert("Please Enter the assword");
+            alert("Please Enter the password");
         }
         else
         {
@@ -97,6 +97,7 @@ export default class SignIn extends React.Component {
         .then((responseText) => {
         if(responseText.success==='success'){
             alert("User created successfully");
+            this.props.navigation.navigate('LoginScreen')
         }
         })
         .catch((error) => {

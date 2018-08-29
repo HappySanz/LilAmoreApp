@@ -22,7 +22,7 @@ export default class AddAddress extends React.Component {
         super(props);
         this.state = {
         user_id : '',
-        country_id: '',
+        country_id: '1',
         state: '',
         city: '',
         pincode: '',
@@ -33,8 +33,8 @@ export default class AddAddress extends React.Component {
         mobile_number: '',
         email_address: '',
         alternative_mobile_number: '',
-        address_type_id: '',
-        address_mode: '',
+        address_type_id: '1',
+        address_mode: '0',
         SwitchOnValueHolder :  false
         };
         this.showPass = this.showPass.bind(this);
@@ -45,6 +45,14 @@ export default class AddAddress extends React.Component {
             ? this.setState({showPass: false, press: true})
             : this.setState({showPass: true, press: false});
     } 
+
+    componentDidMount() {
+        AsyncStorage.getItem("user_id").then((value) => {
+            this.setState({
+              user_id : value
+            });
+          })
+    }   
 
     renderImage() {
         var imgSource = this.state.press? eyeImgShow : eyeImgHide;
@@ -74,25 +82,46 @@ export default class AddAddress extends React.Component {
         let address_type_id = this.state.address_type_id;
         let address_mode = this.state.address_mode;
         
-        if (nameValue.length === 0)
+        if (state.length === 0)
         {
-            alert("Please Enter the username");
+            alert("Please Enter the state");
         }
-        else if (mobile .length === 0)
-        {
-            alert("Please Enter the mobile");
-        }
-        else if (email.length === 0)
-        {
-            alert("Please Enter the email");
-        }
-        else if (passwordValue.length === 0)
-        {
-            alert("Please Enter the assword");
-        }
+        // else if (city.length === 0)
+        // {
+        //     alert("Please Enter the city");
+        // }
+        // else if (pincode.length === 0)
+        // {
+        //     alert("Please Enter the pincode");
+        // }
+        // else if (house_no.length === 0)
+        // {
+        //     alert("Please Enter the house number");
+        // }
+        // else if (street.length === 0)
+        // {
+        //     alert("Please Enter the street");
+        // }
+        // else if (landmark.length === 0)
+        // {
+        //     alert("Please Enter the landmark");
+        // }
+        // else if (full_name.length === 0)
+        // {
+        //     alert("Please Enter the Name");
+        // }
+        // else if (mobile_number.length === 0)
+        // {
+        //     alert("Please Enter the phone number");
+        // }
+        // else if (email_address.length === 0)
+        // {
+        //     alert("Please Enter the email");
+        // }
+        
         else
         {
-        fetch("http://littleamore.in/demo/mobileapi/registration", {
+        fetch("http://littleamore.in/demo/mobileapi/address_create", {
         method: 'POST',
         headers: new Headers({
                     'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
@@ -100,7 +129,7 @@ export default class AddAddress extends React.Component {
         //body:"name = 'nameValue' & phone = mobile & email= email & password= passwordValue & newsletter= newletter & mob_key= mobileKey & mobile_type= mobileType" // <-- Post parameters
         body: JSON.stringify({
             user_id : this.state.user_id,
-            country_id : this.state.country_id,
+            country_id : '1',
             state : this.state.state,
             city : this.state.city,
             pincode : this.state.pincode,
@@ -115,12 +144,13 @@ export default class AddAddress extends React.Component {
             address_mode : this.state.address_mode,
           }),
         })
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((responseText) => {
-        if(responseText.success==='success'){
-            alert("Address added successfully");
-            this.props.navigation.navigate('SelectAddressScreen');  
-        }
+            console.log(responseText)
+            if(responseText.success==='success'){
+                alert("Address added successfully");
+                this.props.navigation.goBack();  
+            }
         })
         .catch((error) => {
             console.error(error);
@@ -270,14 +300,14 @@ export default class AddAddress extends React.Component {
                             <TextInput
                             style={{marginTop:15,marginLeft:60,marginRight:60,borderColor:'lightgrey',
                             borderWidth:1,}}
-                                placeholder="Alternate Mobile Number"
+                                placeholder="Mobile Number"
                                 autoCapitalize={'none'}
                                 returnKeyType={'done'}
                                 autoCorrect={false}
                                 placeholderTextColor="lightgrey"
                                 underlineColorAndroid="transparent"
-                                onChangeText={alternative_mobile_number => this.setState({alternative_mobile_number})}
-                            value = {this.state.alternative_mobile_number}
+                                onChangeText={mobile_number => this.setState({mobile_number})}
+                                value = {this.state.mobile_number}
                             />
                         </View>
                         
@@ -293,7 +323,7 @@ export default class AddAddress extends React.Component {
                         <Button 
                             buttonStyle={styles.buttonSignin}
                             title="ADD"
-                            onPress={this.saveData}/>
+                            onPress={()=>{this.saveData()}}/>
                                     
                     </View>
                 </View>
