@@ -159,7 +159,7 @@ console.disableYellowBox = true;
               style={styles.button}>
               <Image
                 source={leftImg}
-                style={{ width: 30, height: 30 }}/>
+                style={{ width: 25, height: 25 }}/>
             </TouchableOpacity> 
             <Text style={styles.headerTitle}>
               LilA'more!
@@ -170,7 +170,7 @@ console.disableYellowBox = true;
           
               <Image
                 source={rightImg_Two}
-                style={{ width: 32, height: 32 }}/>
+                style={{ width: 25, height: 25 }}/>
 
             </TouchableOpacity>
 
@@ -180,7 +180,7 @@ console.disableYellowBox = true;
 
               <Image
                 source={rightImg_One}
-                style={{ width: 32, height: 32 }}/>
+                style={{ width: 25, height: 25 }}/>
 
             </TouchableOpacity> 
 
@@ -320,11 +320,12 @@ console.disableYellowBox = true;
     },
     headerTitle:
     {
-      left: Platform.OS === 'ios' ? 140 :33,
+      left: Platform.OS === 'ios' ? 90 :33,
       justifyContent:'center',
       color: 'white',
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: '900',
+      marginTop: 20
     },
     swipercontainer: 
     {
