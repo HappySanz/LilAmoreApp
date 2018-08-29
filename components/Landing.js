@@ -56,6 +56,7 @@ console.disableYellowBox = true;
         this.setState({
           user_id : value
         });
+        alert (this.state.user_id)
       })
       this.fetchhomepageData ()
     }   
@@ -129,12 +130,14 @@ console.disableYellowBox = true;
           'product_id': product_id,
         }); 
       }
+
       popularProduct (product_id) 
       {
         this.props.navigation.navigate('ProductDetailScreen', {
           'product_id': product_id,
         }); 
       }
+      
       space(){
         return (
         <View style = {{height: 200, width: 2, backgroundColor: 'grey'}}
@@ -164,7 +167,7 @@ console.disableYellowBox = true;
             <TouchableOpacity
               onPress={()=> {this.props.navigation.navigate('CartScreen')}}
               style={styles.buttonTwo}>
-
+          
               <Image
                 source={rightImg_Two}
                 style={{ width: 32, height: 32 }}/>

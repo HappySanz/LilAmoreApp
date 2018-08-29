@@ -44,7 +44,7 @@ class Menu extends Component  {
     //   alert(this.state.req)
     //   .then(json => console.log(json))
     //   .catch(error => console.log('error!'));
-      //alert('yes');
+    //   alert('yes');
   }   
 
   FlatListItemSeparator = () => {
