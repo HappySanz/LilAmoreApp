@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, Button, TouchableOpacity, 
   YellowBox, Platform, TouchableHighlight, Image, 
   FlatList, ScrollView, AsyncStorage, TextInput} from 'react-native'
@@ -10,6 +11,8 @@ import Swiper from 'react-native-swiper'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
 import { Card } from "react-native-elements";
+import ImageSlider from 'react-native-image-slider';
+import Slideshow from 'react-native-slideshow';
 
 const leftImg = require('./images/side_menu.png');
 const rightImg_One = require('./images/top_wishlist.png');
@@ -53,6 +56,11 @@ console.disableYellowBox = true;
         clicked: false,
         searchField:'',
         showCancel: false,
+        imglist : [],
+        position: 0,
+        interval: null,
+        banner_image_product_id: [],
+        _product_id: '',
       }
     };
 
@@ -62,10 +70,24 @@ console.disableYellowBox = true;
         this.setState({
           user_id : value
         });
-        
+  
       })
       this.fetchhomepageData ()
     }   
+
+    componentWillMount() {
+      this.setState({
+        interval: setInterval(() => {
+          this.setState({
+            position: this.state.position === this.state.imglist.length -1 ? 0 : this.state.position + 1
+          });
+        }, 4000)
+      });
+    }
+   
+    componentWillUnmount() {
+      clearInterval(this.state.interval);
+    }
 
     fetchhomepageData () 
     {
@@ -81,6 +103,7 @@ console.disableYellowBox = true;
         })
         .then(res => res.json())
         .then((responseText) => {
+
               return responseText;
           })
         .then(res => {
@@ -94,13 +117,40 @@ console.disableYellowBox = true;
             loading: false,
             refreshing: false
           });
+          this._banner_image();
           console.log(this.state.ads_data)
           })
         .catch((error) => {
             console.error(error);
         });
     }
+    _banner_image () 
+    {
+        let tempVal = [];
+        for(let i=0;i<this.state.banner_data.length;i++){
+          let title = (this.state.banner_data[i].banner_title);
+          let caption = (this.state.banner_data[i].banner_desc)
+          let url = (this.state.banner_data[i].banner_image);
+          let product_id = (this.state.banner_data[i].product_id)
+          tempVal.push({ title,caption,url,product_id});
+          console.log(tempVal)
 
+      }
+      this.setState({imglist: tempVal });
+      console.log(this.state.imglist)
+
+    }
+    _banner_product_id (_id) 
+    {
+      let ss = []
+      let dd = []
+      ss = this.state.banner_data[_id]
+      dd = ss.product_id
+      this.props.navigation.navigate('ProductDetailScreen', {
+        'product_id': dd,
+      }); 
+      console.log (dd)
+    }
     toggle() 
     {
       this.setState({
@@ -109,7 +159,7 @@ console.disableYellowBox = true;
     }
   
     updateMenuState(isOpen) {
-      this.setState({ isOpen });
+      this.setState({ isOpen }); 
     }
   
     onMenuItemSelected = item =>
@@ -190,78 +240,53 @@ console.disableYellowBox = true;
     render() 
     {
       const menu = <Menu onItemSelected={this.onMenuItemSelected}/>;
-      
       return (
           <SideMenu menu={menu} isOpen={this.state.isOpen}
            onChange={isOpen => this.updateMenuState(isOpen)}>
-           
            <View style={styles.container}>
-
             <TouchableOpacity
               onPress={this.toggle}
               style={styles.button}>
               <Image
                 source={leftImg}
-                style={{ width: 30, height: 30 }}/>
+                style={{ width: 25, height: 25 }}/>
             </TouchableOpacity> 
             <Text style={styles.headerTitle}>
-              LilA'more!
+              LilA'more
             </Text>
             <View style={styles.buttonFour}>
             <TouchableOpacity
-            
-              onPress={()=> {this.toggleCancel()}}
-              >
-
+              onPress={()=> {this.toggleCancel()}}>
               <Image
                 source={rightImg_three}
-                style={{ width: 32, height: 32 }}/>
-
+                style={{ width: 25, height: 25 }}/>
             </TouchableOpacity>
             </View>
-            
             <TouchableOpacity
               onPress={()=> {this.props.navigation.navigate('CartScreen')}}
               style={styles.buttonTwo}>
-          
               <Image
                 source={rightImg_Two}
-                style={{ width: 32, height: 32 }}/>
-
+                style={{ width: 25, height: 25 }}/>
             </TouchableOpacity>
-
             <TouchableOpacity
               onPress={()=> {this.props.navigation.navigate('WishListScreen')}}
               style={styles.buttonThree}>
-
               <Image
                 source={rightImg_One}
-                style={{ width: 32, height: 32 }}/>
-
+                style={{ width: 25, height: 25 }}/>
             </TouchableOpacity> 
-            
             </View>
             {this.searchClick()}
             <ScrollView style={{flex:1,flexDirection:'column', backgroundColor:'lightgrey'}}>
-
               <View style={{flex:1,flexDirection:'column'}}>
 
-                
                 <View style={styles.swipercontainer}>
-
-                  <Swiper style={styles.wrapper} autoplay = {true} autoplayTimeout = {2.5}>
-
-                    <View style={styles.slide1}>
-
-                      <TouchableHighlight onPress={() => alert('done')}  underlayColor="#ffff">
-
-                        <ImageBackground source={{uri:this.state.ads_data.ad_img}} style={{width: '100%', height: '100%'}}>
-                      
-                        </ImageBackground>
-                      
-                      </TouchableHighlight>
-                    </View>
-                  </Swiper> 
+                <Slideshow 
+                dataSource = {this.state.imglist}
+                onPress = {this._banner_product_id.bind(this,this.state.position)}
+                position={this.state.position}
+                onPositionChanged={position => this.setState({ position })} />
                 </View>
 
                 <View style={styles.section1Container}>
@@ -269,7 +294,6 @@ console.disableYellowBox = true;
                 </View>
 
                 <View style={styles.FlatListContainer}>
-
                   <FlatList
                     horizontal = {true}
                     ItemSeparatorComponent={this.space}
@@ -359,40 +383,42 @@ console.disableYellowBox = true;
 
   const styles = StyleSheet.create({
     button: {
-
       padding: 10,      
       justifyContent:'center',
+      marginTop: 20
     },
     buttonTwo: {
       padding: 10,
       flexDirection:'row',
-      position: 'absolute', right: 0,
+      position: 'absolute', right: 0, top : 20,
       justifyContent:'flex-end',
     },
     buttonThree:{
       padding: 10,      
       justifyContent:'flex-end',
-      position: 'absolute', right: 40,
-      flexDirection:'row'
+      position: 'absolute', right: 40,top : 20,
+      flexDirection:'row',
     },
     buttonFour:{
       padding: 10,      
       justifyContent:'flex-end',
-      position: 'absolute', right: 80,
-      flexDirection:'row'
+      position: 'absolute', right: 80,top : 20,
+      flexDirection:'row',
     },
     headerTitle:
     {
-      left: Platform.OS === 'ios' ? 140 :33,
+      left: Platform.OS === 'ios' ? 103 :33,
       justifyContent:'center',
       color: 'white',
-      fontSize: 20,
-      fontWeight: '900',
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginTop: 20
     },
     swipercontainer: 
     {
       position: 'relative',
       height: 150,
+      
     },
     FlatListContainer:
     {
@@ -449,7 +475,7 @@ console.disableYellowBox = true;
     },
     container: {
       backgroundColor: '#81c341',
-      height:60,
+      height:65,
       alignItems:'center',
       flexDirection:'row'
     },
@@ -467,4 +493,73 @@ console.disableYellowBox = true;
     {
       flex: 1,
     },
+    customSlide: {
+    height : 200,
+    backgroundColor: 'green',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  customImage: {
+    width: 375,
+    height: 300,
+  },
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'transparent'
+  },
   });
+
+// import React,{Component} from 'react';
+// import { View, Text, Button, StyleSheet } from 'react-native';
+// import Slideshow from 'react-native-slideshow';
+// import PropTypes from 'prop-types';
+
+// export default class SlideshowTest extends Component {
+//   constructor(props) {
+//     super(props);
+ 
+//     this.state = {
+//       position: 1,
+//       interval: null,
+//       dataSource: [
+//         {
+//           title: 'Title 1',
+//           caption: 'Caption 1',
+//           url: 'http://placeimg.com/640/480/any',
+//         }, {
+//           title: 'Title 2',
+//           caption: 'Caption 2',
+//           url: 'http://placeimg.com/640/480/any',
+//         }, {
+//           title: 'Title 3',
+//           caption: 'Caption 3',
+//           url: 'http://placeimg.com/640/480/any',
+//         },
+//       ],
+//     };
+//   }
+ 
+//   componentWillMount() {
+//     this.setState({
+//       interval: setInterval(() => {
+//         this.setState({
+//           position: this.state.position === this.state.dataSource.length ? 0 : this.state.position + 1
+//         });
+//       }, 2000)
+//     });
+//   }
+ 
+//   componentWillUnmount() {
+//     clearInterval(this.state.interval);
+//   }
+ 
+//   render() {
+//     return (
+//     <Slideshow 
+//         dataSource={this.state.dataSource}
+//         position={this.state.position}
+//         onPositionChanged={position => this.setState({ position })} />
+//     );
+//   }
+// }
