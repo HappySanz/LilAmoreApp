@@ -91,8 +91,9 @@ export default class ProductDetail extends React.Component {
             this.setState({
               user_id : value
             });
-          })
         this.makeRemoteRequest();
+
+          })
         
 
     }   
@@ -141,8 +142,8 @@ export default class ProductDetail extends React.Component {
             
                     } else if(res.comb_product.status === 'error'){
                         this.setState({ 
-                            mrp_price : res.product_details.product_details.product_details.prod_mrp_price,
-                            actual_price : res.product_details.product_details.product_details.prod_actual_price
+                            mrp_price : res.product_details.product_details.prod_mrp_price,
+                            actual_price : res.product_details.product_details.prod_actual_price
                         });
                         console.log("this.state.mrp_price")
                     console.log("this.state.actual_price")  
@@ -438,11 +439,17 @@ export default class ProductDetail extends React.Component {
     getMrpPrice(index){
 
         if(this.state.prod_data.combined_status){
-            console.log(this.state.size_data)
+            if(this.state.colors_available&&this.state.select_color){
+                this.setState({ 
+                    mrp_price : this.state.color_data[index].prod_mrp_price
+                });
+            } else {
+                this.setState({ 
+                    mrp_price : this.state.size_data[index].prod_mrp_price
+                });
+            }
 
-            this.setState({ 
-                mrp_price : this.state.size_data[index].prod_mrp_price
-            });
+            
             console.log(this.state.mrp_price)
 
         } else {
@@ -454,14 +461,18 @@ export default class ProductDetail extends React.Component {
         }
     }
     getActualPrice(index){
-        var data = [...this.state.size_data]
+        
 
         if(this.state.prod_data.combined_status){
-            
-            this.setState({ 
-                actual_price : this.state.size_data[index].prod_actual_price
-            });
-            console.log(this.state.actual_price)
+            if(this.state.colors_available&&this.state.select_color){
+                this.setState({ 
+                    actual_price : this.state.color_data[index].prod_actual_price
+                });
+            }else {
+                this.setState({ 
+                    actual_price : this.state.size_data[index].prod_actual_price
+                });
+            }
 
         } else {
             this.setState({ 
@@ -534,7 +545,7 @@ export default class ProductDetail extends React.Component {
 
     showColorsAvail() {
         if((this.state.prod_data.combined_status)&&(this.state.size_selected)&&(this.state.colors_available)){
-            // console.log(this.state.color_data)
+            console.log(this.state.color_data)
             return(
 
                 <View style={{marginTop:2,backgroundColor:'white'}}>
@@ -561,7 +572,9 @@ export default class ProductDetail extends React.Component {
                                             select_color:true,
                                             select_id : item.id
                                         })
-
+                                        this.getMrpPrice(this.state.color_data.indexOf(item));
+                                        this.getActualPrice(this.state.color_data.indexOf(item));
+                                        this.forceUpdate();
                                         // console.log('does not work');
                                     }}>
                                     

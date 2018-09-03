@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity,TouchableHighlight, AsyncStorage, Button, ScrollView,BackHandler } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity,TouchableHighlight, AsyncStorage, ScrollView,BackHandler } from 'react-native'
 
+import { Button } from 'react-native-elements'
 export default class AccountDetail extends React.Component 
 {
 
@@ -162,13 +163,10 @@ export default class AccountDetail extends React.Component
                       </Image>
                   </View>
                   </TouchableHighlight>
-                  <View style={styles.logoutcontainer}>
-                    <Button 
-                    buttonStyle={styles.buttonLogout}
+                  <Button 
+                    buttonStyle={styles.logoutcontainer}
                     title="Logout"
-                    color= 'white'
                     onPress={() => this.logout()}/>
-                    </View>
                 </View>
                 </ScrollView>
             </View>
@@ -253,13 +251,13 @@ const styles = StyleSheet.create({
     },
     logoutcontainer:
     {   
-        left: 118,
-        marginTop : 50,
-        justifyContent: 'center',
-        alignItems:'center',
+        marginTop:10,
+        backgroundColor: "#81c341",
         width: 90,
-        height: 35,
-        backgroundColor: '#81c341',
-        borderRadius: 20,
+        height: 45,
+        borderColor: "#81c341",
+        borderWidth: 0,
+        borderRadius: 30,
+        alignSelf: 'center',
     },
 })

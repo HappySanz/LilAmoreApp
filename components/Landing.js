@@ -62,7 +62,7 @@ console.disableYellowBox = true;
         this.setState({
           user_id : value
         });
-        alert (this.state.user_id)
+        
       })
       this.fetchhomepageData ()
     }   
