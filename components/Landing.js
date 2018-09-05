@@ -280,19 +280,16 @@ console.disableYellowBox = true;
             {this.searchClick()}
             <ScrollView style={{flex:1,flexDirection:'column', backgroundColor:'lightgrey'}}>
               <View style={{flex:1,flexDirection:'column'}}>
-
                 <View style={styles.swipercontainer}>
-                <Slideshow 
-                dataSource = {this.state.imglist}
-                onPress = {this._banner_product_id.bind(this,this.state.position)}
-                position={this.state.position}
-                onPositionChanged={position => this.setState({ position })} />
+                 <Slideshow 
+                  dataSource = {this.state.imglist}
+                  onPress = {this._banner_product_id.bind(this,this.state.position)}
+                  position={this.state.position}
+                  onPositionChanged={position => this.setState({ position })} />
                 </View>
-
                 <View style={styles.section1Container}>
-                  <Text>New Products</Text>
+                 <Text>New Products</Text>
                 </View>
-
                 <View style={styles.FlatListContainer}>
                   <FlatList
                     horizontal = {true}
@@ -303,38 +300,24 @@ console.disableYellowBox = true;
                       <TouchableHighlight 
                       onPress={this.bestProuduct.bind(this, item.id)}
                       underlayColor="rgba(0,0,0,0)">
-
-                        <View style={{flex:1, flexDirection: 'column', width: 150, alignItems: 'center',}}>
-
-                          <Image source = {{ uri: item.product_cover_img }} style={styles.imageView} />
-
-                          <Text numberOfLines={1} style={styles.textView} >,{item.product_name}
-                          
-                          </Text>
-
-                          <Text>{'Rs.'+ item.prod_actual_price}</Text>
-                        </View>
-
-                      </TouchableHighlight >
+                <View style={{flex:1, flexDirection: 'column', width: 150, alignItems: 'center',}}>
+                  <Image source = {{ uri: item.product_cover_img }} style={styles.imageView} />
+                    <Text numberOfLines={1} style={styles.textView} >,{item.product_name}      
+                      </Text>
+                        <Text>{'Rs.'+ item.prod_actual_price}</Text>
+                </View>
+                      </TouchableHighlight>
                     }
-                  keyExtractor={(item, index) => index.toString()}/>
-
+                keyExtractor={(item, index) => index.toString()}/>
                 </View>
-
                 <View style={styles.adsConatiner}>
-
                   <TouchableHighlight onPress={() => alert('Done')} >
-
                     <ImageBackground source={{uri:this.state.ads_data.ad_img}} style={{width: '100%', height: '100%'}}>
-                    
                     </ImageBackground>
-                  
-                  </TouchableHighlight >
-                
+                  </TouchableHighlight>
                 </View>
-                
                 <View style={styles.sectionContainer}>
-                
+
                   <View style={styles.section2Container}>
                   
                     <Text>Popular Products</Text>

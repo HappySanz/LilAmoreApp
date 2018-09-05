@@ -19,6 +19,7 @@ export default class AccountDetail extends React.Component
         super(props);
         this.state = {
             value_gender : 0,
+            value_newsletter : 0,
             id: '',
             firstname: '',
             lastname: '',
@@ -71,6 +72,7 @@ export default class AccountDetail extends React.Component
         })
         .then(res => {
             status = res.status
+            console.log (status)
             if(status === 'success')
             {
             this.setState({
@@ -96,7 +98,62 @@ export default class AccountDetail extends React.Component
                         value_gender : 1
                     });
                 }
+                if(this.state.newsletter_status === '0') 
+                {
+                    this.setState({
+                        value_newsletter : 0
+                    });
+                }
+                else
+                {
+                    this.setState({
+                        value_newsletter : 1
+                    });
+                }
               }
+            })
+        .catch((error) => {
+            console.error(error);
+        });
+    }
+    submit () 
+    {
+        // alert (this.state.user_id)
+        // alert (this.state.email)
+        // alert (this.state.phone_number)
+        // alert (this.state.birth_date)
+        // alert (this.state.value_newsletter)
+        // alert (this.state.username)
+        // alert (this.state.last_name)
+        // alert (this.state.value_gender)
+
+       // console.log (this.state.user_id,this.state.email,this.state.phone_number,this.state.birth_date,this.state.value_newsletter,this.state.username,this.state.last_name,this.state.value_gender)
+
+        let apicall = global.baseurl + "update_profile_detail"
+        fetch(apicall, {
+        method: 'POST',
+        headers: new Headers ({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+        body: JSON.stringify ({
+            user_id: this.state.user_id,
+            email: this.state.email,
+            phone_number: this.state.phone_number,
+            dob: this.state.birth_date,
+            newsletter_status: this.state.value_newsletter,
+            first_name: this.state.username,
+            last_name: this.state.last_name,
+            gender: this.state.value_gender,
+        }),
+        })
+        .then(res => res.json())
+        .then((responseText) => {
+        console.log(responseText)
+        return responseText;
+        })
+        .then(res => {
+            status = res.status
+            console.log (status)
             })
         .catch((error) => {
             console.error(error);
@@ -118,7 +175,7 @@ export default class AccountDetail extends React.Component
                 value = {this.state.username}
                 placeholderTextColor="lightgrey"
                 underlineColorAndroid="transparent"
-                onChangeText={firstname => this.setState({firstname})}/>
+                onChangeText={username => this.setState({username})}/>
                <Text style = {{margin:10,padding:10}}> Last Name </Text>
                 <TextInput
                 style={styles.inputTwo}
@@ -128,7 +185,7 @@ export default class AccountDetail extends React.Component
                 value = {this.state.last_name}
                 placeholderTextColor="lightgrey"
                 underlineColorAndroid="transparent"
-                onChangeText={lastname => this.setState({lastname})}/>
+                onChangeText={last_name => this.setState({last_name})}/>
                 <Text style = {{margin:10,padding:10}}> Email Address </Text>
                 <TextInput
                 style={styles.inputThree}
@@ -148,11 +205,12 @@ export default class AccountDetail extends React.Component
                 value = {this.state.phone_number}
                 placeholderTextColor="lightgrey"
                 underlineColorAndroid="transparent"
-                onChangeText={mobile => this.setState({mobile})}/>
+                onChangeText={phone_number => this.setState({phone_number})}/>
                 <Text style = {{margin:10,padding:10}}> Gender </Text>
                 <View style= {styles.radioContainer}>
                 <RadioForm
                    radio_props={radio_props_gender}
+                   radioStyle={{paddingRight: 20}}
                    initial= {this.state.value_gender}
                    formHorizontal={true}
                    labelHorizontal={true}
@@ -161,7 +219,7 @@ export default class AccountDetail extends React.Component
                    buttonSize={10}
                    animation={true}
                    onPress={(value) => {
-                   this.setState({value:value})
+                   this.setState({value_gender:value})
                    }}/>
                 </View> 
                 <Text style = {{margin:10,padding:10}}> Birthday Date </Text>
@@ -173,7 +231,7 @@ export default class AccountDetail extends React.Component
                 value = {this.state.birth_date}
                 placeholderTextColor="lightgrey"
                 underlineColorAndroid="transparent"
-                onChangeText={username => this.setState({username})}/>
+                onChangeText={birth_date => this.setState({birth_date})}/>
                 <Text style = {{margin:10,padding:10}}> Profile Picture </Text>
                 <TouchableOpacity
                 style={styles.customBtnBG}
@@ -184,7 +242,8 @@ export default class AccountDetail extends React.Component
                 <View style= {styles.newsletterConatiner}>
                 <RadioForm
                    radio_props={radio_props_newsletter}
-                   initial= {this.state.newsletter_status}
+                   radioStyle={{paddingRight: 20}}
+                   initial= {this.state.value_newsletter}
                    formHorizontal={true}
                    labelHorizontal={true}
                    buttonColor={'#000000'}
@@ -192,12 +251,20 @@ export default class AccountDetail extends React.Component
                    buttonSize={10}
                    animation={true}
                    onPress={(value) => {
-                   this.setState({value:value})
+                   this.setState({value_newsletter:value})
                     }}/>
                 </View> 
                 <Text style = {{margin:10,padding:10}}> Subscribe to our news letter and stay up-to-date
                  with new collections,the latest new lookbooks and   exclusive offers </Text>
                 </View>
+                <View style={{ justifyContent: 'center',
+                    alignItems:'center',backgroundColor: '#81c341',}}>
+                    <Button 
+                    buttonStyle={styles.submitLogout}
+                    title="Submit"
+                    color= 'white'
+                    onPress={() => this.submit()}/>
+                    </View>
              </ScrollView>
             </View>
         )
@@ -207,7 +274,7 @@ export default class AccountDetail extends React.Component
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        backgroundColor: '#f3f3f3'
+        backgroundColor: '#f3f3f3',
     },
     txtInputContainer: 
     {
@@ -271,5 +338,22 @@ const styles = StyleSheet.create({
     newsletterConatiner:
     {
         left: 22,
+    },
+    submitcontainer:
+    {   
+        // left: 1,
+        marginBottom: 10,
+        justifyContent: 'center',
+        alignItems:'center',
+       
+        backgroundColor: '#81c341',
+        borderRadius: 20,
+    },
+    submitLogout : 
+    {
+        width: 90,
+        height: 35,
+        borderRadius: 20,
+
     }
 })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View,TextInput } from 'react-native'
+import { StyleSheet, Text, View,TextInput, } from 'react-native'
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 
 var radio_props = [
@@ -30,7 +30,6 @@ export default class UserProfile extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-
               <Text>{"First Name"}</Text>
               <TextInput
                     style={styles.nametextField}

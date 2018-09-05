@@ -84,16 +84,24 @@ export default class AccountDetail extends React.Component
     }
     _userdetailPage () 
     {
-        this.props.navigation.navigate('UserdetailScreen', {
-            'id': this.state.id,
-            'first_name': this.state.first_name, 'last_name': this.state.last_name, 'email': this.state.email, 'birth_date':this.state.birth_date, 'gender':this.state.gender,
-            'phone_number': this.state.phone_number, 'newsletter_status': this.state.newsletter_status,
-          }); 
+        if (this.state.user_id === null || this.state.user_id === '0') 
+        {
+            alert ('Login to continue')
+        }
+        else 
+        {
+            this.props.navigation.navigate('UserdetailScreen', {
+                'id': this.state.id,
+                'first_name': this.state.first_name, 'last_name': this.state.last_name, 'email': this.state.email, 'birth_date':this.state.birth_date, 'gender':this.state.gender,
+                'phone_number': this.state.phone_number, 'newsletter_status': this.state.newsletter_status,
+              }); 
+        }
+        
     }
     logout() 
     {
-        AsyncStorage.setItem("user_id",null);
-        AsyncStorage.setItem("userid_token_id",null);
+        AsyncStorage.setItem("user_id",'');
+        AsyncStorage.setItem("userid_token_id",'');
         this.props.navigation.navigate('SplashScreen',{
             old_user :'1'
         })
