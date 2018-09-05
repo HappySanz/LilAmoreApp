@@ -47,7 +47,7 @@ export default class SignIn extends React.Component {
         );
     }
     
-    saveData = ()=> 
+    saveData()
     {
        
 
@@ -95,10 +95,13 @@ export default class SignIn extends React.Component {
         })
         .then((response) => response.json())
         .then((responseText) => {
-        if(responseText.success==='success'){
+            console.log(responseText)
+        if(responseText.status==='success'){
             alert("User created successfully");
             this.props.navigation.navigate('LoginScreen')
-        }
+        } else (
+            alert(responseText.msg)
+        )
         })
         .catch((error) => {
             console.error(error);
@@ -188,7 +191,7 @@ export default class SignIn extends React.Component {
                     <Button 
                         buttonStyle={styles.buttonSignin}
                         title="Sign up"
-                        onPress={this.saveData}/>
+                        onPress={()=>{this.saveData()}}/>
                     <Text style={styles.createacuntbtn}
                         onPress={() => 
                         this.props.navigation.navigate('SigninScreen')}>
