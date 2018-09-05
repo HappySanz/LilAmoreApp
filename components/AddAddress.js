@@ -147,9 +147,9 @@ export default class AddAddress extends React.Component {
         .then((response) => response.json())
         .then((responseText) => {
             console.log(responseText)
-            if(responseText.success==='success'){
+            if(responseText.status==='success'){
                 alert("Address added successfully");
-                this.props.navigation.goBack();  
+                this.props.navigation.goBack(null)  
             }
         })
         .catch((error) => {

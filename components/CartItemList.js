@@ -35,9 +35,13 @@ export default class CartItemList extends React.Component {
               user_id : value
             });
             console.log(this.state.user_id)
-        this.makeRemoteRequest();
-
-          })
+        })
+        if(this.state.user_id!=0){
+            this.makeRemoteRequest();
+        } else {
+            alert("Login to continue");
+            this.props.navigation.goBack(null) 
+        }
     }   
 
 

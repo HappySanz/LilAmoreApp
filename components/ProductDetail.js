@@ -299,7 +299,7 @@ export default class ProductDetail extends React.Component {
                             }} 
                             onPress={()=> { 
                                 // console.log(this.state.user_id)
-                                if(this.state.user_id){
+                                if(this.state.user_id!=0){
                                     this.moveToWishList(this.state.prod_data.id)
                                 } else {
                                     alert("Login to create your own wishlist")
@@ -396,7 +396,7 @@ export default class ProductDetail extends React.Component {
                         style = {styles.cartText}  
                         onPress = {
                             ()=> {
-                                if(this.state.user_id){
+                                if(this.state.user_id!=0){
                                     // console.log(this.state.sizes_available)
                                     if(this.state.sizes_available){
                                         if(this.state.select_color){
