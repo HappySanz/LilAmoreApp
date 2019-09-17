@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Platform, View, ActivityIndicator, FlatList, Text, Image, Alert, YellowBox } from 'react-native';
+import { StyleSheet, View, FlatList, Text, YellowBox } from 'react-native';
 // import { StyleSheet, Text, View, Button, TouchableOpacity, YellowBox, Platform, TouchableHighlight, Image, FlatList, ScrollView, AsyncStorage} from 'react-native'
 import { withNavigation } from 'react-navigation';
  

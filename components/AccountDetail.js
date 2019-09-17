@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity,TouchableHighlight, AsyncStorage, ScrollView,BackHandler } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableHighlight, AsyncStorage, ScrollView } from 'react-native'
 
 import { Button } from 'react-native-elements'
 export default class AccountDetail extends React.Component 
@@ -25,7 +25,7 @@ export default class AccountDetail extends React.Component
         msg: '',
         };  
       }
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = 'Account Settings';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',

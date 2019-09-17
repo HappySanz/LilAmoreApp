@@ -2,12 +2,8 @@ import React from 'react'
 import {
   Text,
   View,
-  Image,
-  Button,
-  Alert
-} from 'react-native'
+  Button} from 'react-native'
 import { ImageBackground, BackHandler } from 'react-native';
-import { Scene, Router, Actions } from 'react-native-router-flux';
 import Swiper from 'react-native-swiper'
 
 var styles = {
@@ -70,7 +66,7 @@ export default class welcomepages extends React.Component {
     return true;
   }
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = () => {
     return {
         header: () => null
       }

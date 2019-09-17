@@ -2,19 +2,17 @@ import React from 'react'
 import { Button } from 'react-native-elements'
 import {
     StyleSheet, Text, View, Image,
-    AsyncStorage,TextInput, Keyboard, TouchableOpacity, BackHandler, TouchableHighlight, ImageBackground
-} from 'react-native'
-import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken, LoginButton }from 'react-native-fbsdk'
+    AsyncStorage,TextInput, Keyboard, TouchableOpacity, BackHandler} from 'react-native'
+// import { LoginManager, GraphRequest, GraphRequestManager, AccessToken, LoginButton }from 'react-native-fbsdk'
 //import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import eyeImgHide from './images/hide_password.png';
 import eyeImgShow from './images/show_password.png';
-import { Item } from 'native-base';
 
 export default class SignIn extends React.Component {
     
 
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = 'Sign In';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
@@ -76,7 +74,8 @@ export default class SignIn extends React.Component {
         } 
         else
         {
-            fetch("http://littleamore.in/demo/mobileapi/login", {
+            let apicall = global.baseurl + "login"
+            fetch(apicall, {
             method: 'POST',
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -142,75 +141,75 @@ export default class SignIn extends React.Component {
             }
         }
     };
-    FBLogin = (navigate) => 
-    {
-        LoginManager.logInWithReadPermissions(['public_profile','email']).then(
-            function(result) {
-              if (result.isCancelled) {
-                alert('Login was cancelled');
-              } else  
-              {              
-                AccessToken.getCurrentAccessToken().then(
-                    (data) => 
-                    {
-                      let accessToken = data.accessToken;
-                      const infoRequest = new GraphRequest('/me',
-                        {
-                          accessToken: accessToken,parameters: {
-                            fields: {
-                              string: 'email,name,first_name,middle_name,last_name,picture'
-                            }
-                          }
-                        },
-                        (error, result) => 
-                        {
-                          console.log (result)
-                          let fbEmail = result.email;
-                         // let fbUsername = result.name;
-                          let fbfirst_name = result.first_name;
-                          let fblast_name = result.fblast_name;
-                          let fbprofPic = result.picture.data.url;  
-                          AsyncStorage.setItem('img_url',fbprofPic);
-                           let apicall = global.baseurl + "social_login"
-                            fetch(apicall, {
-                            method: 'POST',
-                            headers: new Headers ({
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            }),
-                            body: JSON.stringify ({
-                            username: fbEmail,
-                            first_name: fbfirst_name,
-                            last_name: fblast_name,
-                            mobile_type: '2',
-                            login_type: 'fb',
-                            mob_key: '0',
-                            }),
-                            })
-                            .then(res => res.json())
-                            .then((responseText) => {
-                                let _id = responseText.userData.customer_id
-                                let first_name = responseText.userData.first_name
-                                let last_name = responseText.userData.last_name
-                                AsyncStorage.setItem('user_id',_id);
-                                AsyncStorage.setItem('first_name',first_name);
-                                AsyncStorage.setItem('last_name',last_name);
-                                navigate ('LandingScreen')
-                                return responseText;
-                            })
-                            .catch((error) => {
-                                console.error(error);
-                            });
-                        });
-                        new GraphRequestManager().addRequest(infoRequest).start();
-                    })   
+    // FBLogin = (navigate) => 
+    // {
+    //     LoginManager.logInWithReadPermissions(['public_profile','email']).then(
+    //         function(result) {
+    //           if (result.isCancelled) {
+    //             alert('Login was cancelled');
+    //           } else  
+    //           {              
+    //             AccessToken.getCurrentAccessToken().then(
+    //                 (data) => 
+    //                 {
+    //                   let accessToken = data.accessToken;
+    //                   const infoRequest = new GraphRequest('/me',
+    //                     {
+    //                       accessToken: accessToken,parameters: {
+    //                         fields: {
+    //                           string: 'email,name,first_name,middle_name,last_name,picture'
+    //                         }
+    //                       }
+    //                     },
+    //                     (error, result) => 
+    //                     {
+    //                       console.log (result)
+    //                       let fbEmail = result.email;
+    //                      // let fbUsername = result.name;
+    //                       let fbfirst_name = result.first_name;
+    //                       let fblast_name = result.fblast_name;
+    //                       let fbprofPic = result.picture.data.url;  
+    //                       AsyncStorage.setItem('img_url',fbprofPic);
+    //                        let apicall = global.baseurl + "social_login"
+    //                         fetch(apicall, {
+    //                         method: 'POST',
+    //                         headers: new Headers ({
+    //                         'Content-Type': 'application/x-www-form-urlencoded',
+    //                         }),
+    //                         body: JSON.stringify ({
+    //                         username: fbEmail,
+    //                         first_name: fbfirst_name,
+    //                         last_name: fblast_name,
+    //                         mobile_type: '2',
+    //                         login_type: 'fb',
+    //                         mob_key: '0',
+    //                         }),
+    //                         })
+    //                         .then(res => res.json())
+    //                         .then((responseText) => {
+    //                             let _id = responseText.userData.customer_id
+    //                             let first_name = responseText.userData.first_name
+    //                             let last_name = responseText.userData.last_name
+    //                             AsyncStorage.setItem('user_id',_id);
+    //                             AsyncStorage.setItem('first_name',first_name);
+    //                             AsyncStorage.setItem('last_name',last_name);
+    //                             navigate ('LandingScreen')
+    //                             return responseText;
+    //                         })
+    //                         .catch((error) => {
+    //                             console.error(error);
+    //                         });
+    //                     });
+    //                     new GraphRequestManager().addRequest(infoRequest).start();
+    //                 })   
                    
-              }
-            },
-            function(error) {
-                console.log('Login fail with error: ' + error);
-              }//functionError
-            )//loginManager     
-    }
+    //           }
+    //         },
+    //         function(error) {
+    //             console.log('Login fail with error: ' + error);
+    //           }//functionError
+    //         )//loginManager     
+    // }
     renderImage() {
         var imgSource = this.state.press? eyeImgShow : eyeImgHide;
         return (
@@ -222,7 +221,6 @@ export default class SignIn extends React.Component {
     }
     
     render() {
-        const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
                 <View style={{flexDirection:'column'}}>
@@ -289,7 +287,7 @@ export default class SignIn extends React.Component {
                     <Text style = {{left: 165,margin: 10,}}> Or </Text>
                     <View style = {styles.socailmediaConatainer}>
                         <View style = {styles.facebbokView}>
-                            <Text style = {styles.fbtxt} onPress ={() =>{this.FBLogin(navigate)}}>Facebook</Text>
+                            {/* <Text style = {styles.fbtxt} onPress ={() =>{this.FBLogin(navigate)}}>Facebook</Text> */}
                         </View>
                         <View style = {styles.gmailView}>
                             <Text style = {styles.gmailtxt} onPress ={() =>{this.signIn()}}> Google +</Text>

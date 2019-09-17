@@ -1,17 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, Button, TouchableOpacity, 
-  YellowBox, Platform, TouchableHighlight, Image, 
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, 
+  Platform, TouchableHighlight, Image, 
   FlatList, ScrollView, AsyncStorage, TextInput} from 'react-native'
-import { StackNavigator } from  'react-navigation';
-import { DrawerNavigator } from 'react-navigation';
 import { ImageBackground } from 'react-native';
-import { Scene, Router, Actions } from 'react-native-router-flux';
-import Swiper from 'react-native-swiper'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
-import { Card } from "react-native-elements";
-import ImageSlider from 'react-native-image-slider';
 import Slideshow from 'react-native-slideshow';
 
 const leftImg = require('./images/side_menu.png');
@@ -23,7 +16,7 @@ console.disableYellowBox = true;
 
  export default class Landing extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
 
         return {
             header: () => null
@@ -103,11 +96,11 @@ console.disableYellowBox = true;
         })
         .then(res => res.json())
         .then((responseText) => {
-
               return responseText;
           })
         .then(res => {
           console.log(res)
+          console.log(res.banner_list.data)
           this.setState({
             banner_data: res.banner_list.data ,
             newProduct_data: res.new_product.data ,

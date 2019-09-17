@@ -1,10 +1,9 @@
 import React from 'react'
-import { Button } from 'react-native-elements'
 import { StyleSheet, Text, View } from 'react-native'
 
 export default class Checkout extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = 'Checkout';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',

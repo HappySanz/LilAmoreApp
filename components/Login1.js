@@ -1,11 +1,6 @@
-import React, { Component } from 'react';
 
 import {
-  View,
-  NativeAppEventEmitter,
   NativeModules,
-  requireNativeComponent,
-  ViewPropTypes,
   Platform,
 } from 'react-native';
 

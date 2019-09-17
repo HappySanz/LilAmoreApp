@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, AsyncStorage } from 'react-native';
-import { Container, Content, View, Header, Icon, Button, Left, Right, Body, Title, List, ListItem, Thumbnail, Grid, Col } from 'native-base';
-import { Actions } from 'react-native-router-flux';
+import { Container, Content, View, Icon, Button, Left, Right, Body, List, ListItem, Thumbnail, Grid, Col } from 'native-base';
 
 // Our custom files and classes import
 import Colors from './Colors';
@@ -71,7 +70,7 @@ export default class Cart extends Component {
         <ListItem
           key={i}
           last={this.state.cartItems.length === i+1}
-          onPress={() => this.itemClicked(item)}
+          onPress={() => this.itemClicked()}
         >
           <Thumbnail square style={{width: 110, height: 90}} source={{ uri: item.image }} />
           <Body style={{paddingLeft: 10}}>
@@ -135,21 +134,11 @@ export default class Cart extends Component {
     // Actions.checkout({cartItems: this.state.cartItems});
   }
 
-  itemClicked(item) {
+  itemClicked() {
     // Actions.product({product: item});
   }
 
 }
 
-const styles={
-  title: {
-    fontFamily: 'Roboto',
-    fontWeight: '100'
-  }
-};
 
-const items = [
-  {id: 1, quantity:1, title: 'Black Hat', categoryId: 5, categoryTitle: 'MEN', price: '22$', image: 'http://res.cloudinary.com/atf19/image/upload/c_crop,h_250,w_358,x_150/v1500465309/pexels-photo-206470_nwtgor.jpg', description: "Hello there, i'm a cool product with a heart of gold."},
-  {id: 2, quantity:3, title: 'V Neck T-Shirt', categoryId: 2, categoryTitle: 'WOMEN', price: '12$', image: 'http://res.cloudinary.com/atf19/image/upload/c_crop,h_250,x_226,y_54/v1500465309/pexels-photo-521197_hg8kak.jpg', description: "Hello there, i'm a cool product with a heart of gold."},
-  {id: 10, quantity:1, title: 'Black Leather Hat', categoryId: 1, categoryTitle: 'KIDS', price: '2$', image: 'http://res.cloudinary.com/atf19/image/upload/c_crop,g_face,h_250,x_248/v1500465308/fashion-men-s-individuality-black-and-white-157675_wnctss.jpg', description: "Hello there, i'm a cool product with a heart of gold."},
-];
+

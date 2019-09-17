@@ -1,11 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
-import { NavigationActions } from 'react-navigation'
-import { Scene, Router, Actions } from 'react-native-router-flux';
+import { StyleSheet, View, Image } from 'react-native'
 
 export default class Splash extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = () => {
     return {
         header: () => null
       }

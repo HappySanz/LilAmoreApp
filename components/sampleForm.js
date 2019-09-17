@@ -1,21 +1,10 @@
 import React from 'react'
 import { Text, View, TextInput } from 'react-native'
-import { reduxForm, Field }  from 'redux-form'
-import { prependOnceListener } from 'cluster';
+import { Field }  from 'redux-form'
 import { Button } from 'react-native-elements';
 
-const validate = values =>{
-    const errors = {};
-    if(!values.username) {
-        errors.username = "Invaild credential"
-    } else if (values.password.length<8) {
-        errors.username = "Enter at least 8 characters"
-    }
-    
-    return errors;
-}
 
-const myFields = ({label, meta:{error, toched}, input:{onChange}}) =>{
+const myFields = ({label, meta:{error}, input:{onChange}}) =>{
     return(
         <View>
             <Text>{label}</Text>

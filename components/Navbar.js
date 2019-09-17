@@ -8,7 +8,7 @@
 
 // React native and others libraries imports
 import React, { Component } from 'react';
-import { Header, Body, Title, Left, Right, Icon } from 'native-base';
+import { Header, Body, Title, Left, Right } from 'native-base';
 
 // Our custom files and classes import
 import Colors from './Colors';

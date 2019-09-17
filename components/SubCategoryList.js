@@ -1,53 +1,10 @@
-import React, { Component } from 'react'
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView, Picker, AsyncStorage } from "react-native";
+import React from 'react'
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView, AsyncStorage } from "react-native";
 
-const qtty = [
-    
-    {
-      label: '1',
-      value: '1',
-    },
-    {
-      label: '2',
-      value: '2',
-    },
-    {
-      label: '3',
-      value: '3',
-    },
-    {
-      label: '4',
-      value: '4',
-    },
-    {
-      label: '5',
-      value: '5',
-    },
-    {
-      label: '6',
-      value: '6',
-    },
-    {
-      label: '7',
-      value: '7',
-    },
-    {
-      label: '8',
-      value: '8',
-    },
-    {
-      label: '9',
-      value: '9',
-    },
-    {
-      label: '10',
-      value: '10',
-    }
-  ];
 
 export default class SubCategoryList extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = 'Product List';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white' };
@@ -91,9 +48,9 @@ export default class SubCategoryList extends React.Component {
         const { navigation } = this.props;
         const category =navigation.getParam('category_id' , '');
         const subCategory =navigation.getParam('sub_category' , '');
-        const url = `http://littleamore.in/demo/mobileapi/sub_cat_list`;
         this.setState({ loading: true });
-        fetch(url, {
+        let apicall = global.baseurl + "sub_cat_list"
+        fetch(apicall, {
             method: 'POST',
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded',

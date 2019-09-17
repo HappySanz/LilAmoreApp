@@ -109,7 +109,7 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = { hasToken: false, isLoaded: false };
-    global.baseurl = 'http://littleamore.in/demo/mobileapi/';
+    global.baseurl = 'https://www.happysanztech.com/lamore/mobileapi/';
 
   }
   

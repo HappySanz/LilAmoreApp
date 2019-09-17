@@ -1,5 +1,5 @@
-import React ,{ Component } from 'react';
-import { StyleSheet, Text, View,Image, TextInput, TouchableHighlight, Alert, AsyncStorage, Button, Icon } from 'react-native'
+import React  from 'react';
+import { StyleSheet, Text, View,Image, TextInput, TouchableHighlight, Alert, AsyncStorage } from 'react-native'
 
 
 

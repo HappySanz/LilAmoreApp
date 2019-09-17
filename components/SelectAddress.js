@@ -1,12 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View,TextInput, AsyncStorage } from 'react-native'
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import { withNavigation } from 'react-navigation'; 
-var radio_props = [
-    {label: 'No.5 Perks campus,\nUppilipalayam, \nCoimbatore 641015', value: 0 },
-    {label: 'No.5 Perks campus,\nUppilipalayam, \nCoimbatore 641015', value: 1 },
-    {label: 'No.5 Perks campus,\nUppilipalayam, \nCoimbatore 641015', value: 2 },
-];
+import { StyleSheet, Text, View,AsyncStorage } from 'react-native'
+import RadioForm, {} from 'react-native-simple-radio-button';
 
 
 
@@ -23,7 +17,7 @@ export default class UserProfile extends React.Component {
         }    
     }
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = 'Select Address';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
@@ -45,15 +39,11 @@ export default class UserProfile extends React.Component {
 
     makeRemoteRequest = () => {
         const { navigation } = this.props;
-        const user = navigation.getParam('user_id' , 'NO-ID')
-        const prod_id = navigation.getParam('product_id' , 'NO-ID')
-        const prod_combined_id = navigation.getParam('product_com_id' , 'NO-ID')
-        const qty = navigation.getParam('quantity' , '1')
 
         
-        const url = `http://littleamore.in/demo/mobileapi/address_list`;
         this.setState({ loading: true });
-        fetch(url, {
+        let apicall = global.baseurl + "address_list"
+        fetch(apicall, {
             method: 'POST',
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -108,9 +98,9 @@ export default class UserProfile extends React.Component {
         console.log(this.state.value)
         // console.log(this.state.address_data)
         const pin = this.state.address_data[this.state.value].pincode;
-        const url = `http://littleamore.in/demo/mobileapi/check_pincode`;
         this.setState({ loading: true });
-        fetch(url, {
+        let apicall = global.baseurl + "check_pincode"
+        fetch(apicall, {
             method: 'POST',
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded',

@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View,TextInput } from 'react-native'
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import { StyleSheet, View } from 'react-native'
+import RadioForm, {} from 'react-native-simple-radio-button';
 
 var radio_props = [
     {label: 'No.5 Perks campus,\nUppilipalayam, \nCoimbatore 641015', value: 0 },
@@ -18,7 +18,7 @@ export default class UserProfile extends React.Component {
         value : null};    
     }
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = 'Change Address';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',

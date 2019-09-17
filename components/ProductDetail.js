@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView, Picker, AsyncStorage } from "react-native";
 
 const qtty = [
@@ -51,7 +51,7 @@ const shareImg = require('./images/share.png');
 
 export default class ProductDetail extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = 'Product Detail';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white' };
@@ -101,9 +101,9 @@ export default class ProductDetail extends React.Component {
         const { navigation } = this.props;
         
         const prod_id = navigation.getParam('product_id' , 'NO-ID')
-        const url = `http://littleamore.in/demo/mobileapi/product_details`;
         this.setState({ loading: true });
-        fetch(url, {
+        let apicall = global.baseurl + "product_details"
+        fetch(apicall, {
             method: 'POST',
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -165,9 +165,9 @@ export default class ProductDetail extends React.Component {
     };
       
     addToCart = (prd_id,prd_comb_id,qty) => {
-        const url = `http://littleamore.in/demo/mobileapi/product_cart`;
         this.setState({ loading: true });
-        fetch(url, {
+        let apicall = global.baseurl + "product_cart"
+        fetch(apicall, {
             method: 'POST',
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -194,9 +194,9 @@ export default class ProductDetail extends React.Component {
 
     moveToWishList = (prd_id) => {
        
-        const url = `http://littleamore.in/demo/mobileapi/wishlist`;
         this.setState({ loading: true });
-        fetch(url, {
+        let apicall = global.baseurl + "wishlist"
+        fetch(apicall, {
             method: 'POST',
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -222,9 +222,9 @@ export default class ProductDetail extends React.Component {
 
     getColors = (size_id,prd_id) => {
        
-        const url = `http://littleamore.in/demo/mobileapi/get_product_color`;
         this.setState({ loading: true });
-        fetch(url, {
+        let apicall = global.baseurl + "get_product_color"
+        fetch(apicall, {
             method: 'POST',
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded',

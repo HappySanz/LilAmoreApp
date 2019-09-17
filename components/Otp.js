@@ -1,9 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View,Image, TextInput, TouchableHighlight, Alert, AsyncStorage } from 'react-native'
+import { StyleSheet, Text, View,Image, TextInput, TouchableHighlight, AsyncStorage } from 'react-native'
 
 export default class Otp extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = '';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',

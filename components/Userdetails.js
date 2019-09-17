@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, ScrollView, Button, AsyncStorage} from 'react-native'
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Button, AsyncStorage} from 'react-native'
+import RadioForm, {} from 'react-native-simple-radio-button';
 
 var radio_props_gender = [
     {label: 'Male', value: 0 },
@@ -32,13 +32,12 @@ export default class AccountDetail extends React.Component
         };  
     }
 
-    static navigationOptions = ({ navigation }) => 
+    static navigationOptions = () => 
     {
         let headerTitle = 'User Details';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',alignSelf: 'center' };
         let headerTintColor = 'white';
-        let header
         return { headerTitle, headerStyle, headerTitleStyle, headerTintColor};
     };
 

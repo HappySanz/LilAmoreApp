@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView, Picker, AsyncStorage } from "react-native";
+import React from 'react'
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, ScrollView, AsyncStorage } from "react-native";
 
 
 
 export default class OrderList extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = 'Order List';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white' };
@@ -47,9 +47,9 @@ export default class OrderList extends React.Component {
 
     
     makeRemoteRequest = () => {
-        const url = `http://littleamore.in/demo/mobileapi/view_orders`;
         this.setState({ loading: true });
-        fetch(url, {
+        let apicall = global.baseurl + "view_orders"
+        fetch(apicall, {
             method: 'POST',
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded',

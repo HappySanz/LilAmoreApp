@@ -2,15 +2,14 @@ import React from 'react'
 import { Button } from 'react-native-elements'
 import {
     StyleSheet, Text, View, Image,
-    AsyncStorage,TextInput, Keyboard, TouchableOpacity, Platform, Alert
-} from 'react-native'
+    TextInput, TouchableOpacity} from 'react-native'
 
 import eyeImgHide from './images/hide_password.png';
 import eyeImgShow from './images/show_password.png';
 
 export default class SignIn extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = 'Sign Up';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
@@ -77,7 +76,8 @@ export default class SignIn extends React.Component {
         }
         else
         {
-        fetch("http://littleamore.in/demo/mobileapi/registration", {
+        let apicall = global.baseurl + "registration"
+        fetch(apicall, {
         method: 'POST',
         headers: new Headers({
                     'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type

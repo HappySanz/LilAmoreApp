@@ -1,12 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, AsyncStorage, Image } from 'react-native'
 import { Button } from 'react-native-elements'
-import { FBSDK, LoginManager, GraphRequest, GraphRequestManager, AccessToken }from 'react-native-fbsdk'
-import { Scene, Router, Actions } from 'react-native-router-flux';
 
 export default class Login extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = () => {
     return {
         header: () => null,
         gesturesEnabled: false,

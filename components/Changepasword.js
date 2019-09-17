@@ -1,9 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View,Image, TextInput, TouchableHighlight, Alert, AsyncStorage, Button } from 'react-native'
+import { StyleSheet, Text, View,Image, TextInput, AsyncStorage, Button } from 'react-native'
 
 export default class Changepasword extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = '';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',

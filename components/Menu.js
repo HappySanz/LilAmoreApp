@@ -1,11 +1,9 @@
 import React,{Component} from 'react';
-import PropTypes from 'prop-types';
 import {
   Dimensions,
   StyleSheet,
   ScrollView,
   View,
-  Image,
   Text,
   AsyncStorage,
   FlatList
@@ -15,11 +13,10 @@ import Sidemenulist from './Sidemenulist';
 import { withNavigation } from 'react-navigation';
 
 const window = Dimensions.get('window');
-const uri = this._retrieveData;
 
 class Menu extends Component  {
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = () => {
 
       return {
           header: () => null

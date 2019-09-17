@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView, AsyncStorage } from "react-native";
-import { List, ListItem } from "react-native-elements"
 
 export default class Wishlist extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = 'Wishlist';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
@@ -48,10 +47,9 @@ export default class Wishlist extends React.Component {
     
     makeRemoteRequest = () => {
         console.log(this.state.user_id)
-        const { page, seed } = this.state;
-        const url = `http://littleamore.in/demo/mobileapi/view_wishlist`;
         this.setState({ loading: true });
-        fetch(url, {
+        let apicall = global.baseurl + "view_wishlist"
+        fetch(apicall, {
             method: 'POST',
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -89,9 +87,9 @@ export default class Wishlist extends React.Component {
     };
       
     removeItem = (prd_id) => {
-        const url = `http://littleamore.in/demo/mobileapi/remove_wishlist`;
         this.setState({ loading: true });
-        fetch(url, {
+        let apicall = global.baseurl + "view_wishlist"
+        fetch(apicall, {
             method: 'POST',
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded',

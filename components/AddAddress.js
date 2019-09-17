@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'react-native-elements'
 import {
-    StyleSheet, Text, View, Image,
+    StyleSheet, View, Image,
     AsyncStorage,TextInput, Switch, ScrollView
 } from 'react-native'
 
@@ -10,7 +10,7 @@ import eyeImgShow from './images/show_password.png';
 
 export default class AddAddress extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         let headerTitle = 'New Address';
         let headerStyle = { backgroundColor: 'rgb(129, 195, 65)' };
         let headerTitleStyle = { color: 'white', justifyContent: 'center', textAlign: 'center',
@@ -67,20 +67,7 @@ export default class AddAddress extends React.Component {
     saveData = ()=> 
     {
        
-        let user_id = this.state.user_id;
-        let country_id = this.state.country_id;
         let state = this.state.state;
-        let city = this.state.city;
-        let pincode = this.state.pincode;
-        let house_no = this.state.house_no;
-        let street = this.state.street;
-        let landmark = this.state.landmark;
-        let full_name = this.state.full_name;
-        let mobile_number = this.state.mobile_number;
-        let email_address = this.state.email_address;
-        let alternative_mobile_number = this.state.alternative_mobile_number;
-        let address_type_id = this.state.address_type_id;
-        let address_mode = this.state.address_mode;
         
         if (state.length === 0)
         {
@@ -121,7 +108,8 @@ export default class AddAddress extends React.Component {
         
         else
         {
-        fetch("http://littleamore.in/demo/mobileapi/address_create", {
+        let apicall = global.baseurl + "address_create"
+        fetch(apicall, {
         method: 'POST',
         headers: new Headers({
                     'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
